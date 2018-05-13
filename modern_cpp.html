@@ -1,0 +1,924 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Shake // Modern C++ Features</title>
+
+    <link rel="stylesheet" href="revealjs/css/reveal.css">
+    <link rel="stylesheet" href="revealjs/css/theme/black.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="revealjs/lib/css/zenburn.css">
+    <link rel="stylesheet" href="mod/mod4revealjs.css">
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'revealjs/css/print/pdf.css' : 'revealjs/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>Modern C++ Features</h2>
+                <h3>Past / Present / Future</h3>
+            </section>
+
+            <section>
+                <section id="cpp11">
+                    <h1>C++ 11</h1>
+                    <toc/>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>alignas</cppkeyword> and <cppkeyword>alignof</cppkeyword></feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>not used a lot</value></cell>
+                        <cell><key>Current directive</key><value>almost never recommended</value></cell>
+                        <cell><key>Future directive</key><value>To use as soon as necessary</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 allows variable alignment to be queried and controlled withs <cppkeyword>alignof</cppkeyword> and <cppkeyword>alignas</cppkeyword>.
+                        The <cppkeyword>alignof</cppkeyword> operator takes the type and returns the power of 2 byte boundary on which the type instances must be allocated (as a <cpptype>std::size_t</cpptype>). When given a reference type alignof returns the referenced type's alignment; for arrays it returns the element type's alignment.
+                        The <cppkeyword>alignas</cppkeyword> specifier controls the memory alignment for a variable. The specifier takes a constant or a type; when supplied a type <cppcode>alignas(T)</cppcode> is shorthand for <cppcode>alignas(alignof(T))</cppcode>. For example, to specify that a char array should be properly aligned to hold a float:
+                        <cppblock>
+                            alignas(float) unsigned char c[sizeof(float)];
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>atomic operations</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>little used</value></cell>
+                        <cell><key>Current directive</key><value>almost never recommended</value></cell>
+                        <cell><key>Future directive</key><value>To use as soon as necessary</value></cell>
+                    </ribbon>
+                    <description>
+                        Le C++11 introduit la bibliothèque des opérations atomiques nécéssaire à un programmation concurrentielle sans verrou. Chaque opération atomiques est insécable au regard de toute autre opération atomique impliquant le même objet. Les objets atomiques sont exempts de "data races". Les opérations atomiques sont définies dans le fichier d'entêtes <cppheader>atomic</cppheader>.
+                    </description>
+                    </small>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>auto</cppkeyword></feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>very used</value></cell>
+                        <cell><key>Current directive</key><value>recommended</value></cell>
+                        <cell><key>Future directive</key><value>To use as soon as possible</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 allows type inference.<br>
+                        The definition of a variable with an explicit initialization can use the <cppkeyword>auto</cppkeyword> keyword.<br>
+                        This creates a variable of the specific type of the initializer:<br>
+                        <cppblock style="font-size: 95%">
+                            auto some_strange_callable_type = std::bind(&amp;some_function, _2, _1, some_object);
+                            auto other_variable = 5;
+                        </cppblock>
+                        <p style="font-size: 250%; margin-top: 0.8em;">Almost always <cppkeyword>auto</cppkeyword>?</p>
+                    </description>
+                    </small>
+                </section>
+
+                <section>
+                    <feature>Variadic macros</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>Used in very specific cases</value></cell>
+                        <cell><key>Current directive</key><value>Very rarely needed</value></cell>
+                        <cell><key>Future directive</key><value>only when you have no choice</value></cell>
+                    </ribbon>
+                    <description>
+                        <cppblock>
+                            #define FOO(...) fprintf(stderr, __VA_ARGS__)
+                            #define BAR(...) puts(#__VA_ARGS__)
+                            #define QUZ(check, ...) ((check)?puts(#check):printf(__VA_ARGS__))
+                            FOO("a = %d\n", a);
+                            BAR(First, second and third);
+                            QUZ(x>z, "x is %d and y is %d", x, y);
+                        </cppblock>
+                        becomes after the preprocessor pass
+                        <cppblock>
+                            fprintf(stderr, "a = %d\n", a);
+                            puts("First, second and third");
+                            ((x>z)?puts("x>z"):printf("x is %d and y is %d", x, y))
+                        </cppblock>
+                        <!-- </span> -->
+                    </description>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>constexpr</cppkeyword></feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>Used</value></cell>
+                        <cell><key>Current directive</key><value>sometimes recommended</value></cell>
+                        <cell><key>Future directive</key><value>to use</value></cell>
+                    </ribbon>
+                    <description>
+                        <p style="font-size: 80%">
+                            C++11 introduced the keyword constexpr, which allows the user to guarantee that a function or object constructor is a compile-time constant.
+                            So, a constant expression is allowed to contain a function call or object constructor (the compiler can verify that it is compile-time constant).
+                        </p>
+                        <p style="font-size: 80%">
+                            In C++11, there are some limitations for constexpr functions and constructors (non-void return type, no variable declarations or new types in the function body, only one return statement).
+                        </p>
+                        <p style="font-size: 80%">
+                            If it is called with not constant expression arguments, the call behaves as if the function were not constexpr, and the resulting value is not a constant expression.
+                            Likewise, if the expression in the return statement of a constexpr function does not evaluate to a constant expression for a given invocation, the result is not a constant expression.
+                        </p>
+                        <cppblock style="font-size: 80%">
+                            constexpr int siz() { return 42; }
+                            int array[siz() + 17]; // illformed if siz() is not constexpr
+                            template&lt;int I&gt; struct Bar {};
+                            Bar&lt;siz()&gt; bar;  // illformed if siz() is not constexpr
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>decltype</cppkeyword></feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>uncommon</value></cell>
+                        <cell><key>Current directive</key><value>rarely needed (TMP)</value></cell>
+                        <cell><key>Future directive</key><value>To use as soon as necessary (TMP)</value></cell>
+                    </ribbon>
+                    <description>
+                        The keyword <cppkeyword>decltype</cppkeyword> can be used to determine the type of expression at compile-time.
+                        <cppblock>
+                            unsigned int some_int;
+                            decltype(some_int) other_integer_variable = 5;
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>Defaulted &amp; deleted functions</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>used</value></cell>
+                        <cell><key>Current directive</key><value>often recommended</value></cell>
+                        <cell><key>Future directive</key><value>To use whenever possible</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 allows the explicit defaulting and deleting of special member functions.
+                        <cppblock>
+                            struct Foo
+                            {
+                                Foo() = default; // explicit instantiantion of default constructor
+                                Foo(int _value);
+                            };
+                            struct NonCopyable
+                            {
+                                NonCopyable() = default;
+                                NonCopyable(const NonCopiable&amp;) = delete;
+                                NonCopyable&amp; operator=(const NonCopiable&amp;) = delete;
+                            };
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature no-toc>Defaulted &amp; deleted functions</feature>
+                    <description>
+                        The <cppcode>= delete</cppcode> specifier can be used to prohibit calling any function, which can be used to disallow calling a member function with particular parameters (and to guard against implicit cast).
+                        <cppblock style="font-size: 90%;">
+                            struct Foo
+                            {
+                              Foo(double) {}
+                              Foo(int) = delete;                      // &lt;== guard from conversion from int
+                            };
+                            struct Bar
+                            {
+                              Bar(double) {}
+                              template&lt;typename T&gt; Bar(T) = delete;  // &lt;== guard from any conversion but double
+                            };
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>Delegating constructors</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>not used a lot</value></cell>
+                        <cell><key>Current directive</key><value>sometimes recommended</value></cell>
+                        <cell><key>Future directive</key><value>To be used as soon as possible</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 allows constructors to call other peer constructors.
+                        <cppblock>
+                            struct Foo
+                            {
+                                Foo(int _value) : value_(_value) {}
+                                Foo() : Foo(42) {} // &lt;== this constructor calls the other one
+                            private:
+                                int value_;
+                            };
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>inheriting constructors</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>Not used a lot</value></cell>
+                        <cell><key>Current directive</key><value>Sometimes recommended</value></cell>
+                        <cell><key>Future directive</key><value>To be used as soon as possible</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 allows a class to specify that base class constructors will be inherited.
+                        <cppblock style="font-size: 80%">
+                            struct Parent
+                            {
+                                explicit Parent(int _value) : value_{_value} {}
+                                Parent() : value_(-1) {}
+                                Parent(int _value1, int _value2) : value_{_value1 + _value2} {}
+                            private:
+                                int value_;
+                            };
+                            struct Child : Parent
+                            {
+                                using Parent::Parent; // &lt;== inheriting all constructors of Parent
+                            };
+                            ...
+                            Child child0, child1{14, 28}, child2{17}; // child values are respectively: -1 42 17
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>nullptr</cppkeyword></feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>very used</value></cell>
+                        <cell><key>Current directive</key><value>mandatory</value></cell>
+                        <cell><key>Future directive</key><value>mandatory</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 introduces a new keyword to serve as a distinguished null pointer constant: <cppkeyword>nullptr</cppkeyword>>.
+                        It is of type <cpptype>std::nullptr_t</cpptype>, which is implicitly convertible and comparable to any pointer type or pointer-to-member type.
+                        It is not implicitly convertible or comparable to integral types, except for <cpptype>bool</cpptype>.
+                    </description>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>static_assert</cppkeyword></feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>used</value></cell>
+                        <cell><key>Current directive</key><value>recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 introduces a new way to test assertions at compile-time, using the new keyword <cppkeyword>static_assert</cppkeyword>.
+                        <cppblock style="font-size: 80%">
+                            static_assert((MC_PI > 3.14) && (MC_PI < 3.15), "MC_PI is inaccurate!");
+
+                            template&lt;typename T>
+                            struct Check
+                            {
+                              static_assert(sizeof(int) <= sizeof(T), "T is not big enough!");
+                            };
+
+                            template&lt;typename INTEGRAL>
+                            INTEGRAL foo(INTEGRAL x, INTEGRAL y)
+                            {
+                              static_assert(std::is_integral&lt;INTEGRAL>::value,
+                                "foo() parameter must be an integral type.");
+                            }
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>Strongly-typed enumerations</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>used if not to be serializable</value></cell>
+                        <cell><key>Current directive</key><value>recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended</value></cell>
+                    </ribbon>
+                    <description style="text-align: left;">
+                        <p>
+                            C++11 provides strongly-typed enumerations:
+                            <ul>
+                                <li>it can not be used for/assigned to/compared with another enumeration.</li>
+                                <li>it is not implicitly converted to <cpptype>int</cpptype>.</li>
+                                <li>there is no risk of name collisions due to the need to use scope resolution operator to access values,</li>
+                                <li>the underlying type can be overridden to a different integral type (<cpptype>int</cpptype> by default)</li>
+                            </ul>
+                        </p>
+                        <p>
+                            C++11 allows the use of the scope resolution operator, and the choice of the underlying type even for old-style enumerations (optionnal).
+                        </p>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>Template aliases</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>used => <cppkeyword>typedef</cppkeyword> is deprecated</value></cell>
+                        <cell><key>Current directive</key><value>recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 allows to create templated synonym for template type.
+                        The template parameters of the synonym can be different of the template parameters of the original type.<br>
+                        <cppblock style="font-size: 90%">
+                            template&lt;typename First, typename Second, int Third>
+                            class SomeType;
+
+                            template&lt;typename Second>
+                            using TypedefName = SomeType&lt;OtherType, Second, 5>;
+                        </cppblock>
+                        The syntax is generalized to define any synonym type in a more intuitively readable manner.
+                        <cppblock style="font-size: 90%">
+                            typedef void (*OldFunctionType)(double);  // <== old style. tricky to read 
+
+                            using NewFunctionType = void (*)(double); // <== new style. more obvious
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>Thread-local storage</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>...</value></cell>
+                        <cell><key>Current directive</key><value>...</value></cell>
+                        <cell><key>Future directive</key><value>...</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 introduces the keyword <cppkeyword>thread_local</cppkeyword>.<br>
+                        Any object which could have static storage duration may be given thread-local duration instead.<br>
+                        Each thread holds its own copy of such variables.<br>
+                        Lifetime of each copies of these variables is bound to the thread holding them.
+                    </description>
+                </section>
+
+                <section>
+                    <feature>unrestricted unions</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>...</value></cell>
+                        <cell><key>Current directive</key><value>...</value></cell>
+                        <cell><key>Future directive</key><value>...</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 lifts some restrictions on what types can me members of a <cppkeyword>union</cppkeyword>.
+                        Unions can now have member with non trivial special member functions but it must be <u>manually defined</u>.
+                        <cppblock style="font-size:65%;">
+                            #include &lt;new> // Needed for placement 'new'.
+                            struct Point {
+                                Point() {}
+                                Point(int _x, int _y): x_(_x), y_(_y) {}
+                                int x_, y_;
+                            };
+                            union U {
+                                int z;
+                                double w;
+                                Point p;
+                                U() {} // Due to the Point member, a constructor definition is needed.
+                                U(const Point& pt) : p(pt) {} // Construct Point object using initializer list.
+                                U& operator=(const Point& pt) { new(&p) Point(pt); return *this; } // Assign Point object using placement 'new'.
+                            };
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>variadic templates</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>...</value></cell>
+                        <cell><key>Current directive</key><value>...</value></cell>
+                        <cell><key>Future directive</key><value>...</value></cell>
+                    </ribbon>
+                    <description>
+                        In C++11, templates can take variable numbers of template parameters.<br>
+                        This also allows the definition of type-safe variadic functions
+                    </description>
+                </section>
+
+                <section>
+                    <feature>non-static data member initializers</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>rarely used</value></cell>
+                        <cell><key>Current directive</key><value>sometimes recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 allow to assign a default value to non-static data members.
+                        Each constructor will initialize these members with the default value only if it does not override the initialization with its own.
+                    </description>
+                    <cppblock style="font-size:60%">
+                        struct Foo
+                        {
+                            Foo() {}             // value_ initialized with 509
+                            explicit Foo(int _value)
+                             : value_(_value) {} // value_ initialized with given parameter
+                        private:
+                            int value_ = 509;
+                        };
+                    </cppblock>
+                </section>
+
+                <section>
+                    <feature>smart pointers</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>use</value></cell>
+                        <cell><key>Current directive</key><value><cpptype>unique_ptr</cpptype> recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 provides <cpptype>std::shared_ptr</cpptype>, <cpptype>std::weak_ptr</cpptype>, <cpptype>std::unique_ptr</cpptype>
+                        <p><cpptype>std::auto_ptr</cpptype> is deprecated.</p>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>Range-for loop</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>very use</value></cell>
+                        <cell><key>Current directive</key><value>recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 extends the syntax of the <cppkeyword>for</cppkeyword> statement to allow for easy iteration over a range of elements.
+                        <cppblock>
+                            int my_array[5] = {1, 2, 3, 4, 5};
+                            // double the value of each element in my_array:
+                            for (int& x : my_array)
+                            {
+                                x *= 2;
+                            }
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>lambda expressions</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>very use</value></cell>
+                        <cell><key>Current directive</key><value>recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended</value></cell>
+                    </ribbon>
+                    <description>
+                        <p>
+                            C++11 provides the ability to create anonymous functions, called lambda functions.
+                        </p>
+                        <p>
+                            These are defined as follows: <cppcode>[](int x, int y) -> int { return x + y; }</cppcode>
+                        </p>
+                        <p>T
+                            he return type can be omitted when all <cppkeyword>return</cppkeyword> returns the same type: <cppcode>[](int x, int y) { return x + y; }</cppcode>
+                        </p>
+                        <p>
+                            The type of a lambda is unspecified. User must use <cppkeyword>auto</cppkeyword>:
+                            <cppcode>auto lambda = [](int x, int y) { return x + y; }</cppcode>
+                        </p>
+                        <p>
+                            A lambda can capture variables (by copy or by reference):
+                            <cppcode>[copy, &amp;ref](int x) { ref = x + copy; }</cppcode>
+                        </p>
+                        <p>
+                            A lamba which capture no variable can be converted into a function pointer:
+                            <cppblock>
+                                int f(int(*_callback)(int, int)) { return _callback( 17, 25 ); }
+                                int r = f([](int x, int y){ return x + y; });
+                            </cppblock>
+                        </p>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>override and final</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>compilation error if <cppkeyword>override</cppkeyword> is missing</value> </cell>
+                        <cell><key>Current directive</key><value><cppkeyword>override</cppkeyword> is mandatory</value></cell>
+                        <cell><key>Future directive</key><value><cppkeyword>override</cppkeyword> is mandatory</value></cell>
+                    </ribbon>
+                    <description>
+                        <p>
+                            C++11 provides syntax to prevent from bad virtual function overriding.
+                        </p>
+                        <p>
+                            The <cppkeyword>override</cppkeyword> special identifier means that the compiler will check the base classes to see if there is a vistual function with this exact signature.
+                            If there is not, the compiler will indicate an error.
+                        </p>
+                        <cppblock style="font-size: 80%">
+                            struct Base
+                            { virtual void foo(float);
+                            };
+                            struct Derived : Base
+                            { void foo(int) override; // error: doesn't override a base class method
+                            };
+                        </cppblock>
+                        <p>
+                            C+11 also adds the ability to prevent inheriting from classes or simply preventing overriding method in derived classes.
+                            This is done with special identifier <cppkeyword>final</cppkeyword>.
+                        </p>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>rvalue reference and move semantics</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>use</value></cell>
+                        <cell><key>Current directive</key><value>recommended if needed</value></cell>
+                        <cell><key>Future directive</key><value>recommended if needed</value></cell>
+                    </ribbon>
+                    <description>
+                        <p>
+                            C++11 adds a new non-const reference type called an rvalue reference, identified by <cppcode>T&&</cppcode>.
+                            This refers to temporaries that are permitted to be modified after they are initialized, for the purpose of allowing "move semantics".
+                        </p>
+                        <p>
+                            For safety reasons, some restrictions are imposed. A named variable will never be considered to be an rvalue even if it is declared as such.
+                            To get an rvalue, the function template <cppcode>std::move()</cppcode> should be used.
+                        </p>
+                    </description>
+                </section>
+
+                <section>
+                    <feature><cpptype>std::tuple</cpptype></feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>quite never used</value></cell>
+                        <cell><key>Current directive</key><value>never recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended (see c++17 structured binding)</value></cell>
+                    </ribbon>
+                    <description>
+                        Tuples are collections composed of heterogeneous objects of pre-arranged dimensions.
+                        A tuple can be considered a generalization of a struct's member variables.
+                        <cppblock>
+                            typedef std::tuple&lt;int, double, long&, const char*> test_tuple;
+                            long lengthy = 12;
+                            test_tuple proof (18, 6.5, lengthy, "Ciao!");
+
+                            lengthy = std::get<0>(proof);  // Assign to 'lengthy' the value 18.
+                            std::get<3>(proof) = " Beautiful!";  // Modify the tuple’s fourth element.
+                        </cppblock>
+                    </description>
+                </section>
+                <!--
+                    ### Raw string literals
+                    ### User-defined literals
+                    ### Explicit conversion operators
+                    ### Forward enum declarations
+                    ### noexcept
+                    ### Trailing function return types
+                    ### long long
+                    ### STL
+                    #### hashtables (unordered_set, unordered_map, ...)
+                    #### regex
+                    ### Type traits
+                    #### std::begin, std::end
+                    #### Wrapper de référence
+
+                    ### Extended friend declarations
+                ### extern template
+                ### initializer lists
+                ### Local and unnamed types as template parameters
+                ### Inline namespaces
+                ### New character types
+                ### Unicode string literals
+                ### Right angle brackets
+                ### ref qualifier
+                ### dynamic initializaion and destruction with concurrency(magic statics)
+                ### Outils de nombres aléatoires
+            -->
+            </section>
+
+            <section>
+                <section>
+                    <h1>C++ 14</h1>
+                    <toc class="for_priority"/>
+                </section>
+
+                <section>
+                    <feature>Tweaked wording for contextual conversions</feature>
+                </section>
+
+                <section>
+                    <feature>Binary literals</feature>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>decltype(auto)</cppkeyword>, Return type deduction for normal functions</feature>
+                </section>
+
+                <section>
+                    <feature>Initialized/Generalized lambda captures (init-capture)</feature>
+                </section>
+
+                <section>
+                    <feature>Generic (polymorphic) lambda expressions</feature>
+                </section>
+
+                <section>
+                    <feature>Variable templates</feature>
+                </section>
+
+                <section>
+                    <feature>Extended constexpr</feature>
+                </section>
+
+                <section>
+                    <feature>Member initializers and aggregates (NSDMI)</feature>
+                </section>
+
+                <section>
+                    <feature>Clarifying memory allocation (avoiding/fusing allocations)</feature>
+                </section>
+
+                <section>
+                    <feature>Deprecated attribute</feature>
+                </section>
+
+                <section>
+                    <feature>Sized deallocation</feature>
+                </section>
+
+                <section>
+                    <feature>Single quote as digit separator</feature>
+                </section>
+
+                <section>
+                    <feature><cpptype>std::result_of</cpptype> and SFINAE</feature>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>constexpr</cppkeyword> for <cppheader>complex</cppheader></feature>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>constexpr</cppkeyword> for <cppheader>chrono</cppheader></feature>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>constexpr</cppkeyword> for <cppheader>array</cppheader></feature>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>constexpr</cppkeyword> for <cppheader>initializer_list</cppheader>, <cppheader>utility</cppheader>, <cppheader>tuple</cppheader></feature>
+                </section>
+
+                <section>
+                    <feature>Improved <cpptype>std::integral_constant</cpptype></feature>
+                </section>
+                
+                <section>
+                    <feature>User-defined literals for <cppheader>chrono</cppheader> and <cppheader>string</cppheader></feature>
+                </section>
+                
+                <section>
+                    <feature>Null forward iterators</feature>
+                </section>
+
+                <section>
+                    <feature><cpptype>std::quoted</cpptype></feature>
+                </section>
+
+                <section>
+                    <feature>Heterogeneous associative lookup</feature>
+                </section>
+
+                <section>
+                    <feature><cpptype>std::integer_sequence</cpptype></feature>
+                </section>
+
+                <section>
+                    <feature><cpptype>std::shared_timed_mutex</cpptype></feature>
+                </section>
+
+                <section>
+                    <feature><cpptype>std::exchange</cpptype></feature>
+                </section>
+                
+                <section>
+                    <feature>fixing <cppkeyword>constexpr</cppkeyword> member functions without <cppkeyword>const</cppkeyword></feature>
+                </section>
+
+                <section>
+                    <feature><cpptype>std::get&lt;T&gt;</cpptype></feature>
+                </section>
+
+                <section>
+                    <feature>Dual-Range <cpptype>std::equal</cpptype>, <cpptype>std::is_permutation</cpptype>, <cpptype>std::mismatch</cpptype></feature>
+                </section>
+
+            </section>
+
+            <section>
+                <section>
+                    <h1>C++ 17</h1>
+                    <toc class="for_priority"/>
+                </section>
+
+                <section>
+                    <feature>New auto rules for direct-list-initialization</feature>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>static_assert</cppkeyword> with no message</feature>
+                </section>
+
+                <section>
+                    <feature><cppkeyword>typename</cppkeyword> in a template template parameter</feature>
+                </section>
+
+                <section>
+                    <feature>Removing trigraphs</feature>
+                </section>
+
+                <section>
+                    <feature>Nested namespace definition</feature>
+                </section>
+
+                <section>
+                    <feature>Attributes for namespaces and enumerators</feature>
+                </section>
+
+                <section>
+                    <feature>u8 character literals</feature>
+                </section>
+
+                <section>
+                    <feature>Allow constant evaluation for all non-type template arguments</feature>
+                </section>
+
+                <section>
+                    <feature>Fold Expressions</feature>
+                </section>
+
+                <section>
+                    <feature>Remove Deprecated Use of the register Keyword</feature>
+                </section>
+
+                <section>
+                    <feature>Remove Deprecated operator++(bool)</feature>
+                </section>
+
+                <section>
+                    <feature>Removing Deprecated Exception Specifications from C++17</feature>
+                </section>
+
+                <section>
+                    <feature>Make exception specifications part of the type system</feature>
+                </section>
+
+                <section>
+                    <feature>Aggregate initialization of classes with base classes</feature>
+                </section>
+
+                <section>
+                    <feature>Lambda capture of *this</feature>
+                </section>
+
+                <section>
+                    <feature>Using attribute namespaces without repetition</feature>
+                </section>
+
+                <section>
+                    <feature>Dynamic memory allocation for over-aligned data</feature>
+                </section>
+
+                <section>
+                    <feature>Unary fold expressions and empty parameter packs</feature>
+                </section>
+
+                <section>
+                    <feature>__has_include in preprocessor conditionals</feature>
+                </section>
+
+                <section>
+                    <feature>Template argument deduction for class templates</feature>
+                </section>
+
+                <section>
+                    <feature>Non-type template parameters with auto type</feature>
+                </section>
+
+                <section>
+                    <feature>Guaranteed copy elision</feature>
+                </section>
+
+                <section>
+                    <feature>New specification for inheriting constructors</feature>
+                </section>
+
+                <section>
+                    <feature>Direct-list-initialization of enumerations</feature>
+                </section>
+
+                <section>
+                    <feature>Stricter expression evaluation order</feature>
+                </section>
+
+                <section>
+                    <feature>constexpr lambda expressions</feature>
+                </section>
+
+                <section>
+                    <feature>Differing begin and end types in range-based for</feature>
+                </section>
+
+                <section>
+                    <feature>[[fallthrough]] attribute</feature>
+                </section>
+
+                <section>
+                    <feature>[[nodiscard]] attribute</feature>
+                </section>
+
+                <section>
+                    <feature>Pack expansions in using-declarations</feature>
+                </section>
+
+                <section>
+                    <feature>[[maybe_unused]] attribute</feature>
+                </section>
+
+                <section>
+                    <feature>Structured Bindings</feature>
+                </section>
+
+                <section>
+                    <feature>Hexadecimal floating-point literals</feature>
+                </section>
+
+                <section>
+                    <feature>Ignore unknown attributes</feature>
+                </section>
+
+                <section>
+                    <feature>constexpr if statements</feature>
+                </section>
+
+                <section>
+                    <feature>init-statements for if and switch</feature>
+                </section>
+
+                <section>
+                    <feature>Inline variables</feature>
+                </section>
+
+                <section>
+                    <feature>DR: Matching of template template-arguments excludes compatible templates</feature>
+                </section>
+
+                <section>
+                    <feature>/*No*/ Standardization of Parallelism TS</feature>
+                </section>
+
+                <section>
+                    <feature>std::uncaught_exceptions()</feature>
+                </section>
+
+                <section>
+                    <feature>/*No*/ Splicing Maps and Sets</feature>
+                </section>
+
+                <section>
+                    <feature>Improving std::pair and std::tuple</feature>
+                </section>
+
+                <section>
+                    <feature>std::shared_mutex (untimed)</feature>
+                </section>
+
+                <section>
+                    <feature>/*No*/ Elementary string conversions</feature>
+                </section>
+
+                <section>
+                    <feature>std::string_view</feature>
+                </section>
+
+                <section>
+                    <feature>/*No*/ std::filesystem</feature>
+                </section>
+            </section>
+        </div>
+    </div>
+
+    <script src="revealjs/lib/js/head.min.js"></script>
+    <script src="revealjs/js/reveal.js"></script>
+    <script src="mod/mod4revealjs.js"></script>
+    <script>
+        // More info about config & dependencies:
+        // - https://github.com/hakimel/reveal.js#configuration
+        // - https://github.com/hakimel/reveal.js#dependencies
+        Reveal.initialize({
+            dependencies: [
+                { src: 'revealjs/plugin/markdown/marked.js' },
+                { src: 'revealjs/plugin/markdown/markdown.js' },
+                { src: 'revealjs/plugin/notes/notes.js', async: true },
+                { src: 'revealjs/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); initAfterHighlightJS(); } },
+            ],
+            width: 1280,
+            height: 720,
+            margin: 0.025,
+            history: true,
+        });
+    </script>
+</body>
+
+</html>
