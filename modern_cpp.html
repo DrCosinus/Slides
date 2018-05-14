@@ -38,11 +38,11 @@
 
                 <section>
                     <h2><cppkeyword>alignas</cppkeyword> and <cppkeyword>alignof</cppkeyword></h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>not used a lot</value></cell>
                         <cell><key>Current directive</key><value>almost never recommended</value></cell>
                         <cell><key>Future directive</key><value>To use as soon as necessary</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 allows variable alignment to be queried and controlled withs <cppkeyword>alignof</cppkeyword> and <cppkeyword>alignas</cppkeyword>.
                         The <cppkeyword>alignof</cppkeyword> operator takes the type and returns the power of 2 byte boundary on which the type instances must be allocated (as a <cpptype>std::size_t</cpptype>). When given a reference type alignof returns the referenced type's alignment; for arrays it returns the element type's alignment.
@@ -55,11 +55,11 @@
 
                 <section>
                     <h2>atomic operations</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>little used</value></cell>
                         <cell><key>Current directive</key><value>almost never recommended</value></cell>
                         <cell><key>Future directive</key><value>To use as soon as necessary</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         Le C++11 introduit la bibliothèque des opérations atomiques nécéssaire à un programmation concurrentielle sans verrou. Chaque opération atomiques est insécable au regard de toute autre opération atomique impliquant le même objet. Les objets atomiques sont exempts de "data races". Les opérations atomiques sont définies dans le fichier d'entêtes <cppheader>atomic</cppheader>.
                     </article>
@@ -67,11 +67,11 @@
 
                 <section>
                     <h2><cppkeyword>auto</cppkeyword></h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>very used</value></cell>
                         <cell><key>Current directive</key><value>recommended</value></cell>
                         <cell><key>Future directive</key><value>To use as soon as possible</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 allows type inference.<br>
                         The definition of a variable with an explicit initialization can use the <cppkeyword>auto</cppkeyword> keyword.<br>
@@ -86,11 +86,11 @@
 
                 <section>
                     <h2><cppkeyword>constexpr</cppkeyword></h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>Used</value></cell>
                         <cell><key>Current directive</key><value>sometimes recommended</value></cell>
                         <cell><key>Future directive</key><value>to use</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         <p style="font-size: 80%">
                             C++11 introduced the keyword constexpr, which allows the user to guarantee that a function or object constructor is a compile-time constant.
@@ -114,11 +114,11 @@
 
                 <section>
                     <h2><cppkeyword>decltype</cppkeyword></h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>uncommon</value></cell>
                         <cell><key>Current directive</key><value>rarely needed (TMP)</value></cell>
                         <cell><key>Future directive</key><value>To use as soon as necessary (TMP)</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         The keyword <cppkeyword>decltype</cppkeyword> can be used to determine the type of expression at compile-time.
                         <cppblock>
@@ -130,11 +130,11 @@
 
                 <section>
                     <h2>Defaulted &amp; deleted functions</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>used</value></cell>
                         <cell><key>Current directive</key><value>often recommended</value></cell>
                         <cell><key>Future directive</key><value>To use whenever possible</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 allows the explicit defaulting and deleting of special member functions.
                         <cppblock>
@@ -174,11 +174,11 @@
 
                 <section>
                     <h2>Delegating constructors</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>not used a lot</value></cell>
                         <cell><key>Current directive</key><value>sometimes recommended</value></cell>
                         <cell><key>Future directive</key><value>To be used as soon as possible</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 allows constructors to call other peer constructors.
                         <cppblock>
@@ -195,11 +195,11 @@
 
                 <section>
                     <h2>inheriting constructors</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>Not used a lot</value></cell>
                         <cell><key>Current directive</key><value>Sometimes recommended</value></cell>
                         <cell><key>Future directive</key><value>To be used as soon as possible</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 allows a class to specify that base class constructors will be inherited.
                         <cppblock style="font-size: 80%">
@@ -223,11 +223,11 @@
 
                 <section>
                     <h2><cppkeyword>nullptr</cppkeyword></h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>very used</value></cell>
                         <cell><key>Current directive</key><value>mandatory</value></cell>
                         <cell><key>Future directive</key><value>mandatory</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 introduces a new keyword to serve as a distinguished null pointer constant: <cppkeyword>nullptr</cppkeyword>>.
                         It is of type <cpptype>std::nullptr_t</cpptype>, which is implicitly convertible and comparable to any pointer type or pointer-to-member type.
@@ -237,11 +237,11 @@
 
                 <section>
                     <h2><cppkeyword>static_assert</cppkeyword></h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>used</value></cell>
                         <cell><key>Current directive</key><value>recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 introduces a new way to test assertions at compile-time, using the new keyword <cppkeyword>static_assert</cppkeyword>.
                         <cppblock style="font-size: 80%">
@@ -265,11 +265,11 @@
 
                 <section>
                     <h2>Strongly-typed enumerations</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>used if not to be serializable</value></cell>
                         <cell><key>Current directive</key><value>recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended</value></cell>
-                    </ribbon>
+                    </header>
                     <article style="text-align: left; font-size: 60%;">
                         <p>
                             C++11 provides strongly-typed enumerations:
@@ -298,11 +298,11 @@
 
                 <section>
                     <h2>Template aliases</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>used => <cppkeyword>typedef</cppkeyword> is deprecated</value></cell>
                         <cell><key>Current directive</key><value>recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 allows to create templated synonym for template type.
                         The template parameters of the synonym can be different of the template parameters of the original type.<br>
@@ -324,11 +324,11 @@
 
                 <section>
                     <h2>variadic templates</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>very little used</value></cell>
                         <cell><key>Current directive</key><value>never recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended for specific use</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         In C++11, templates can take variable numbers of template parameters.<br>
                         This also allows the definition of type-safe variadic functions
@@ -337,11 +337,11 @@
 
                 <section>
                     <h2>extern templates</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>very little used</value></cell>
                         <cell><key>Current directive</key><value>very little recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended if needed</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 provdied a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the template in this translation unit.
                     </article>
@@ -349,11 +349,11 @@
     
                 <section>
                     <h2>Thread-local storage</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>...</value></cell>
                         <cell><key>Current directive</key><value>...</value></cell>
                         <cell><key>Future directive</key><value>...</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 introduces the keyword <cppkeyword>thread_local</cppkeyword>.<br>
                         Any object which could have static storage duration may be given thread-local duration instead.<br>
@@ -364,11 +364,11 @@
 
                 <section>
                     <h2>unrestricted unions</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>...</value></cell>
                         <cell><key>Current directive</key><value>...</value></cell>
                         <cell><key>Future directive</key><value>...</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 lifts some restrictions on what types can me members of a <cppkeyword>union</cppkeyword>.
                         Unions can now have member with non trivial special member functions but it must be <u>manually defined</u>.
@@ -393,11 +393,11 @@
 
                 <section>
                     <h2>non-static data member initializers</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>rarely used</value></cell>
                         <cell><key>Current directive</key><value>sometimes recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 allow to assign a default value to non-static data members.
                         Each constructor will initialize these members with the default value only if it does not override the initialization with its own.
@@ -416,11 +416,11 @@
 
                 <section>
                     <h2>Range-for loop</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>very use</value></cell>
                         <cell><key>Current directive</key><value>recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 extends the syntax of the <cppkeyword>for</cppkeyword> statement to allow for easy iteration over a range of elements.
                         <cppblock>
@@ -436,11 +436,11 @@
 
                 <section>
                     <h2>lambda expressions</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>very use</value></cell>
                         <cell><key>Current directive</key><value>recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         <p>
                             C++11 provides the ability to create anonymous functions, called lambda functions.
@@ -471,11 +471,11 @@
 
                 <section>
                     <h2>override and final</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>compilation error if <cppkeyword>override</cppkeyword> is missing</value> </cell>
                         <cell><key>Current directive</key><value><cppkeyword>override</cppkeyword> is mandatory</value></cell>
                         <cell><key>Future directive</key><value><cppkeyword>override</cppkeyword> is mandatory</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         <p>
                             C++11 provides syntax to prevent from bad virtual function overriding.
@@ -501,11 +501,11 @@
 
                 <section>
                     <h2>rvalue reference and move semantics</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>use</value></cell>
                         <cell><key>Current directive</key><value>recommended if needed</value></cell>
                         <cell><key>Future directive</key><value>recommended if needed</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         <p>
                             C++11 adds a new non-const reference type called an rvalue reference, identified by <cppcode>T&&</cppcode>.
@@ -520,11 +520,11 @@
 
                 <section>
                     <h2>Raw string literals</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>never used</value></cell>
                         <cell><key>Current directive</key><value>never think about them</value></cell>
                         <cell><key>Future directive</key><value>to be considered if needed</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 provides a raw string literal:
                         <p style="background-color: rgba(0,0,0,0.3); margin: 0 13%;">
@@ -548,11 +548,11 @@
 
                 <section>
                     <h2>User-defined literals</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>very little used</value></cell>
                         <cell><key>Current directive</key><value>rarely recommended</value></cell>
                         <cell><key>Future directive</key><value>to be considered if needed</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         <p>
                             C++11 enables the user to define new kinds of literal modifiers that will construct objects based on the string of characters that the literal modifies.
@@ -572,11 +572,11 @@
 
                 <section>
                     <h2>Explicit conversion operators</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>used</value></cell>
                         <cell><key>Current directive</key><value>recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         In C++11, the <cppkeyword>explicit</cppkeyword> keyword can now be applied to conversion operators.
                         As with constructors, it prevents using those conversion functions in implicit conversions.
@@ -586,11 +586,11 @@
 
                 <section>
                     <h2>noexcept</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>almost not used</value></cell>
                         <cell><key>Current directive</key><value>no recommendation</value></cell>
                         <cell><key>Future directive</key><value>???</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         Compile-time specification of non-exception-throwing functions is available with the <cppkeyword>noexcept</cppkeyword> keyword, which is useful for optimization.
                     </article>
@@ -598,11 +598,11 @@
 
                 <section>
                     <h2>Trailing function return types</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>almost always used</value></cell>
                         <cell><key>Current directive</key><value>recommended</value></cell>
                         <cell><key>Future directive</key><value style="color: red;">abandoned</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 introduced trailing-return-type function declaration syntax so the return type can depend on function parameters:
                         <cppblock style="font-size: 80%">
@@ -625,11 +625,11 @@
 
                 <section>
                     <h2>Type <cpptype>long long int</cpptype></h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>almost not used</value></cell>
                         <cell><key>Current directive</key><value>no recommendation</value></cell>
                         <cell><key>Future directive</key><value>???</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 adds a new integer type <cpptype>long long int</cpptype> to address the problem that type <cpptype>long int</cpptype> having size of 64 bits on some popular implementations and 32 bits on others.
                         The new type is guaranteed to be at least as large as a long int, and have no fewer than 64 bits.
@@ -638,11 +638,11 @@
 
                 <section>
                     <h2>Uniform initialization</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>used</value></cell>
                         <cell><key>Current directive</key><value>sometimes recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended</value></cell>
-                    </ribbon>
+                    </header>
                     <article style="font-size: 50%">
                         C++11 provides a syntax that allows for fully uniform type initialization that works on any object.
                         It expands on the initializer list syntax:
@@ -684,11 +684,11 @@
 
                 <section>
                     <h2>Variadic macros</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>Used in very specific cases</value></cell>
                         <cell><key>Current directive</key><value>Very rarely needed</value></cell>
                         <cell><key>Future directive</key><value>only when you have no choice</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         <cppblock>
                             #define FOO(...) fprintf(stderr, __VA_ARGS__)
@@ -739,11 +739,11 @@
 
                 <section>
                     <h2>smart pointers</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>use</value></cell>
                         <cell><key>Current directive</key><value><cpptype>unique_ptr</cpptype> recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         C++11 provides <cpptype>std::shared_ptr</cpptype>, <cpptype>std::weak_ptr</cpptype>, <cpptype>std::unique_ptr</cpptype>
                         <p><cpptype>std::auto_ptr</cpptype> is deprecated.</p>
@@ -752,11 +752,11 @@
     
                 <section>
                     <h2>Regular expressions</h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>never used</value></cell>
                         <cell><key>Current directive</key><value>never think about them</value></cell>
                         <cell><key>Future directive</key><value>to be considered if needed</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         The new library, defined in the new header <cppheader>regex</cppheader>, is made of a couple of new classes:
                         <ul>
@@ -771,11 +771,11 @@
 
                 <section>
                     <h2><cpptype>std::tuple</cpptype></h2>
-                    <ribbon>
+                    <header>
                         <cell><key>Current usage</key><value>quite never used</value></cell>
                         <cell><key>Current directive</key><value>never recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended (see c++17 structured binding)</value></cell>
-                    </ribbon>
+                    </header>
                     <article>
                         Tuples are collections composed of heterogeneous objects of pre-arranged dimensions.
                         A tuple can be considered a generalization of a struct's member variables.

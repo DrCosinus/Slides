@@ -59,26 +59,27 @@ cppblock.hljs
     max-height: 100%;
     height: 100%;
 }
-ribbon
+.reveal section section header
 {
+    display: unset;
     font-size: 50%;
     margin: 0px;
     padding: 0px;
     width: 120%;
 }
-ribbon cell
+.reveal section section header cell
 {
     display: inline-block;
     width: 30%;
     position: relative;
     border: floralwhite solid 2pt;
 }
-ribbon cell key
+.reveal section section header cell key
 {
     text-transform: uppercase;
     display: block;
 }
-ribbon cell value
+.reveal section section header cell value
 {
     text-transform: lowercase;
     display: block;
