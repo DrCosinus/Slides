@@ -84,7 +84,7 @@ ribbon cell value
     display: block;
     font-size: 90%;
 }
-description
+.reveal section article
 {
     display: block;
     margin-top: 1em;
@@ -94,11 +94,11 @@ description
     font-size: 70%;
     /* white-space: pre; */
 }
-.reveal description p
+.reveal section article p
 {
     margin: 10px 0;
 }
-.reveal description p + p
+.reveal section article p + p
 {
     margin-top: 0;
 }
