@@ -39,9 +39,9 @@
                 <section>
                     <h2><cppkeyword>alignas</cppkeyword> and <cppkeyword>alignof</cppkeyword></h2>
                     <header>
-                        <cell><key>Current usage</key><value>not used a lot</value></cell>
-                        <cell><key>Current directive</key><value>almost never recommended</value></cell>
-                        <cell><key>Future directive</key><value>To use as soon as necessary</value></cell>
+                        <summary data-category="Current usage">not used a lot</summary>
+                        <summary data-category="Current directive">almost never recommended</summary>
+                        <summary data-category="Future directive">To use as soon as necessary</summary>
                     </header>
                     <article>
                         C++11 allows variable alignment to be queried and controlled withs <cppkeyword>alignof</cppkeyword> and <cppkeyword>alignas</cppkeyword>.
@@ -56,9 +56,9 @@
                 <section>
                     <h2>atomic operations</h2>
                     <header>
-                        <cell><key>Current usage</key><value>little used</value></cell>
-                        <cell><key>Current directive</key><value>almost never recommended</value></cell>
-                        <cell><key>Future directive</key><value>To use as soon as necessary</value></cell>
+                        <summary data-category="Current usage">little used</summary>
+                        <summary data-category="Current directive">almost never recommended</summary>
+                        <summary data-category="Future directive">To use as soon as necessary</summary>
                     </header>
                     <article>
                         Le C++11 introduit la bibliothèque des opérations atomiques nécéssaire à un programmation concurrentielle sans verrou. Chaque opération atomiques est insécable au regard de toute autre opération atomique impliquant le même objet. Les objets atomiques sont exempts de "data races". Les opérations atomiques sont définies dans le fichier d'entêtes <cppheader>atomic</cppheader>.
@@ -68,9 +68,9 @@
                 <section>
                     <h2><cppkeyword>auto</cppkeyword></h2>
                     <header>
-                        <cell><key>Current usage</key><value>very used</value></cell>
-                        <cell><key>Current directive</key><value>recommended</value></cell>
-                        <cell><key>Future directive</key><value>To use as soon as possible</value></cell>
+                        <summary data-category="Current usage">very used</summary>
+                        <summary data-category="Current directive">recommended</summary>
+                        <summary data-category="Future directive">To use as soon as possible</summary>
                     </header>
                     <article>
                         C++11 allows type inference.<br>
@@ -87,9 +87,9 @@
                 <section>
                     <h2><cppkeyword>constexpr</cppkeyword></h2>
                     <header>
-                        <cell><key>Current usage</key><value>Used</value></cell>
-                        <cell><key>Current directive</key><value>sometimes recommended</value></cell>
-                        <cell><key>Future directive</key><value>to use</value></cell>
+                        <summary data-category="Current usage">Used</summary>
+                        <summary data-category="Current directive">sometimes recommended</summary>
+                        <summary data-category="Future directive">to use</summary>
                     </header>
                     <article>
                         <p style="font-size: 80%">
@@ -115,9 +115,9 @@
                 <section>
                     <h2><cppkeyword>decltype</cppkeyword></h2>
                     <header>
-                        <cell><key>Current usage</key><value>uncommon</value></cell>
-                        <cell><key>Current directive</key><value>rarely needed (TMP)</value></cell>
-                        <cell><key>Future directive</key><value>To use as soon as necessary (TMP)</value></cell>
+                        <summary data-category="Current usage">uncommon</summary>
+                        <summary data-category="Current directive">rarely needed (TMP)</summary>
+                        <summary data-category="Future directive">To use as soon as necessary (TMP)</summary>
                     </header>
                     <article>
                         The keyword <cppkeyword>decltype</cppkeyword> can be used to determine the type of expression at compile-time.
@@ -131,9 +131,9 @@
                 <section>
                     <h2>Defaulted &amp; deleted functions</h2>
                     <header>
-                        <cell><key>Current usage</key><value>used</value></cell>
-                        <cell><key>Current directive</key><value>often recommended</value></cell>
-                        <cell><key>Future directive</key><value>To use whenever possible</value></cell>
+                        <summary data-category="Current usage">used</summary>
+                        <summary data-category="Current directive">often recommended</summary>
+                        <summary data-category="Future directive">To use whenever possible</summary>
                     </header>
                     <article>
                         C++11 allows the explicit defaulting and deleting of special member functions.
@@ -175,9 +175,9 @@
                 <section>
                     <h2>Delegating constructors</h2>
                     <header>
-                        <cell><key>Current usage</key><value>not used a lot</value></cell>
-                        <cell><key>Current directive</key><value>sometimes recommended</value></cell>
-                        <cell><key>Future directive</key><value>To be used as soon as possible</value></cell>
+                        <summary data-category="Current usage">not used a lot</summary>
+                        <summary data-category="Current directive">sometimes recommended</summary>
+                        <summary data-category="Future directive">To be used as soon as possible</summary>
                     </header>
                     <article>
                         C++11 allows constructors to call other peer constructors.
@@ -196,9 +196,9 @@
                 <section>
                     <h2>inheriting constructors</h2>
                     <header>
-                        <cell><key>Current usage</key><value>Not used a lot</value></cell>
-                        <cell><key>Current directive</key><value>Sometimes recommended</value></cell>
-                        <cell><key>Future directive</key><value>To be used as soon as possible</value></cell>
+                        <summary data-category="Current usage">Not used a lot</summary>
+                        <summary data-category="Current directive">Sometimes recommended</summary>
+                        <summary data-category="Future directive">To be used as soon as possible</summary>
                     </header>
                     <article>
                         C++11 allows a class to specify that base class constructors will be inherited.
@@ -224,9 +224,9 @@
                 <section>
                     <h2><cppkeyword>nullptr</cppkeyword></h2>
                     <header>
-                        <cell><key>Current usage</key><value>very used</value></cell>
-                        <cell><key>Current directive</key><value>mandatory</value></cell>
-                        <cell><key>Future directive</key><value>mandatory</value></cell>
+                        <summary data-category="Current usage">very used</summary>
+                        <summary data-category="Current directive">mandatory</summary>
+                        <summary data-category="Future directive">mandatory</summary>
                     </header>
                     <article>
                         C++11 introduces a new keyword to serve as a distinguished null pointer constant: <cppkeyword>nullptr</cppkeyword>>.
@@ -238,9 +238,9 @@
                 <section>
                     <h2><cppkeyword>static_assert</cppkeyword></h2>
                     <header>
-                        <cell><key>Current usage</key><value>used</value></cell>
-                        <cell><key>Current directive</key><value>recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended</value></cell>
+                        <summary data-category="Current usage">used</summary>
+                        <summary data-category="Current directive">recommended</summary>
+                        <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article>
                         C++11 introduces a new way to test assertions at compile-time, using the new keyword <cppkeyword>static_assert</cppkeyword>.
@@ -266,9 +266,9 @@
                 <section>
                     <h2>Strongly-typed enumerations</h2>
                     <header>
-                        <cell><key>Current usage</key><value>used if not to be serializable</value></cell>
-                        <cell><key>Current directive</key><value>recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended</value></cell>
+                        <summary data-category="Current usage">used if not to be serializable</summary>
+                        <summary data-category="Current directive">recommended</summary>
+                        <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article style="text-align: left; font-size: 60%;">
                         <p>
@@ -299,9 +299,9 @@
                 <section>
                     <h2>Template aliases</h2>
                     <header>
-                        <cell><key>Current usage</key><value>used => <cppkeyword>typedef</cppkeyword> is deprecated</value></cell>
-                        <cell><key>Current directive</key><value>recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended</value></cell>
+                        <summary data-category="Current usage">used => <cppkeyword>typedef</cppkeyword> is deprecated</summary>
+                        <summary data-category="Current directive">recommended</summary>
+                        <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article>
                         C++11 allows to create templated synonym for template type.
@@ -325,9 +325,9 @@
                 <section>
                     <h2>variadic templates</h2>
                     <header>
-                        <cell><key>Current usage</key><value>very little used</value></cell>
-                        <cell><key>Current directive</key><value>never recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended for specific use</value></cell>
+                        <summary data-category="Current usage">very little used</summary>
+                        <summary data-category="Current directive">never recommended</summary>
+                        <summary data-category="Future directive">recommended for specific use</summary>
                     </header>
                     <article>
                         In C++11, templates can take variable numbers of template parameters.<br>
@@ -338,9 +338,9 @@
                 <section>
                     <h2>extern templates</h2>
                     <header>
-                        <cell><key>Current usage</key><value>very little used</value></cell>
-                        <cell><key>Current directive</key><value>very little recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended if needed</value></cell>
+                        <summary data-category="Current usage">very little used</summary>
+                        <summary data-category="Current directive">very little recommended</summary>
+                        <summary data-category="Future directive">recommended if needed</summary>
                     </header>
                     <article>
                         C++11 provdied a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the template in this translation unit.
@@ -350,9 +350,9 @@
                 <section>
                     <h2>Thread-local storage</h2>
                     <header>
-                        <cell><key>Current usage</key><value>...</value></cell>
-                        <cell><key>Current directive</key><value>...</value></cell>
-                        <cell><key>Future directive</key><value>...</value></cell>
+                        <summary data-category="Current usage">...</summary>
+                        <summary data-category="Current directive">...</summary>
+                        <summary data-category="Future directive">...</summary>
                     </header>
                     <article>
                         C++11 introduces the keyword <cppkeyword>thread_local</cppkeyword>.<br>
@@ -365,9 +365,9 @@
                 <section>
                     <h2>unrestricted unions</h2>
                     <header>
-                        <cell><key>Current usage</key><value>...</value></cell>
-                        <cell><key>Current directive</key><value>...</value></cell>
-                        <cell><key>Future directive</key><value>...</value></cell>
+                        <summary data-category="Current usage">...</summary>
+                        <summary data-category="Current directive">...</summary>
+                        <summary data-category="Future directive">...</summary>
                     </header>
                     <article>
                         C++11 lifts some restrictions on what types can me members of a <cppkeyword>union</cppkeyword>.
@@ -394,9 +394,9 @@
                 <section>
                     <h2>non-static data member initializers</h2>
                     <header>
-                        <cell><key>Current usage</key><value>rarely used</value></cell>
-                        <cell><key>Current directive</key><value>sometimes recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended</value></cell>
+                        <summary data-category="Current usage">rarely used</summary>
+                        <summary data-category="Current directive">sometimes recommended</summary>
+                        <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article>
                         C++11 allow to assign a default value to non-static data members.
@@ -417,9 +417,9 @@
                 <section>
                     <h2>Range-for loop</h2>
                     <header>
-                        <cell><key>Current usage</key><value>very use</value></cell>
-                        <cell><key>Current directive</key><value>recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended</value></cell>
+                        <summary data-category="Current usage">very use</summary>
+                        <summary data-category="Current directive">recommended</summary>
+                        <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article>
                         C++11 extends the syntax of the <cppkeyword>for</cppkeyword> statement to allow for easy iteration over a range of elements.
@@ -437,9 +437,9 @@
                 <section>
                     <h2>lambda expressions</h2>
                     <header>
-                        <cell><key>Current usage</key><value>very use</value></cell>
-                        <cell><key>Current directive</key><value>recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended</value></cell>
+                        <summary data-category="Current usage">very use</summary>
+                        <summary data-category="Current directive">recommended</summary>
+                        <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article>
                         <p>
@@ -472,9 +472,9 @@
                 <section>
                     <h2>override and final</h2>
                     <header>
-                        <cell><key>Current usage</key><value>compilation error if <cppkeyword>override</cppkeyword> is missing</value> </cell>
-                        <cell><key>Current directive</key><value><cppkeyword>override</cppkeyword> is mandatory</value></cell>
-                        <cell><key>Future directive</key><value><cppkeyword>override</cppkeyword> is mandatory</value></cell>
+                        <summary data-category="Current usage">compilation error if <cppkeyword>override</cppkeyword> is missing</summary>
+                        <summary data-category="Current directive"><cppkeyword>override</cppkeyword> is mandatory</summary>
+                        <summary data-category="Future directive"><cppkeyword>override</cppkeyword> is mandatory</summary>
                     </header>
                     <article>
                         <p>
@@ -502,9 +502,9 @@
                 <section>
                     <h2>rvalue reference and move semantics</h2>
                     <header>
-                        <cell><key>Current usage</key><value>use</value></cell>
-                        <cell><key>Current directive</key><value>recommended if needed</value></cell>
-                        <cell><key>Future directive</key><value>recommended if needed</value></cell>
+                        <summary data-category="Current usage">use</summary>
+                        <summary data-category="Current directive">recommended if needed</summary>
+                        <summary data-category="Future directive">recommended if needed</summary>
                     </header>
                     <article>
                         <p>
@@ -521,9 +521,9 @@
                 <section>
                     <h2>Raw string literals</h2>
                     <header>
-                        <cell><key>Current usage</key><value>never used</value></cell>
-                        <cell><key>Current directive</key><value>never think about them</value></cell>
-                        <cell><key>Future directive</key><value>to be considered if needed</value></cell>
+                        <summary data-category="Current usage">never used</summary>
+                        <summary data-category="Current directive">never think about them</summary>
+                        <summary data-category="Future directive">to be considered if needed</summary>
                     </header>
                     <article>
                         C++11 provides a raw string literal:
@@ -549,9 +549,9 @@
                 <section>
                     <h2>User-defined literals</h2>
                     <header>
-                        <cell><key>Current usage</key><value>very little used</value></cell>
-                        <cell><key>Current directive</key><value>rarely recommended</value></cell>
-                        <cell><key>Future directive</key><value>to be considered if needed</value></cell>
+                        <summary data-category="Current usage">very little used</summary>
+                        <summary data-category="Current directive">rarely recommended</summary>
+                        <summary data-category="Future directive">to be considered if needed</summary>
                     </header>
                     <article>
                         <p>
@@ -573,9 +573,9 @@
                 <section>
                     <h2>Explicit conversion operators</h2>
                     <header>
-                        <cell><key>Current usage</key><value>used</value></cell>
-                        <cell><key>Current directive</key><value>recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended</value></cell>
+                        <summary data-category="Current usage">used</summary>
+                        <summary data-category="Current directive">recommended</summary>
+                        <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article>
                         In C++11, the <cppkeyword>explicit</cppkeyword> keyword can now be applied to conversion operators.
@@ -587,9 +587,9 @@
                 <section>
                     <h2>noexcept</h2>
                     <header>
-                        <cell><key>Current usage</key><value>almost not used</value></cell>
-                        <cell><key>Current directive</key><value>no recommendation</value></cell>
-                        <cell><key>Future directive</key><value>???</value></cell>
+                        <summary data-category="Current usage">almost not used</summary>
+                        <summary data-category="Current directive">no recommendation</summary>
+                        <summary data-category="Future directive">???</summary>
                     </header>
                     <article>
                         Compile-time specification of non-exception-throwing functions is available with the <cppkeyword>noexcept</cppkeyword> keyword, which is useful for optimization.
@@ -599,9 +599,9 @@
                 <section>
                     <h2>Trailing function return types</h2>
                     <header>
-                        <cell><key>Current usage</key><value>almost always used</value></cell>
-                        <cell><key>Current directive</key><value>recommended</value></cell>
-                        <cell><key>Future directive</key><value style="color: red;">abandoned</value></cell>
+                        <summary data-category="Current usage">almost always used</summary>
+                        <summary data-category="Current directive">recommended</summary>
+                        <summary data-category="Future directive"><span style="color: red;">abandoned</span></summary>
                     </header>
                     <article>
                         C++11 introduced trailing-return-type function declaration syntax so the return type can depend on function parameters:
@@ -626,9 +626,9 @@
                 <section>
                     <h2>Type <cpptype>long long int</cpptype></h2>
                     <header>
-                        <cell><key>Current usage</key><value>almost not used</value></cell>
-                        <cell><key>Current directive</key><value>no recommendation</value></cell>
-                        <cell><key>Future directive</key><value>???</value></cell>
+                        <summary data-category="Current usage">almost not used</summary>
+                        <summary data-category="Current directive">no recommendation</summary>
+                        <summary data-category="Future directive">???</summary>
                     </header>
                     <article>
                         C++11 adds a new integer type <cpptype>long long int</cpptype> to address the problem that type <cpptype>long int</cpptype> having size of 64 bits on some popular implementations and 32 bits on others.
@@ -639,9 +639,9 @@
                 <section>
                     <h2>Uniform initialization</h2>
                     <header>
-                        <cell><key>Current usage</key><value>used</value></cell>
-                        <cell><key>Current directive</key><value>sometimes recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended</value></cell>
+                        <summary data-category="Current usage">used</summary>
+                        <summary data-category="Current directive">sometimes recommended</summary>
+                        <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article style="font-size: 50%">
                         C++11 provides a syntax that allows for fully uniform type initialization that works on any object.
@@ -685,9 +685,9 @@
                 <section>
                     <h2>Variadic macros</h2>
                     <header>
-                        <cell><key>Current usage</key><value>Used in very specific cases</value></cell>
-                        <cell><key>Current directive</key><value>Very rarely needed</value></cell>
-                        <cell><key>Future directive</key><value>only when you have no choice</value></cell>
+                        <summary data-category="Current usage">Used in very specific cases</summary>
+                        <summary data-category="Current directive">Very rarely needed</summary>
+                        <summary data-category="Future directive">only when you have no choice</summary>
                     </header>
                     <article>
                         <cppblock>
@@ -740,9 +740,9 @@
                 <section>
                     <h2>smart pointers</h2>
                     <header>
-                        <cell><key>Current usage</key><value>use</value></cell>
-                        <cell><key>Current directive</key><value><cpptype>unique_ptr</cpptype> recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended</value></cell>
+                        <summary data-category="Current usage">use</summary>
+                        <summary data-category="Current directive"><cpptype>unique_ptr</cpptype> recommended</summary>
+                        <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article>
                         C++11 provides <cpptype>std::shared_ptr</cpptype>, <cpptype>std::weak_ptr</cpptype>, <cpptype>std::unique_ptr</cpptype>
@@ -753,9 +753,9 @@
                 <section>
                     <h2>Regular expressions</h2>
                     <header>
-                        <cell><key>Current usage</key><value>never used</value></cell>
-                        <cell><key>Current directive</key><value>never think about them</value></cell>
-                        <cell><key>Future directive</key><value>to be considered if needed</value></cell>
+                        <summary data-category="Current usage">never used</summary>
+                        <summary data-category="Current directive">never think about them</summary>
+                        <summary data-category="Future directive">to be considered if needed</summary>
                     </header>
                     <article>
                         The new library, defined in the new header <cppheader>regex</cppheader>, is made of a couple of new classes:
@@ -772,9 +772,9 @@
                 <section>
                     <h2><cpptype>std::tuple</cpptype></h2>
                     <header>
-                        <cell><key>Current usage</key><value>quite never used</value></cell>
-                        <cell><key>Current directive</key><value>never recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended (see c++17 structured binding)</value></cell>
+                        <summary data-category="Current usage">quite never used</summary>
+                        <summary data-category="Current directive">never recommended</summary>
+                        <summary data-category="Future directive">recommended (see c++17 structured binding)</summary>
                     </header>
                     <article>
                         Tuples are collections composed of heterogeneous objects of pre-arranged dimensions.

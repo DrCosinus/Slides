@@ -67,23 +67,20 @@ cppblock.hljs
     padding: 0px;
     width: 120%;
 }
-.reveal section section header cell
+.reveal section section summary
 {
     display: inline-block;
     width: 30%;
     position: relative;
     border: floralwhite solid 2pt;
+    text-transform: lowercase;
+    font-size: 90%;
 }
-.reveal section section header cell key
+.reveal section section header summary:before
 {
     text-transform: uppercase;
     display: block;
-}
-.reveal section section header cell value
-{
-    text-transform: lowercase;
-    display: block;
-    font-size: 90%;
+    content: attr(data-category);
 }
 .reveal section article
 {
