@@ -4,7 +4,7 @@ function toAnchorId(text)
 }
 document.querySelectorAll(".slides > section > section > toc").forEach(function(toc)
 {
-    toc.classList.add("for_priority");
+    //toc.classList.add("for_priority");
     var features = toc.parentElement.parentElement.querySelectorAll(".slides > section > section > feature");
     features.forEach(function(feature)
     {

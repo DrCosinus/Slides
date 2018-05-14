@@ -87,32 +87,6 @@
                 </section>
 
                 <section>
-                    <feature>Variadic macros</feature>
-                    <ribbon>
-                        <cell><key>Current usage</key><value>Used in very specific cases</value></cell>
-                        <cell><key>Current directive</key><value>Very rarely needed</value></cell>
-                        <cell><key>Future directive</key><value>only when you have no choice</value></cell>
-                    </ribbon>
-                    <description>
-                        <cppblock>
-                            #define FOO(...) fprintf(stderr, __VA_ARGS__)
-                            #define BAR(...) puts(#__VA_ARGS__)
-                            #define QUZ(check, ...) ((check)?puts(#check):printf(__VA_ARGS__))
-                            FOO("a = %d\n", a);
-                            BAR(First, second and third);
-                            QUZ(x>z, "x is %d and y is %d", x, y);
-                        </cppblock>
-                        becomes after the preprocessor pass
-                        <cppblock>
-                            fprintf(stderr, "a = %d\n", a);
-                            puts("First, second and third");
-                            ((x>z)?puts("x>z"):printf("x is %d and y is %d", x, y))
-                        </cppblock>
-                        <!-- </span> -->
-                    </description>
-                </section>
-
-                <section>
                     <feature><cppkeyword>constexpr</cppkeyword></feature>
                     <ribbon>
                         <cell><key>Current usage</key><value>Used</value></cell>
@@ -298,7 +272,7 @@
                         <cell><key>Current directive</key><value>recommended</value></cell>
                         <cell><key>Future directive</key><value>recommended</value></cell>
                     </ribbon>
-                    <description style="text-align: left;">
+                    <description style="text-align: left; font-size: 60%;">
                         <p>
                             C++11 provides strongly-typed enumerations:
                             <ul>
@@ -309,7 +283,17 @@
                             </ul>
                         </p>
                         <p>
-                            C++11 allows the use of the scope resolution operator, and the choice of the underlying type even for old-style enumerations (optionnal).
+                            Forward-declaring enums is possible in C+11. As long as the size of the enumeration is specified either implicitly or explicitly, it can be forward-declared:
+                            <cppblock style=" font-size: 70%;">
+                                enum Enum1;                      // Invalid in C++03 and C++11; the underlying type cannot be determined.
+                                enum Enum2 : unsigned int;       // Valid in C++11, the underlying type is specified explicitly.
+                                enum class Enum3;                // Valid in C++11, the underlying type is int.
+                                enum class Enum4 : unsigned int; // Valid in C++11.
+                                enum Enum2 : unsigned short;     // Invalid in C++11, because Enum2 was formerly declared with a different underlying type.
+                            </cppblock>
+                        </p>
+                        <p>
+                            C++11 allows the forward-declaration, the use of the scope resolution operator, and the choice of the underlying type <strong>even for old-style enumerations</strong>.
                         </p>
                     </description>
                 </section>
@@ -340,6 +324,31 @@
                     </description>
                 </section>
 
+                <section>
+                    <feature>variadic templates</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>very little used</value></cell>
+                        <cell><key>Current directive</key><value>never recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended for specific use</value></cell>
+                    </ribbon>
+                    <description>
+                        In C++11, templates can take variable numbers of template parameters.<br>
+                        This also allows the definition of type-safe variadic functions
+                    </description>
+                </section>
+
+                <section>
+                    <feature>extern templates</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>very little used</value></cell>
+                        <cell><key>Current directive</key><value>very little recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended if needed</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 provdied a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the template in this translation unit.
+                    </description>
+                </section>
+    
                 <section>
                     <feature>Thread-local storage</feature>
                     <ribbon>
@@ -385,19 +394,6 @@
                 </section>
 
                 <section>
-                    <feature>variadic templates</feature>
-                    <ribbon>
-                        <cell><key>Current usage</key><value>...</value></cell>
-                        <cell><key>Current directive</key><value>...</value></cell>
-                        <cell><key>Future directive</key><value>...</value></cell>
-                    </ribbon>
-                    <description>
-                        In C++11, templates can take variable numbers of template parameters.<br>
-                        This also allows the definition of type-safe variadic functions
-                    </description>
-                </section>
-
-                <section>
                     <feature>non-static data member initializers</feature>
                     <ribbon>
                         <cell><key>Current usage</key><value>rarely used</value></cell>
@@ -418,19 +414,6 @@
                             int value_ = 509;
                         };
                     </cppblock>
-                </section>
-
-                <section>
-                    <feature>smart pointers</feature>
-                    <ribbon>
-                        <cell><key>Current usage</key><value>use</value></cell>
-                        <cell><key>Current directive</key><value><cpptype>unique_ptr</cpptype> recommended</value></cell>
-                        <cell><key>Future directive</key><value>recommended</value></cell>
-                    </ribbon>
-                    <description>
-                        C++11 provides <cpptype>std::shared_ptr</cpptype>, <cpptype>std::weak_ptr</cpptype>, <cpptype>std::unique_ptr</cpptype>
-                        <p><cpptype>std::auto_ptr</cpptype> is deprecated.</p>
-                    </description>
                 </section>
 
                 <section>
@@ -538,6 +521,257 @@
                 </section>
 
                 <section>
+                    <feature>Raw string literals</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>never used</value></cell>
+                        <cell><key>Current directive</key><value>never think about them</value></cell>
+                        <cell><key>Future directive</key><value>to be considered if needed</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 provides a raw string literal:
+                        <p style="background-color: rgba(0,0,0,0.3); margin: 0 13%;">
+                            <cppblock>
+                                R"(The String Data \ Stuff " )"
+                            </cppblock>
+                            In this first case, everything between the <cppcode>"(</cppcode> and the <cppcode>)"</cppcode> is part of the string.<br>
+                            The <cppcode>"</cppcode> and <cppcode>\</cppcode> characters do not need to be escaped.
+                        </p>
+                        <p style="background-color: rgba(0,0,0,0.3);">
+                            <cppblock>
+                                R"delimiter(The String Data \ Stuff " )delimiter"
+                            </cppblock>
+                            In this second case, the <cppcode>"delimiter(</cppcode> starts the string, and it ends only when <cppcode>)delimiter"</cppcode> is reached.
+                            The string <cppcode>delimiter</cppcode> can be any string up to 16 characters in length, including the empty string.
+                            This string cannot contain spaces, control characters, <cppcode>(</cppcode>, <cppcode>)</cppcode>, or the <cppcode>\</cppcode> character.
+                            Using this delimiter string allows the user to have <cppcode>)</cppcode> characters within raw string literals.
+                        </p>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>User-defined literals</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>very little used</value></cell>
+                        <cell><key>Current directive</key><value>rarely recommended</value></cell>
+                        <cell><key>Future directive</key><value>to be considered if needed</value></cell>
+                    </ribbon>
+                    <description>
+                        <p>
+                            C++11 enables the user to define new kinds of literal modifiers that will construct objects based on the string of characters that the literal modifies.
+                            Transformation of literals is redefined into two distinct phases: raw and cooked.
+                            A raw literal is a sequence of characters of some specific type, while the cooked literal is of a separate type.
+                            The C++ literal <cppcode>1234</cppcode>, as a raw literal, is this sequence of characters <cppcode>'1'</cppcode>, <cppcode>'2'</cppcode>, <cppcode>'3'</cppcode>, <cppcode>'4'</cppcode>.
+                            As a cooked literal, it is the integer 1234.
+                            The C++ literal <cppcode>0xA</cppcode> in raw form is <cppcode>'0'</cppcode>, <cppcode>'x'</cppcode>, <cppcode>'A'</cppcode>, while in cooked form it is the integer 10.
+                        </p>
+                        <p>
+                            All user-defined literals are suffixes; defining prefix literals is not possible.
+                            All suffixes starting with any character except underscore (<cppcode>_</cppcode>) are reserved by the standard.
+                            Thus, all user-defined literals must have suffixes starting with an underscore (<cppcode>_</cppcode>).
+                        </p>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>Explicit conversion operators</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>used</value></cell>
+                        <cell><key>Current directive</key><value>recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended</value></cell>
+                    </ribbon>
+                    <description>
+                        In C++11, the <cppkeyword>explicit</cppkeyword> keyword can now be applied to conversion operators.
+                        As with constructors, it prevents using those conversion functions in implicit conversions.
+                        However, language contexts that specifically need a boolean value (the conditions of if-statements and loops, and operands to the logical operators) count as explicit conversions and can thus use a <cpptype>bool</cpptype> conversion operator.
+                    </description>
+                </section>
+
+                <section>
+                    <feature>noexcept</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>almost not used</value></cell>
+                        <cell><key>Current directive</key><value>no recommendation</value></cell>
+                        <cell><key>Future directive</key><value>???</value></cell>
+                    </ribbon>
+                    <description>
+                        Compile-time specification of non-exception-throwing functions is available with the <cppkeyword>noexcept</cppkeyword> keyword, which is useful for optimization.
+                    </description>
+                </section>
+
+                <section>
+                    <feature>Trailing function return types</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>almost always used</value></cell>
+                        <cell><key>Current directive</key><value>recommended</value></cell>
+                        <cell><key>Future directive</key><value style="color: red;">abandoned</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 introduced trailing-return-type function declaration syntax so the return type can depend on function parameters:
+                        <cppblock style="font-size: 80%">
+                            template&lt;typename Lhs, typename Rhs>
+                            auto adding_func(const Lhs &lhs, const Rhs &rhs) -> decltype(lhs+rhs) {return lhs + rhs;}
+                        </cppblock>
+                        This syntax can be used for classic function declarations and definitions.
+                        <cppblock style="font-size: 80%">
+                            struct SomeStruct
+                            {
+                                auto func_name(int x, int y) -> int;
+                            };
+                            auto SomeStruct::func_name(int x, int y) -> int
+                            {
+                                return x + y;
+                            }
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>Type <cpptype>long long int</cpptype></feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>almost not used</value></cell>
+                        <cell><key>Current directive</key><value>no recommendation</value></cell>
+                        <cell><key>Future directive</key><value>???</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 adds a new integer type <cpptype>long long int</cpptype> to address the problem that type <cpptype>long int</cpptype> having size of 64 bits on some popular implementations and 32 bits on others.
+                        The new type is guaranteed to be at least as large as a long int, and have no fewer than 64 bits.
+                    </description>
+                </section>
+
+                <section>
+                    <feature>Uniform initialization</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>used</value></cell>
+                        <cell><key>Current directive</key><value>sometimes recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended</value></cell>
+                    </ribbon>
+                    <description style="font-size: 50%">
+                        C++11 provides a syntax that allows for fully uniform type initialization that works on any object.
+                        It expands on the initializer list syntax:
+                        <div style="column-count: 2; font-size: 90%;">
+                            <cppblock>
+                                struct BasicStruct
+                                {
+                                    int x;
+                                    double y;
+                                };
+                                struct AltStruct
+                                {
+                                    AltStruct(int x, double y) : x_{x}, y_{y}
+                                    {}
+                                private:
+                                    int x_;
+                                    double y_;
+                                };
+                                BasicStruct var1{5, 3.2};
+                                AltStruct var2{2, 4.3};
+                            </cppblock><br>
+                            <cppblock>
+                                struct IdString
+                                {
+                                    std::string name;
+                                    int identifier;
+                                };
+                                
+                                IdString get_string()
+                                {
+                                    return {"foo", 42}; //Note the lack of explicit type.
+                                }
+                            </cppblock>
+                        </div>
+
+                    </description>
+                </section>
+
+
+                <section>
+                    <feature>Variadic macros</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>Used in very specific cases</value></cell>
+                        <cell><key>Current directive</key><value>Very rarely needed</value></cell>
+                        <cell><key>Future directive</key><value>only when you have no choice</value></cell>
+                    </ribbon>
+                    <description>
+                        <cppblock>
+                            #define FOO(...) fprintf(stderr, __VA_ARGS__)
+                            #define BAR(...) puts(#__VA_ARGS__)
+                            #define QUZ(check, ...) ((check)?puts(#check):printf(__VA_ARGS__))
+                            FOO("a = %d\n", a);
+                            BAR(First, second and third);
+                            QUZ(x>z, "x is %d and y is %d", x, y);
+                        </cppblock>
+                        becomes after the preprocessor pass
+                        <cppblock>
+                            fprintf(stderr, "a = %d\n", a);
+                            puts("First, second and third");
+                            ((x>z)?puts("x>z"):printf("x is %d and y is %d", x, y))
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>Right angle bracket</feature>
+                    <description>
+                        C++11 improves the specification of the parser so that multiple right angle brackets will be interpreted as closing the template argument list where it is reasonable.
+                        This can be overridden by using parentheses around parameter expressions using the <q>></q>, <q>>=</q> or <q>>></q> binary operators:
+                        <cppblock>
+                            template&lt;bool Test> class SomeType;
+                            std::vector&lt;SomeType&lt;1>2>> x1;  // Interpreted as a std::vector of SomeType&lt;true>,
+                                // followed by "2 >> x1", which is not valid syntax for a declarator. 1 is true.
+                            std::vector&lt;SomeType&lt;(1>2)>> x1;  // Interpreted as std::vector of SomeType&lt;false>,
+                                // followed by the declarator "x1", which is valid C++11 syntax. (1>2) is false.
+                        </cppblock>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>STL</feature>
+                    <description>
+                        <ul>
+                            <li>hashtables (<cpptype>std::unordered_set</cpptype>, <cpptype>std::unordered_map</cpptype>, ...)</li>
+                            <li>Type traits for meta-programming (<cpptype>std::enable_if</cpptype>, <cpptype>std::conditional</cpptype>, ...)</li>
+                            <li><cppcode>std::begin</cppcode>, <cppcode>std::end</cppcode></li>
+                            <li><cpptype>std::reference_wrapper</cpptype></li>
+                            <li>Extensible random number facility</li>
+                            <li>Threading facilities</li>
+                            <li>Polymorphic wrappers for function objects: <cpptype>std::function</cpptype></li>
+                        </ul>
+                    </description>
+                </section>
+
+                <section>
+                    <feature>smart pointers</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>use</value></cell>
+                        <cell><key>Current directive</key><value><cpptype>unique_ptr</cpptype> recommended</value></cell>
+                        <cell><key>Future directive</key><value>recommended</value></cell>
+                    </ribbon>
+                    <description>
+                        C++11 provides <cpptype>std::shared_ptr</cpptype>, <cpptype>std::weak_ptr</cpptype>, <cpptype>std::unique_ptr</cpptype>
+                        <p><cpptype>std::auto_ptr</cpptype> is deprecated.</p>
+                    </description>
+                </section>
+    
+                <section>
+                    <feature>Regular expressions</feature>
+                    <ribbon>
+                        <cell><key>Current usage</key><value>never used</value></cell>
+                        <cell><key>Current directive</key><value>never think about them</value></cell>
+                        <cell><key>Future directive</key><value>to be considered if needed</value></cell>
+                    </ribbon>
+                    <description>
+                        The new library, defined in the new header <cppheader>regex</cppheader>, is made of a couple of new classes:
+                        <ul>
+                            <li>regular expressions are represented by instance of the template class <cpptype>std::regex</cpptype>,</li>
+                            <li>occurences are represented by instance of the template class <cpptype>std::match_results</cpptype>.</li>
+                        </ul>
+                        <p>
+                            The function <cppcode>std::regex_search</cppcode> is used for searching, and <cppcode>std::regex_replace</cppcode> is used for replacing.
+                        </p>
+                    </description>
+                </section>
+
+                <section>
                     <feature><cpptype>std::tuple</cpptype></feature>
                     <ribbon>
                         <cell><key>Current usage</key><value>quite never used</value></cell>
@@ -557,41 +791,54 @@
                         </cppblock>
                     </description>
                 </section>
+
+                <section>
+                    <feature>initializer lists</feature>
+                    <description style="font-size: 70%">
+                        C++11 extends initializer-lists, so they can be used for all classes (C++03 allow them only on structs and classes that conform to the POD definition.
+                        C++11 binds the concept to a template, called <cppcode>std::initializer_list</cppcode>.
+                        This allows constructors and other functions to take initializer-lists as parameters.
+                        <cppblock>
+                            struct SequenceClass
+                            {
+                                SequenceClass(std::initializer_list&lt;int> list);
+                            };
+                        </cppblock>
+                        This allows <cpptype>SequenceClass</cpptype> to be constructed from a sequence of integers, such as
+                        <cppblock>
+                            SequenceClass some_var = {1, 4, 5, 6};
+                        </cppblock>
+                        This constructor is a special kind of constructor, called an initializer-list-constructor.
+                        Classes with such a constructor are treated specially during uniform initialization.
+                        If a class has an initializer list constructor, then it takes priority over other forms of construction, provided that the initializer list conforms to the sequence constructor's type.
+                    </description>
+                </section>
+
+                <section>
+                    <feature>misc</feature>
+                    <description>
+                        <p>
+                            C++11 allows <cppkeyword>sizeof</cppkeyword> to work on members of classes without an explicit object.
+                        </p>
+                    </description>
+                </section>
                 <!--
-                    ### Raw string literals
-                    ### User-defined literals
-                    ### Explicit conversion operators
-                    ### Forward enum declarations
-                    ### noexcept
-                    ### Trailing function return types
-                    ### long long
-                    ### STL
-                    #### hashtables (unordered_set, unordered_map, ...)
-                    #### regex
-                    ### Type traits
-                    #### std::begin, std::end
-                    #### Wrapper de référence
-
                     ### Extended friend declarations
-                ### extern template
-                ### initializer lists
-                ### Local and unnamed types as template parameters
-                ### Inline namespaces
-                ### New character types
-                ### Unicode string literals
-                ### Right angle brackets
-                ### ref qualifier
-                ### dynamic initializaion and destruction with concurrency(magic statics)
-                ### Outils de nombres aléatoires
-            -->
+                    ### Local and unnamed types as template parameters
+                    ### Inline namespaces
+                    ### New character types
+                    ### Unicode string literals
+                    ### ref qualifier
+                    ### dynamic initializaion and destruction with concurrency(magic statics)
+                -->
             </section>
-
+            
             <section>
                 <section>
                     <h1>C++ 14</h1>
-                    <toc class="for_priority"/>
+                    <toc/>
                 </section>
-
+                
                 <section>
                     <feature>Tweaked wording for contextual conversions</feature>
                 </section>
