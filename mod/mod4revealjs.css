@@ -102,8 +102,9 @@ description
 {
     margin-top: 0;
 }
-feature
+.reveal section section h2
 {
+    all: unset;
     display: block;
     font-size: 1.10em;
     margin-top: 0em;

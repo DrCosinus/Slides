@@ -5,18 +5,16 @@ function toAnchorId(text)
 document.querySelectorAll(".slides > section > section > toc").forEach(function(toc)
 {
     //toc.classList.add("for_priority");
-    var features = toc.parentElement.parentElement.querySelectorAll(".slides > section > section > feature");
-    features.forEach(function(feature)
+    var headers = toc.parentElement.parentElement.querySelectorAll(".slides > section > section > h2");
+    headers.forEach(function(header)
     {
-        if (!feature.hasAttributes("no-toc"))
+        if (!header.hasAttributes("no-toc"))
         {
-            var anchor_id = toAnchorId(feature.innerHTML)
-            feature.parentElement.id = anchor_id;
-            //feature.parentElement.classList.add("stretch");
+            var anchor_id = toAnchorId(header.innerHTML)
+            header.parentElement.id = anchor_id;
             var anchor = document.createElement("a");
-            anchor.innerHTML = feature.innerHTML;
+            anchor.innerHTML = header.innerHTML;
             anchor.setAttribute( "href", "#/" + anchor_id);
-            //anchor.setAttribute( "style", "font-size: " + (80+Math.floor(Math.random() * 41)) + "%;" );
             toc.appendChild(anchor);
         }
     });
