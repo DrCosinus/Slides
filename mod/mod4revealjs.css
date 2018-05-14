@@ -114,14 +114,13 @@ ribbon cell value
     font-weight: bold;
 }
 
-toc
+.reveal section section nav
 {
     font-size: 50%;
-    /*line-height: 140%;*/
     display: block;
 }
 
-.reveal toc a
+.reveal section section nav a
 {
    line-height: 115%;
    margin:  5pt 15pt 5pt 15pt;

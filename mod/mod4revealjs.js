@@ -2,9 +2,8 @@ function toAnchorId(text)
 {
     return text.toLowerCase().replace(/[ (),-/:+*[\]_]|&lt;|&gt;|&amp;/g, "").replace(/<[^>]+>/g, "");
 }
-document.querySelectorAll(".slides > section > section > toc").forEach(function(toc)
+document.querySelectorAll(".slides > section > section > nav[data-auto]").forEach(function(toc)
 {
-    //toc.classList.add("for_priority");
     var headers = toc.parentElement.parentElement.querySelectorAll(".slides > section > section > h2");
     headers.forEach(function(header)
     {
