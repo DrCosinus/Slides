@@ -82,17 +82,16 @@ document.querySelectorAll("article, h2, summary").forEach(function(element)
 document.querySelectorAll(".slides > section > section > nav[data-auto]").forEach(function(toc)
 {
     var headers = toc.parentElement.parentElement.querySelectorAll(".slides > section > section > h2");
-    var category_definitions = toc.getAttribute("data-auto");
-    var anchors = {};
-
-    var regexp = /(\w*)='([^']*)'/g;
+    var category_definitions = toc.getAttribute("data-auto") || "misc='miscellaneous'";
+    var anchors = [];
+    const default_category = "misc";
+    const regexp = /(\w*)='([^']*)'/g;
     while(true)
     {
         var category_match = regexp.exec(category_definitions);
         if (category_match === null)
             break;
-        console.log(category_match[1] + " -> " + category_match[2]);
-        anchors[category_match[2]] = [];
+        anchors[category_match[1]] = { name: category_match[2], links: [] };
     }
 
     headers.forEach(function(header)
@@ -101,21 +100,27 @@ document.querySelectorAll(".slides > section > section > nav[data-auto]").forEac
         {
             var anchor_id = toAnchorId(header.innerHTML)
             header.parentElement.id = anchor_id;
-            var category = header.getAttribute("data-category") || "misc";
+            var category = header.getAttribute("data-category") || default_category;
             if (anchors[category]===undefined)
             {
-                anchors[category] = [];
+                console.error("bad category \"" + category + "\" for feature \"" + header.innerText +"\"" );
+                //anchors[category] = [];
             }
-            anchors[category].push({ name: header.innerHTML, link: anchor_id});
+            else
+            {
+                anchors[category].links.push({ name: header.innerHTML, link: anchor_id});
+            }
         }
     });
     for(var key in anchors)
     {
+        if (anchors[key].links.length == 0)
+            continue;
         var caption = document.createElement("span");
         caption.classList.add("category");
-        caption.innerHTML = key;
+        caption.innerHTML = anchors[key].name;
         toc.appendChild(caption);
-        anchors[key].forEach(function(anchor)
+        anchors[key].links.forEach(function(anchor)
         {
             var element = document.createElement("a");
             element.innerHTML = anchor.name;
