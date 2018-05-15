@@ -2,22 +2,6 @@ function toAnchorId(text)
 {
     return text.toLowerCase().replace(/[ (),-/:+*[\]_]|&lt;|&gt;|&amp;/g, "").replace(/<[^>]+>/g, "");
 }
-document.querySelectorAll(".slides > section > section > nav[data-auto]").forEach(function(toc)
-{
-    var headers = toc.parentElement.parentElement.querySelectorAll(".slides > section > section > h2");
-    headers.forEach(function(header)
-    {
-        if (!header.hasAttributes("no-toc"))
-        {
-            var anchor_id = toAnchorId(header.innerHTML)
-            header.parentElement.id = anchor_id;
-            var anchor = document.createElement("a");
-            anchor.innerHTML = header.innerHTML;
-            anchor.setAttribute( "href", "#/" + anchor_id);
-            toc.appendChild(anchor);
-        }
-    });
-});
 
 function trimLeft(input)
 {
@@ -65,7 +49,7 @@ function trimSpaces(input)
 
 function initAfterHighlightJS()
 {
-    document.querySelectorAll("cppcode, cppblock").forEach(function(tag)
+    document.querySelectorAll(".code, cppblock").forEach(function(tag)
     {
         tag.classList.add("cpp");
         hljs.highlightBlock(tag);
@@ -86,7 +70,28 @@ function convertHTMLSpecialCharacters(input)
 
 document.querySelectorAll("cppblock").forEach(function(block)
 {
-    console.log(block.textContent);
-    //console.log( convertHTMLSpecialCharacters(block.innerHTML) );
     block.innerHTML = trimSpaces(convertHTMLSpecialCharacters( block.innerHTML) );
+});
+
+// converting #(CLASS:VALUE) to <span class="CLASS">VALUE</span>
+document.querySelectorAll("article, h2, summary").forEach(function(element)
+{
+    element.innerHTML = element.innerHTML.replace(/#\((.*?):(.*?)\)#/g, "<span class=\"$1\">$2</span>");
+});
+
+document.querySelectorAll(".slides > section > section > nav[data-auto]").forEach(function(toc)
+{
+    var headers = toc.parentElement.parentElement.querySelectorAll(".slides > section > section > h2");
+    headers.forEach(function(header)
+    {
+        if (!header.hasAttributes("no-toc"))
+        {
+            var anchor_id = toAnchorId(header.innerHTML)
+            header.parentElement.id = anchor_id;
+            var anchor = document.createElement("a");
+            anchor.innerHTML = header.innerHTML;
+            anchor.setAttribute( "href", "#/" + anchor_id);
+            toc.appendChild(anchor);
+        }
+    });
 });

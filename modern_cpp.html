@@ -37,16 +37,18 @@
                 </section>
 
                 <section>
-                    <h2><cppkeyword>alignas</cppkeyword> and <cppkeyword>alignof</cppkeyword></h2>
+                    <h2>#(keyword:alignas)# and #(keyword:alignof)#</h2>
                     <header>
                         <summary data-category="Current usage">not used a lot</summary>
                         <summary data-category="Current directive">almost never recommended</summary>
                         <summary data-category="Future directive">To use as soon as necessary</summary>
                     </header>
                     <article>
-                        C++11 allows variable alignment to be queried and controlled withs <cppkeyword>alignof</cppkeyword> and <cppkeyword>alignas</cppkeyword>.
-                        The <cppkeyword>alignof</cppkeyword> operator takes the type and returns the power of 2 byte boundary on which the type instances must be allocated (as a <cpptype>std::size_t</cpptype>). When given a reference type alignof returns the referenced type's alignment; for arrays it returns the element type's alignment.
-                        The <cppkeyword>alignas</cppkeyword> specifier controls the memory alignment for a variable. The specifier takes a constant or a type; when supplied a type <cppcode>alignas(T)</cppcode> is shorthand for <cppcode>alignas(alignof(T))</cppcode>. For example, to specify that a char array should be properly aligned to hold a float:
+                        C++11 allows variable alignment to be queried and controlled withs #(keyword:alignof)# and #(keyword:alignas)#.
+                        The #(keyword:alignof)# operator takes the type and returns the power of 2 byte boundary on which the type instances must be allocated (as a #(type:std::size_t)#).
+                        When given a reference type alignof returns the referenced type's alignment; for arrays it returns the element type's alignment.
+                        The #(keyword:alignas)# specifier controls the memory alignment for a variable. The specifier takes a constant or a type; when supplied a type #(code:alignas(T))# is shorthand for #(code:alignas(alignof(T)))#.
+                        For example, to specify that a char array should be properly aligned to hold a float:
                         <cppblock>
                             alignas(float) unsigned char c[sizeof(float)];
                         </cppblock>
@@ -61,12 +63,12 @@
                         <summary data-category="Future directive">To use as soon as necessary</summary>
                     </header>
                     <article>
-                        Le C++11 introduit la bibliothèque des opérations atomiques nécéssaire à un programmation concurrentielle sans verrou. Chaque opération atomiques est insécable au regard de toute autre opération atomique impliquant le même objet. Les objets atomiques sont exempts de "data races". Les opérations atomiques sont définies dans le fichier d'entêtes <cppheader>atomic</cppheader>.
+                        Le C++11 introduit la bibliothèque des opérations atomiques nécéssaire à un programmation concurrentielle sans verrou. Chaque opération atomiques est insécable au regard de toute autre opération atomique impliquant le même objet. Les objets atomiques sont exempts de "data races". Les opérations atomiques sont définies dans le fichier d'entêtes #(header:atomic)#.
                     </article>
                 </section>
 
                 <section>
-                    <h2><cppkeyword>auto</cppkeyword></h2>
+                    <h2>#(keyword:auto)#</h2>
                     <header>
                         <summary data-category="Current usage">very used</summary>
                         <summary data-category="Current directive">recommended</summary>
@@ -74,18 +76,18 @@
                     </header>
                     <article>
                         C++11 allows type inference.<br>
-                        The definition of a variable with an explicit initialization can use the <cppkeyword>auto</cppkeyword> keyword.<br>
+                        The definition of a variable with an explicit initialization can use the #(keyword:auto)# keyword.<br>
                         This creates a variable of the specific type of the initializer:<br>
                         <cppblock style="font-size: 95%">
                             auto some_strange_callable_type = std::bind(&amp;some_function, _2, _1, some_object);
                             auto other_variable = 5;
                         </cppblock>
-                        <p style="font-size: 250%; margin-top: 0.8em;">Almost always <cppkeyword>auto</cppkeyword>?</p>
+                        <p style="font-size: 250%; margin-top: 0.8em;">Almost always #(keyword:auto)#?</p>
                     </article>
                 </section>
 
                 <section>
-                    <h2><cppkeyword>constexpr</cppkeyword></h2>
+                    <h2>#(keyword:constexpr)#</h2>
                     <header>
                         <summary data-category="Current usage">Used</summary>
                         <summary data-category="Current directive">sometimes recommended</summary>
@@ -113,14 +115,14 @@
                 </section>
 
                 <section>
-                    <h2><cppkeyword>decltype</cppkeyword></h2>
+                    <h2>#(keyword:decltype)#</h2>
                     <header>
                         <summary data-category="Current usage">uncommon</summary>
                         <summary data-category="Current directive">rarely needed (TMP)</summary>
                         <summary data-category="Future directive">To use as soon as necessary (TMP)</summary>
                     </header>
                     <article>
-                        The keyword <cppkeyword>decltype</cppkeyword> can be used to determine the type of expression at compile-time.
+                        The keyword #(keyword:decltype)# can be used to determine the type of expression at compile-time.
                         <cppblock>
                             unsigned int some_int;
                             decltype(some_int) other_integer_variable = 5;
@@ -156,7 +158,7 @@
                 <section>
                     <h2 no-toc>Defaulted &amp; deleted functions</h2>
                     <article>
-                        The <cppcode>= delete</cppcode> specifier can be used to prohibit calling any function, which can be used to disallow calling a member function with particular parameters (and to guard against implicit cast).
+                        The #(code:= delete)# specifier can be used to prohibit calling any function, which can be used to disallow calling a member function with particular parameters (and to guard against implicit cast).
                         <cppblock style="font-size: 90%;">
                             struct Foo
                             {
@@ -222,28 +224,28 @@
                 </section>
 
                 <section>
-                    <h2><cppkeyword>nullptr</cppkeyword></h2>
+                    <h2>#(keyword:nullptr)#</h2>
                     <header>
                         <summary data-category="Current usage">very used</summary>
                         <summary data-category="Current directive">mandatory</summary>
                         <summary data-category="Future directive">mandatory</summary>
                     </header>
                     <article>
-                        C++11 introduces a new keyword to serve as a distinguished null pointer constant: <cppkeyword>nullptr</cppkeyword>>.
-                        It is of type <cpptype>std::nullptr_t</cpptype>, which is implicitly convertible and comparable to any pointer type or pointer-to-member type.
-                        It is not implicitly convertible or comparable to integral types, except for <cpptype>bool</cpptype>.
+                        C++11 introduces a new keyword to serve as a distinguished null pointer constant: #(keyword:nullptr)#.
+                        It is of type #(type:std::nullptr_t)#, which is implicitly convertible and comparable to any pointer type or pointer-to-member type.
+                        It is not implicitly convertible or comparable to integral types, except for #(type:bool)#.
                     </article>
                 </section>
 
                 <section>
-                    <h2><cppkeyword>static_assert</cppkeyword></h2>
+                    <h2>#(keyword:static_assert)#</h2>
                     <header>
                         <summary data-category="Current usage">used</summary>
                         <summary data-category="Current directive">recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article>
-                        C++11 introduces a new way to test assertions at compile-time, using the new keyword <cppkeyword>static_assert</cppkeyword>.
+                        C++11 introduces a new way to test assertions at compile-time, using the new keyword #(keyword:static_assert)#.
                         <cppblock style="font-size: 80%">
                             static_assert((MC_PI > 3.14) && (MC_PI < 3.15), "MC_PI is inaccurate!");
 
@@ -275,9 +277,9 @@
                             C++11 provides strongly-typed enumerations:
                             <ul>
                                 <li>it can not be used for/assigned to/compared with another enumeration.</li>
-                                <li>it is not implicitly converted to <cpptype>int</cpptype>.</li>
+                                <li>it is not implicitly converted to #(type:int)#.</li>
                                 <li>there is no risk of name collisions due to the need to use scope resolution operator to access values,</li>
-                                <li>the underlying type can be overridden to a different integral type (<cpptype>int</cpptype> by default)</li>
+                                <li>the underlying type can be overridden to a different integral type (#(type:int)# by default)</li>
                             </ul>
                         </p>
                         <p>
@@ -299,7 +301,7 @@
                 <section>
                     <h2>Template aliases</h2>
                     <header>
-                        <summary data-category="Current usage">used => <cppkeyword>typedef</cppkeyword> is deprecated</summary>
+                        <summary data-category="Current usage">used => #(keyword:typedef)# is deprecated</summary>
                         <summary data-category="Current directive">recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
                     </header>
@@ -355,7 +357,7 @@
                         <summary data-category="Future directive">...</summary>
                     </header>
                     <article>
-                        C++11 introduces the keyword <cppkeyword>thread_local</cppkeyword>.<br>
+                        C++11 introduces the keyword #(keyword:thread_local)#.<br>
                         Any object which could have static storage duration may be given thread-local duration instead.<br>
                         Each thread holds its own copy of such variables.<br>
                         Lifetime of each copies of these variables is bound to the thread holding them.
@@ -370,7 +372,7 @@
                         <summary data-category="Future directive">...</summary>
                     </header>
                     <article>
-                        C++11 lifts some restrictions on what types can me members of a <cppkeyword>union</cppkeyword>.
+                        C++11 lifts some restrictions on what types can me members of a #(keyword:union)#.
                         Unions can now have member with non trivial special member functions but it must be <u>manually defined</u>.
                         <cppblock style="font-size:65%;">
                             #include &lt;new> // Needed for placement 'new'.
@@ -422,7 +424,7 @@
                         <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article>
-                        C++11 extends the syntax of the <cppkeyword>for</cppkeyword> statement to allow for easy iteration over a range of elements.
+                        C++11 extends the syntax of the #(keyword:for)# statement to allow for easy iteration over a range of elements.
                         <cppblock>
                             int my_array[5] = {1, 2, 3, 4, 5};
                             // double the value of each element in my_array:
@@ -446,18 +448,18 @@
                             C++11 provides the ability to create anonymous functions, called lambda functions.
                         </p>
                         <p>
-                            These are defined as follows: <cppcode>[](int x, int y) -> int { return x + y; }</cppcode>
-                        </p>
-                        <p>T
-                            he return type can be omitted when all <cppkeyword>return</cppkeyword> returns the same type: <cppcode>[](int x, int y) { return x + y; }</cppcode>
+                            These are defined as follows: #(code:[](int x, int y) -> int { return x + y; })#
                         </p>
                         <p>
-                            The type of a lambda is unspecified. User must use <cppkeyword>auto</cppkeyword>:
-                            <cppcode>auto lambda = [](int x, int y) { return x + y; }</cppcode>
+                            The return type can be omitted when all #(keyword:return)# returns the same type: #(code:[](int x, int y) { return x + y; })#
+                        </p>
+                        <p>
+                            The type of a lambda is unspecified. User must use #(keyword:auto)#:
+                            #(code:auto lambda = [](int x, int y) { return x + y; })#
                         </p>
                         <p>
                             A lambda can capture variables (by copy or by reference):
-                            <cppcode>[copy, &amp;ref](int x) { ref = x + copy; }</cppcode>
+                            #(code:[copy, &amp;ref](int x) { ref = x + copy; })#
                         </p>
                         <p>
                             A lamba which capture no variable can be converted into a function pointer:
@@ -472,16 +474,16 @@
                 <section>
                     <h2>override and final</h2>
                     <header>
-                        <summary data-category="Current usage">compilation error if <cppkeyword>override</cppkeyword> is missing</summary>
-                        <summary data-category="Current directive"><cppkeyword>override</cppkeyword> is mandatory</summary>
-                        <summary data-category="Future directive"><cppkeyword>override</cppkeyword> is mandatory</summary>
+                        <summary data-category="Current usage">compilation error if #(keyword:override)# is missing</summary>
+                        <summary data-category="Current directive">#(keyword:override)# is mandatory</summary>
+                        <summary data-category="Future directive">#(keyword:override)# is mandatory</summary>
                     </header>
                     <article>
                         <p>
                             C++11 provides syntax to prevent from bad virtual function overriding.
                         </p>
                         <p>
-                            The <cppkeyword>override</cppkeyword> special identifier means that the compiler will check the base classes to see if there is a vistual function with this exact signature.
+                            The #(keyword:override)# special identifier means that the compiler will check the base classes to see if there is a vistual function with this exact signature.
                             If there is not, the compiler will indicate an error.
                         </p>
                         <cppblock style="font-size: 80%">
@@ -494,7 +496,7 @@
                         </cppblock>
                         <p>
                             C+11 also adds the ability to prevent inheriting from classes or simply preventing overriding method in derived classes.
-                            This is done with special identifier <cppkeyword>final</cppkeyword>.
+                            This is done with special identifier #(keyword:final)#.
                         </p>
                     </article>
                 </section>
@@ -508,12 +510,12 @@
                     </header>
                     <article>
                         <p>
-                            C++11 adds a new non-const reference type called an rvalue reference, identified by <cppcode>T&&</cppcode>.
+                            C++11 adds a new non-const reference type called an rvalue reference, identified by #(code:T&&)#.
                             This refers to temporaries that are permitted to be modified after they are initialized, for the purpose of allowing "move semantics".
                         </p>
                         <p>
                             For safety reasons, some restrictions are imposed. A named variable will never be considered to be an rvalue even if it is declared as such.
-                            To get an rvalue, the function template <cppcode>std::move()</cppcode> should be used.
+                            To get an rvalue, the function template #(code:std::move)# should be used.
                         </p>
                     </article>
                 </section>
@@ -531,17 +533,17 @@
                             <cppblock>
                                 R"(The String Data \ Stuff " )"
                             </cppblock>
-                            In this first case, everything between the <cppcode>"(</cppcode> and the <cppcode>)"</cppcode> is part of the string.<br>
-                            The <cppcode>"</cppcode> and <cppcode>\</cppcode> characters do not need to be escaped.
+                            In this first case, everything between the #(code:"()# and the #(code:)")# is part of the string.<br>
+                            The #(code:")# and #(code:\)# characters do not need to be escaped.
                         </p>
                         <p style="background-color: rgba(0,0,0,0.3);">
                             <cppblock>
                                 R"delimiter(The String Data \ Stuff " )delimiter"
                             </cppblock>
-                            In this second case, the <cppcode>"delimiter(</cppcode> starts the string, and it ends only when <cppcode>)delimiter"</cppcode> is reached.
-                            The string <cppcode>delimiter</cppcode> can be any string up to 16 characters in length, including the empty string.
-                            This string cannot contain spaces, control characters, <cppcode>(</cppcode>, <cppcode>)</cppcode>, or the <cppcode>\</cppcode> character.
-                            Using this delimiter string allows the user to have <cppcode>)</cppcode> characters within raw string literals.
+                            In this second case, the #(code:"delimiter()# starts the string, and it ends only when #(code:)delimiter")# is reached.
+                            The string #(code:delimiter)# can be any string up to 16 characters in length, including the empty string.
+                            This string cannot contain spaces, control characters, #(code:()#, #(code:))#, or the #(code:\)# character.
+                            Using this delimiter string allows the user to have #(code:))# characters within raw string literals.
                         </p>
                     </article>
                 </section>
@@ -558,14 +560,14 @@
                             C++11 enables the user to define new kinds of literal modifiers that will construct objects based on the string of characters that the literal modifies.
                             Transformation of literals is redefined into two distinct phases: raw and cooked.
                             A raw literal is a sequence of characters of some specific type, while the cooked literal is of a separate type.
-                            The C++ literal <cppcode>1234</cppcode>, as a raw literal, is this sequence of characters <cppcode>'1'</cppcode>, <cppcode>'2'</cppcode>, <cppcode>'3'</cppcode>, <cppcode>'4'</cppcode>.
+                            The C++ literal #(code:1234)#, as a raw literal, is this sequence of characters #(code:'1')#, #(code:'2')#, #(code:'3')#, #(code:'4')#.
                             As a cooked literal, it is the integer 1234.
-                            The C++ literal <cppcode>0xA</cppcode> in raw form is <cppcode>'0'</cppcode>, <cppcode>'x'</cppcode>, <cppcode>'A'</cppcode>, while in cooked form it is the integer 10.
+                            The C++ literal #(code:0xA)# in raw form is #(code:'0')#, #(code:'x')#, #(code:'A')#, while in cooked form it is the integer 10.
                         </p>
                         <p>
                             All user-defined literals are suffixes; defining prefix literals is not possible.
-                            All suffixes starting with any character except underscore (<cppcode>_</cppcode>) are reserved by the standard.
-                            Thus, all user-defined literals must have suffixes starting with an underscore (<cppcode>_</cppcode>).
+                            All suffixes starting with any character except underscore (#(code:_)#) are reserved by the standard.
+                            Thus, all user-defined literals must have suffixes starting with an underscore (#(code:_)#).
                         </p>
                     </article>
                 </section>
@@ -578,9 +580,9 @@
                         <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article>
-                        In C++11, the <cppkeyword>explicit</cppkeyword> keyword can now be applied to conversion operators.
+                        In C++11, the #(keyword:explicit)# keyword can now be applied to conversion operators.
                         As with constructors, it prevents using those conversion functions in implicit conversions.
-                        However, language contexts that specifically need a boolean value (the conditions of if-statements and loops, and operands to the logical operators) count as explicit conversions and can thus use a <cpptype>bool</cpptype> conversion operator.
+                        However, language contexts that specifically need a boolean value (the conditions of if-statements and loops, and operands to the logical operators) count as explicit conversions and can thus use a #(type:bool)# conversion operator.
                     </article>
                 </section>
 
@@ -592,7 +594,7 @@
                         <summary data-category="Future directive">???</summary>
                     </header>
                     <article>
-                        Compile-time specification of non-exception-throwing functions is available with the <cppkeyword>noexcept</cppkeyword> keyword, which is useful for optimization.
+                        Compile-time specification of non-exception-throwing functions is available with the #(keyword:noexcept)# keyword, which is useful for optimization.
                     </article>
                 </section>
 
@@ -624,14 +626,14 @@
                 </section>
 
                 <section>
-                    <h2>Type <cpptype>long long int</cpptype></h2>
+                    <h2>Type #(type:long long int)#</h2>
                     <header>
                         <summary data-category="Current usage">almost not used</summary>
                         <summary data-category="Current directive">no recommendation</summary>
                         <summary data-category="Future directive">???</summary>
                     </header>
                     <article>
-                        C++11 adds a new integer type <cpptype>long long int</cpptype> to address the problem that type <cpptype>long int</cpptype> having size of 64 bits on some popular implementations and 32 bits on others.
+                        C++11 adds a new integer type #(type:long long int)# to address the problem that type #(type:long int)# having size of 64 bits on some popular implementations and 32 bits on others.
                         The new type is guaranteed to be at least as large as a long int, and have no fewer than 64 bits.
                     </article>
                 </section>
@@ -726,13 +728,13 @@
                     <h2>STL</h2>
                     <article>
                         <ul>
-                            <li>hashtables (<cpptype>std::unordered_set</cpptype>, <cpptype>std::unordered_map</cpptype>, ...)</li>
-                            <li>Type traits for meta-programming (<cpptype>std::enable_if</cpptype>, <cpptype>std::conditional</cpptype>, ...)</li>
-                            <li><cppcode>std::begin</cppcode>, <cppcode>std::end</cppcode></li>
-                            <li><cpptype>std::reference_wrapper</cpptype></li>
+                            <li>hashtables: #(type:std::unordered_set)#, #(type:std::unordered_map)#, ...</li>
+                            <li>Type traits for meta-programming: #(type:std::enable_if)#, #(type:std::conditional)#, ...</li>
+                            <li>#(code:std::begin)#, #(code:std::end)#</li>
+                            <li>#(type:std::reference_wrapper)#</li>
                             <li>Extensible random number facility</li>
                             <li>Threading facilities</li>
-                            <li>Polymorphic wrappers for function objects: <cpptype>std::function</cpptype></li>
+                            <li>Polymorphic wrappers for function objects: #(type:std::function)#</li>
                         </ul>
                     </article>
                 </section>
@@ -741,12 +743,12 @@
                     <h2>smart pointers</h2>
                     <header>
                         <summary data-category="Current usage">use</summary>
-                        <summary data-category="Current directive"><cpptype>unique_ptr</cpptype> recommended</summary>
+                        <summary data-category="Current directive">#(type:unique_ptr)# recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
                     </header>
                     <article>
-                        C++11 provides <cpptype>std::shared_ptr</cpptype>, <cpptype>std::weak_ptr</cpptype>, <cpptype>std::unique_ptr</cpptype>
-                        <p><cpptype>std::auto_ptr</cpptype> is deprecated.</p>
+                        C++11 provides #(type:std::shared_ptr)#, #(type:std::weak_ptr)#, #(type:std::unique_ptr)#
+                        <p>#(type:std::auto_ptr)# is deprecated.</p>
                     </article>
                 </section>
     
@@ -758,19 +760,19 @@
                         <summary data-category="Future directive">to be considered if needed</summary>
                     </header>
                     <article>
-                        The new library, defined in the new header <cppheader>regex</cppheader>, is made of a couple of new classes:
+                        The new library, defined in the new header #(header:regex)#, is made of a couple of new classes:
                         <ul>
-                            <li>regular expressions are represented by instance of the template class <cpptype>std::regex</cpptype>,</li>
-                            <li>occurences are represented by instance of the template class <cpptype>std::match_results</cpptype>.</li>
+                            <li>regular expressions are represented by instance of the template class #(type:std::regex)#,</li>
+                            <li>occurences are represented by instance of the template class #(type:std::match_results)#.</li>
                         </ul>
                         <p>
-                            The function <cppcode>std::regex_search</cppcode> is used for searching, and <cppcode>std::regex_replace</cppcode> is used for replacing.
+                            The function #(code:std::regex_search)# is used for searching, and #(code:std::regex_replace)# is used for replacing.
                         </p>
                     </article>
                 </section>
 
                 <section>
-                    <h2><cpptype>std::tuple</cpptype></h2>
+                    <h2>#(type:std::tuple)#</h2>
                     <header>
                         <summary data-category="Current usage">quite never used</summary>
                         <summary data-category="Current directive">never recommended</summary>
@@ -794,7 +796,7 @@
                     <h2>initializer lists</h2>
                     <article style="font-size: 70%">
                         C++11 extends initializer-lists, so they can be used for all classes (C++03 allow them only on structs and classes that conform to the POD definition.
-                        C++11 binds the concept to a template, called <cppcode>std::initializer_list</cppcode>.
+                        C++11 binds the concept to a template, called #(code:std::initializer_list)#.
                         This allows constructors and other functions to take initializer-lists as parameters.
                         <cppblock>
                             struct SequenceClass
@@ -802,7 +804,7 @@
                                 SequenceClass(std::initializer_list&lt;int> list);
                             };
                         </cppblock>
-                        This allows <cpptype>SequenceClass</cpptype> to be constructed from a sequence of integers, such as
+                        This allows #(type:SequenceClass)# to be constructed from a sequence of integers, such as
                         <cppblock>
                             SequenceClass some_var = {1, 4, 5, 6};
                         </cppblock>
@@ -816,7 +818,7 @@
                     <h2>misc</h2>
                     <article>
                         <p>
-                            C++11 allows <cppkeyword>sizeof</cppkeyword> to work on members of classes without an explicit object.
+                            C++11 allows #(keyword:sizeof)# to work on members of classes without an explicit object.
                         </p>
                     </article>
                 </section>
@@ -846,7 +848,7 @@
                 </section>
 
                 <section>
-                    <h2><cppkeyword>decltype(auto)</cppkeyword>, Return type deduction for normal functions</h2>
+                    <h2>#(keyword:decltype(auto))#, Return type deduction for normal functions</h2>
                 </section>
 
                 <section>
@@ -886,31 +888,31 @@
                 </section>
 
                 <section>
-                    <h2><cpptype>std::result_of</cpptype> and SFINAE</h2>
+                    <h2>#(type:std::result_of)# and SFINAE</h2>
                 </section>
 
                 <section>
-                    <h2><cppkeyword>constexpr</cppkeyword> for <cppheader>complex</cppheader></h2>
+                    <h2>#(keyword:constexpr)# for #(header:complex)#</h2>
                 </section>
 
                 <section>
-                    <h2><cppkeyword>constexpr</cppkeyword> for <cppheader>chrono</cppheader></h2>
+                    <h2>#(keyword:constexpr)# for #(header:chrono)#</h2>
                 </section>
 
                 <section>
-                    <h2><cppkeyword>constexpr</cppkeyword> for <cppheader>array</cppheader></h2>
+                    <h2>#(keyword:constexpr)# for #(header:array)#</h2>
                 </section>
 
                 <section>
-                    <h2><cppkeyword>constexpr</cppkeyword> for <cppheader>initializer_list</cppheader>, <cppheader>utility</cppheader>, <cppheader>tuple</cppheader></h2>
+                    <h2>#(keyword:constexpr)# for #(header:initializer_list)#, #(header:utility)#, #(header:tuple)#</h2>
                 </section>
 
                 <section>
-                    <h2>Improved <cpptype>std::integral_constant</cpptype></h2>
+                    <h2>Improved #(type:std::integral_constant)#</h2>
                 </section>
                 
                 <section>
-                    <h2>User-defined literals for <cppheader>chrono</cppheader> and <cppheader>string</cppheader></h2>
+                    <h2>User-defined literals for #(header:chrono)# and #(header:string)#</h2>
                 </section>
                 
                 <section>
@@ -918,7 +920,7 @@
                 </section>
 
                 <section>
-                    <h2><cpptype>std::quoted</cpptype></h2>
+                    <h2>#(type:std::quoted)#</h2>
                 </section>
 
                 <section>
@@ -926,27 +928,27 @@
                 </section>
 
                 <section>
-                    <h2><cpptype>std::integer_sequence</cpptype></h2>
+                    <h2>#(type:std::integer_sequence)#</h2>
                 </section>
 
                 <section>
-                    <h2><cpptype>std::shared_timed_mutex</cpptype></h2>
+                    <h2>#(type:std::shared_timed_mutex)#</h2>
                 </section>
 
                 <section>
-                    <h2><cpptype>std::exchange</cpptype></h2>
+                    <h2>#(type:std::exchange)#</h2>
                 </section>
                 
                 <section>
-                    <h2>fixing <cppkeyword>constexpr</cppkeyword> member functions without <cppkeyword>const</cppkeyword></h2>
+                    <h2>fixing #(keyword:constexpr)# member functions without #(keyword:const)#</h2>
                 </section>
 
                 <section>
-                    <h2><cpptype>std::get&lt;T&gt;</cpptype></h2>
+                    <h2>#(type:std::get&lt;T&gt;)#</h2>
                 </section>
 
                 <section>
-                    <h2>Dual-Range <cpptype>std::equal</cpptype>, <cpptype>std::is_permutation</cpptype>, <cpptype>std::mismatch</cpptype></h2>
+                    <h2>Dual-Range #(type:std::equal)#, #(type:std::is_permutation)#, #(type:std::mismatch)#</h2>
                 </section>
 
             </section>
@@ -962,11 +964,11 @@
                 </section>
 
                 <section>
-                    <h2><cppkeyword>static_assert</cppkeyword> with no message</h2>
+                    <h2>#(keyword:static_assert)# with no message</h2>
                 </section>
 
                 <section>
-                    <h2><cppkeyword>typename</cppkeyword> in a template template parameter</h2>
+                    <h2>#(keyword:typename)# in a template template parameter</h2>
                 </section>
 
                 <section>

@@ -1,4 +1,4 @@
-cppheader, cppkeyword, cpptype
+.header, .type, .keyword
 {
     font-style: italic;
     background-color: rgba(255, 255, 255, 0.10);
@@ -7,31 +7,31 @@ cppheader, cppkeyword, cpptype
     text-shadow: 0.05em 0.05em rgba(0, 0, 0, 0.575);
     border-radius: 5pt;
 }
-a > cppheader, a > cppkeyword, a > cpptype
+a > .header, a > .type, a > .keyword
 {
     all: unset;
 }
-cppheader
+.header
 {
     color: coral;
 }
-cppheader:before
+.header:before
 {
     content: "<"
 }
-cppheader:after
+.header:after
 {
     content: ">"
 }
-cppkeyword
+.keyword
 {
     color: palegreen;
 }
-cpptype
+.type
 {
     color: cornflowerblue;
 }
-cppcode.hljs
+.code.hljs
 {
     display: inline-block;
     padding: 0;
