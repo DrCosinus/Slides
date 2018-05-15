@@ -33,11 +33,11 @@
             <section>
                 <section id="cpp11">
                     <h1>C++ 11</h1>
-                    <nav data-auto/>
+                    <nav data-auto="usage='core language usability', function='core language functionality', stl='standard library', rtperf='core land cpp11', misc='miscellaneous'"/>
                 </section>
 
                 <section>
-                    <h2>#(keyword:alignas)# and #(keyword:alignof)#</h2>
+                    <h2 data-category="core language functionality">#(keyword:alignas)# and #(keyword:alignof)#</h2>
                     <header>
                         <summary data-category="Current usage">not used a lot</summary>
                         <summary data-category="Current directive">almost never recommended</summary>
@@ -56,7 +56,7 @@
                 </section>
 
                 <section>
-                    <h2>atomic operations</h2>
+                    <h2 data-category="standard library">atomic operations</h2>
                     <header>
                         <summary data-category="Current usage">little used</summary>
                         <summary data-category="Current directive">almost never recommended</summary>
@@ -79,7 +79,7 @@
                 </section>
 
                 <section>
-                    <h2>#(keyword:auto)#</h2>
+                    <h2 data-category="core language usability">#(keyword:auto)#</h2>
                     <header>
                         <summary data-category="Current usage">very used</summary>
                         <summary data-category="Current directive">recommended</summary>
@@ -104,7 +104,7 @@
                 </section>
 
                 <section>
-                    <h2>#(keyword:decltype)#</h2>
+                    <h2 data-category="core language usability">#(keyword:decltype)#</h2>
                     <header>
                         <summary data-category="Current usage">uncommon</summary>
                         <summary data-category="Current directive">rarely needed (TMP)</summary>
@@ -120,7 +120,7 @@
                 </section>
 
                 <section>
-                    <h2>#(keyword:constexpr)#</h2>
+                    <h2 data-category="core language runtime performance">#(keyword:constexpr)#</h2>
                     <header>
                         <summary data-category="Current usage">Used</summary>
                         <summary data-category="Current directive">sometimes recommended</summary>
@@ -148,7 +148,7 @@
                 </section>
 
                 <section>
-                    <h2>Defaulted &amp; deleted functions</h2>
+                    <h2 data-category="core language functionality">Defaulted &amp; deleted functions</h2>
                     <header>
                         <summary data-category="Current usage">used</summary>
                         <summary data-category="Current directive">often recommended</summary>
@@ -192,7 +192,7 @@
                 </section>
 
                 <section>
-                    <h2>Delegating constructors</h2>
+                    <h2 data-category="core language usability">Delegating constructors</h2>
                     <header>
                         <summary data-category="Current usage">not used a lot</summary>
                         <summary data-category="Current directive">sometimes recommended</summary>
@@ -213,7 +213,7 @@
                 </section>
 
                 <section>
-                    <h2>inheriting constructors</h2>
+                    <h2 data-category="core language usability">inheriting constructors</h2>
                     <header>
                         <summary data-category="Current usage">Not used a lot</summary>
                         <summary data-category="Current directive">Sometimes recommended</summary>
@@ -241,7 +241,7 @@
                 </section>
 
                 <section>
-                    <h2>#(keyword:nullptr)#</h2>
+                    <h2 data-category="core language usability">#(keyword:nullptr)#</h2>
                     <header>
                         <summary data-category="Current usage">very used</summary>
                         <summary data-category="Current directive">mandatory</summary>
@@ -255,7 +255,7 @@
                 </section>
 
                 <section>
-                    <h2>#(keyword:static_assert)#</h2>
+                    <h2 data-category="core language functionality">#(keyword:static_assert)#</h2>
                     <header>
                         <summary data-category="Current usage">used</summary>
                         <summary data-category="Current directive">recommended</summary>
@@ -283,7 +283,7 @@
                 </section>
 
                 <section>
-                    <h2>Strongly-typed enumerations</h2>
+                    <h2 data-category="core language usability">Strongly-typed enumerations</h2>
                     <header>
                         <summary data-category="Current usage">used if not to be serializable</summary>
                         <summary data-category="Current directive">recommended</summary>
@@ -316,7 +316,7 @@
                 </section>
 
                 <section>
-                    <h2>Template aliases</h2>
+                    <h2 data-category="core language functionality">Template aliases</h2>
                     <header>
                         <summary data-category="Current usage">used => #(keyword:typedef)# is deprecated</summary>
                         <summary data-category="Current directive">recommended</summary>
@@ -342,7 +342,7 @@
                 </section>
 
                 <section>
-                    <h2>variadic templates</h2>
+                    <h2 data-category="core language functionality">variadic templates</h2>
                     <header>
                         <summary data-category="Current usage">very little used</summary>
                         <summary data-category="Current directive">never recommended</summary>
@@ -355,7 +355,7 @@
                 </section>
 
                 <section>
-                    <h2>extern templates</h2>
+                    <h2 data-category="core language functionality">extern templates</h2>
                     <header>
                         <summary data-category="Current usage">very little used</summary>
                         <summary data-category="Current directive">very little recommended</summary>
@@ -367,7 +367,7 @@
                 </section>
     
                 <section>
-                    <h2>Thread-local storage</h2>
+                    <h2 data-category="core language functionality">Thread-local storage</h2>
                     <header>
                         <summary data-category="Current usage">...</summary>
                         <summary data-category="Current directive">...</summary>
@@ -382,7 +382,7 @@
                 </section>
 
                 <section>
-                    <h2>unrestricted unions</h2>
+                    <h2 data-category="core language usability">unrestricted unions</h2>
                     <header>
                         <summary data-category="Current usage">...</summary>
                         <summary data-category="Current directive">...</summary>
@@ -411,7 +411,7 @@
                 </section>
 
                 <section>
-                    <h2>non-static data member initializers</h2>
+                    <h2 data-category="core language usability">non-static data member initializers</h2>
                     <header>
                         <summary data-category="Current usage">rarely used</summary>
                         <summary data-category="Current directive">sometimes recommended</summary>
@@ -434,7 +434,7 @@
                 </section>
 
                 <section>
-                    <h2>Range-for loop</h2>
+                    <h2 data-category="core language usability">Range-for loop</h2>
                     <header>
                         <summary data-category="Current usage">very use</summary>
                         <summary data-category="Current directive">recommended</summary>
@@ -454,7 +454,7 @@
                 </section>
 
                 <section>
-                    <h2>lambda expressions</h2>
+                    <h2 data-category="core language usability">lambda expressions</h2>
                     <header>
                         <summary data-category="Current usage">very use</summary>
                         <summary data-category="Current directive">recommended</summary>
@@ -489,7 +489,7 @@
                 </section>
 
                 <section>
-                    <h2>override and final</h2>
+                    <h2 data-category="core language usability">override and final</h2>
                     <header>
                         <summary data-category="Current usage">compilation error if #(keyword:override)# is missing</summary>
                         <summary data-category="Current directive">#(keyword:override)# is mandatory</summary>
@@ -520,7 +520,7 @@
 
                 <section>
                     <h2>rvalue reference and move semantics</h2>
-                    <header>
+                    <header data-category="core language runtime performance">
                         <summary data-category="Current usage">use</summary>
                         <summary data-category="Current directive">recommended if needed</summary>
                         <summary data-category="Future directive">recommended if needed</summary>
@@ -538,7 +538,7 @@
                 </section>
 
                 <section>
-                    <h2>Raw string literals</h2>
+                    <h2 data-category="core language functionality">Raw string literals</h2>
                     <header>
                         <summary data-category="Current usage">never used</summary>
                         <summary data-category="Current directive">never think about them</summary>
@@ -566,7 +566,7 @@
                 </section>
 
                 <section>
-                    <h2>User-defined literals</h2>
+                    <h2 data-category="core language functionality">User-defined literals</h2>
                     <header>
                         <summary data-category="Current usage">very little used</summary>
                         <summary data-category="Current directive">rarely recommended</summary>
@@ -590,7 +590,7 @@
                 </section>
 
                 <section>
-                    <h2>Explicit conversion operators</h2>
+                    <h2 data-category="core language usability">Explicit conversion operators</h2>
                     <header>
                         <summary data-category="Current usage">used</summary>
                         <summary data-category="Current directive">recommended</summary>
@@ -604,7 +604,7 @@
                 </section>
 
                 <section>
-                    <h2>noexcept</h2>
+                    <h2 data-category="core language functionality">noexcept</h2>
                     <header>
                         <summary data-category="Current usage">almost not used</summary>
                         <summary data-category="Current directive">no recommendation</summary>
@@ -616,7 +616,7 @@
                 </section>
 
                 <section>
-                    <h2>Trailing function return types</h2>
+                    <h2 data-category="core language usability">Trailing function return types</h2>
                     <header>
                         <summary data-category="Current usage">almost always used</summary>
                         <summary data-category="Current directive">recommended</summary>
@@ -643,7 +643,7 @@
                 </section>
 
                 <section>
-                    <h2>Type #(type:long long int)#</h2>
+                    <h2 data-category="core language functionality">Type #(type:long long int)#</h2>
                     <header>
                         <summary data-category="Current usage">almost not used</summary>
                         <summary data-category="Current directive">no recommendation</summary>
@@ -656,7 +656,7 @@
                 </section>
 
                 <section>
-                    <h2>Uniform initialization</h2>
+                    <h2 data-category="core language usability">Uniform initialization</h2>
                     <header>
                         <summary data-category="Current usage">used</summary>
                         <summary data-category="Current directive">sometimes recommended</summary>
@@ -727,7 +727,7 @@
                 </section>
 
                 <section>
-                    <h2>Right angle bracket</h2>
+                    <h2 data-category="core language usability">Right angle bracket</h2>
                     <article>
                         C++11 improves the specification of the parser so that multiple right angle brackets will be interpreted as closing the template argument list where it is reasonable.
                         This can be overridden by using parentheses around parameter expressions using the <q>></q>, <q>>=</q> or <q>>></q> binary operators:
@@ -742,7 +742,7 @@
                 </section>
 
                 <section>
-                    <h2>STL</h2>
+                    <h2 data-category="standard library">STL</h2>
                     <article>
                         <ul>
                             <li>hashtables: #(type:std::unordered_set)#, #(type:std::unordered_map)#, ...</li>
@@ -757,7 +757,7 @@
                 </section>
 
                 <section>
-                    <h2>smart pointers</h2>
+                    <h2 data-category="standard library">smart pointers</h2>
                     <header>
                         <summary data-category="Current usage">use</summary>
                         <summary data-category="Current directive">#(type:unique_ptr)# recommended</summary>
@@ -770,7 +770,7 @@
                 </section>
     
                 <section>
-                    <h2>Regular expressions</h2>
+                    <h2 data-category="standard library">Regular expressions</h2>
                     <header>
                         <summary data-category="Current usage">never used</summary>
                         <summary data-category="Current directive">never think about them</summary>
@@ -789,7 +789,7 @@
                 </section>
 
                 <section>
-                    <h2>#(type:std::tuple)#</h2>
+                    <h2 data-category="standard library">#(type:std::tuple)#</h2>
                     <header>
                         <summary data-category="Current usage">quite never used</summary>
                         <summary data-category="Current directive">never recommended</summary>
@@ -810,7 +810,7 @@
                 </section>
 
                 <section>
-                    <h2>initializer lists</h2>
+                    <h2 data-category="standard library">initializer lists</h2>
                     <article style="font-size: 70%">
                         C++11 extends initializer-lists, so they can be used for all classes (C++03 allow them only on structs and classes that conform to the POD definition.
                         C++11 binds the concept to a template, called #(code:std::initializer_list)#.

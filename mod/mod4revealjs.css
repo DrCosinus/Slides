@@ -36,7 +36,6 @@ a > .header, a > .type, a > .keyword
     display: inline-block;
     padding: 0;
     position: relative;
-    /* bottom: -0.3em; */
     vertical-align: text-bottom;
 }
 cppblock.hljs
@@ -54,7 +53,6 @@ cppblock.hljs
     overflow: auto;
     word-wrap: normal;
     text-align: left;
-    /* vertical-align: baseline; */
     width: fit-content;
     max-height: 100%;
     height: 100%;
@@ -90,7 +88,6 @@ cppblock.hljs
     margin-left: 0;
     margin-right: 0;
     font-size: 70%;
-    /* white-space: pre; */
 }
 .reveal section article p
 {
@@ -111,18 +108,36 @@ cppblock.hljs
     margin-right: 0;
     font-weight: bold;
 }
-
-.reveal section section nav
+.reveal section section nav[data-auto]
 {
     font-size: 50%;
     display: block;
+    column-count: 3;
+    column-gap: 0.2em;
+    column-fill: auto;
+    text-align: left;
+    max-height: 550px;
 }
-
-.reveal section section nav a
+.reveal section section nav span.category
+{
+    /* display: inline-block; */
+    break-inside: avoid-column;
+    /* display: table; */
+    float: left;
+    width: 100%;
+}
+.reveal section section nav span.category a
 {
    line-height: 115%;
-   margin:  5pt 15pt 5pt 15pt;
-   background-color: rgba(143, 225, 228, 0.05);
+   margin: 0.2em 0;
+   text-indent: -0.8em;
+   padding-left: 0.8em;
+   background-color: rgba(143, 225, 228, 0.03);
    border-radius: 5pt;
-   display: inline-block;
+   display: block;
+   break-inside: avoid-column;
+}
+.reveal section section nav span.category a:before
+{
+    content:"♦ ";
 }

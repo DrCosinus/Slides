@@ -82,16 +82,35 @@ document.querySelectorAll("article, h2, summary").forEach(function(element)
 document.querySelectorAll(".slides > section > section > nav[data-auto]").forEach(function(toc)
 {
     var headers = toc.parentElement.parentElement.querySelectorAll(".slides > section > section > h2");
+
+    anchors = {};
     headers.forEach(function(header)
     {
-        if (!header.hasAttributes("no-toc"))
+        if (!header.hasAttribute("no-toc"))
         {
             var anchor_id = toAnchorId(header.innerHTML)
             header.parentElement.id = anchor_id;
-            var anchor = document.createElement("a");
-            anchor.innerHTML = header.innerHTML;
-            anchor.setAttribute( "href", "#/" + anchor_id);
-            toc.appendChild(anchor);
+            var category = header.getAttribute("data-category") || "misc";
+            if (anchors[category]===undefined)
+            {
+                anchors[category] = [];
+            }
+            anchors[category].push({ name: header.innerHTML, link: anchor_id});
         }
     });
+    for(var key in anchors)
+    {
+        var caption = document.createElement("span");
+        caption.classList.add("category");
+        caption.innerHTML = key;
+        toc.appendChild(caption);
+        anchors[key].forEach(function(anchor)
+        {
+            var element = document.createElement("a");
+            element.innerHTML = anchor.name;
+            element.setAttribute( "href", "#/" + anchor.link);
+            caption.appendChild(element);
+        });
+    }
+
 });
