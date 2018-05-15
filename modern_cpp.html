@@ -63,7 +63,18 @@
                         <summary data-category="Future directive">To use as soon as necessary</summary>
                     </header>
                     <article>
-                        Le C++11 introduit la bibliothèque des opérations atomiques nécéssaire à un programmation concurrentielle sans verrou. Chaque opération atomiques est insécable au regard de toute autre opération atomique impliquant le même objet. Les objets atomiques sont exempts de "data races". Les opérations atomiques sont définies dans le fichier d'entêtes #(header:atomic)#.
+                        <p>
+                            C++11 introduces the atomic operations library needed for lock-free concurential programmation.
+                        </p>
+                        <p>
+                            Every atomic operation is not splittable by any other atomic operation involving the same object.
+                        </p>
+                        <p>
+                            Atomic objects are "data races"-free.
+                        </p>
+                        <p>
+                            The atomic opérations are defined in the header file #(header:atomic)#.
+                        </p>
                     </article>
                 </section>
 
@@ -75,14 +86,36 @@
                         <summary data-category="Future directive">To use as soon as possible</summary>
                     </header>
                     <article>
-                        C++11 allows type inference.<br>
-                        The definition of a variable with an explicit initialization can use the #(keyword:auto)# keyword.<br>
-                        This creates a variable of the specific type of the initializer:<br>
-                        <cppblock style="font-size: 95%">
-                            auto some_strange_callable_type = std::bind(&amp;some_function, _2, _1, some_object);
-                            auto other_variable = 5;
-                        </cppblock>
+                        <p>
+                            C++11 allows type inference.
+                        </p>
+                        <p>
+                            The definition of a variable with an explicit initialization can use the #(keyword:auto)# keyword.<br>
+                        </p>
+                        <p>
+                            This creates a variable of the specific type of the initializer:<br>
+                            <cppblock style="font-size: 95%">
+                                auto some_strange_callable_type = std::bind(&amp;some_function, _2, _1, some_object);
+                                auto other_variable = 5;
+                            </cppblock>
+                        </p>
                         <p style="font-size: 250%; margin-top: 0.8em;">Almost always #(keyword:auto)#?</p>
+                    </article>
+                </section>
+
+                <section>
+                    <h2>#(keyword:decltype)#</h2>
+                    <header>
+                        <summary data-category="Current usage">uncommon</summary>
+                        <summary data-category="Current directive">rarely needed (TMP)</summary>
+                        <summary data-category="Future directive">To use as soon as necessary (TMP)</summary>
+                    </header>
+                    <article>
+                        The keyword #(keyword:decltype)# can be used to determine the type of expression at compile-time.
+                        <cppblock>
+                            unsigned int some_int;
+                            decltype(some_int) other_integer_variable = 5;
+                        </cppblock>
                     </article>
                 </section>
 
@@ -110,22 +143,6 @@
                             int array[siz() + 17]; // illformed if siz() is not constexpr
                             template&lt;int I&gt; struct Bar {};
                             Bar&lt;siz()&gt; bar;  // illformed if siz() is not constexpr
-                        </cppblock>
-                    </article>
-                </section>
-
-                <section>
-                    <h2>#(keyword:decltype)#</h2>
-                    <header>
-                        <summary data-category="Current usage">uncommon</summary>
-                        <summary data-category="Current directive">rarely needed (TMP)</summary>
-                        <summary data-category="Future directive">To use as soon as necessary (TMP)</summary>
-                    </header>
-                    <article>
-                        The keyword #(keyword:decltype)# can be used to determine the type of expression at compile-time.
-                        <cppblock>
-                            unsigned int some_int;
-                            decltype(some_int) other_integer_variable = 5;
                         </cppblock>
                     </article>
                 </section>
