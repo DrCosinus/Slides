@@ -82,8 +82,19 @@ document.querySelectorAll("article, h2, summary").forEach(function(element)
 document.querySelectorAll(".slides > section > section > nav[data-auto]").forEach(function(toc)
 {
     var headers = toc.parentElement.parentElement.querySelectorAll(".slides > section > section > h2");
+    var category_definitions = toc.getAttribute("data-auto");
+    var anchors = {};
 
-    anchors = {};
+    var regexp = /(\w*)='([^']*)'/g;
+    while(true)
+    {
+        var category_match = regexp.exec(category_definitions);
+        if (category_match === null)
+            break;
+        console.log(category_match[1] + " -> " + category_match[2]);
+        anchors[category_match[2]] = [];
+    }
+
     headers.forEach(function(header)
     {
         if (!header.hasAttribute("no-toc"))
