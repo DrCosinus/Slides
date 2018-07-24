@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
 
     <title>BlueMoon League</title>
     <style>
@@ -17,6 +17,48 @@
             text-align: center;
             color: darkgray;
         }
+
+        #matches div
+        {
+            margin: 3px;
+            display: block;
+            width: 260px;
+        }
+
+        #matches div:first-child span
+        {
+            background-color: lightslategray;
+            color: white;
+            width: 50%;
+        }
+
+        #matches span
+        {
+            background-color: gray;
+            color: darkgray;
+            padding: 3px 0;
+            width: 30px;
+            display: inline-block;
+            text-align: center;
+            box-shadow: 2px 2px 1px black;
+        }
+
+        #matches span:first-child,
+        #matches span:last-child
+        {
+            background-color: dimgray;
+            font-weight: bolder;
+            width: 100px;
+        }
+        #matches span:first-child
+        {
+            border-radius: 5px 0px 0px 5px;
+        }
+        #matches span:last-child
+        {
+            border-radius: 0px 5px 5px 0px;
+        }
+
         table th
         {
             background-color: dimgray;
@@ -29,33 +71,13 @@
     <h1>BlueMoon League</h1>
 
     <div id="classement" style="margin-bottom: 0.5em;">
-        <table>
-            <thead>
-                <td>Peuples</td><td>Joués</td><td>Dif</td><td>Pts</td>
-            </thead>
-            <tbody>
-                <tr><td>HOAX</td><td>1</td><td>+4</td><td>3</td></tr>
-                <tr><td>VULCA</td><td>1</td><td>+4</td><td>3</td></tr>
-                <tr><td>TERRAH</td><td>1</td><td>+3</td><td>3</td></tr>
-                <tr><td>KHIND</td><td>1</td><td>+1</td><td>3</td></tr>
-                <tr><td>BUKA</td><td>0</td><td>0</td><td>0</td></tr>
-                <tr><td>AQUA</td><td>1</td><td>-1</td><td>0</td></tr>
-                <tr><td>MIMIX</td><td>1</td><td>-3</td><td>0</td></tr>
-                <tr><td>FLIT</td><td>1</td><td>-4</td><td>0</td></tr>
-                <tr><td>PILLAR</td><td>1</td><td>-4</td><td>0</td></tr>
-            </tbody>
-        </table>
     </div>
-    <div>
-        <table>
-            <thead></thead>
-            <tbody>
-                <tr><td>MIMIX</td><td>0</td><td>3</td><td>TERRAH</td></tr>
-                <tr><td>KHIND</td><td>1</td><td>0</td><td>AQUA</td></tr>
-                <tr><td>HOAX</td><td>4</td><td>0</td><td>PILLAR</td></tr>
-                <tr><td>FLIT</td><td>0</td><td>4</td><td>VULCA</td></tr>
-            </tbody>
-        </table>
+    <div id="matches">
+        <div><span>Domicile</span><span>Extérieur</span></div>
+        <div><span>MIMIX</span><span>0</span><span>3</span><span>TERRAH</span></div>
+        <div><span>KHIND</span><span>1</span><span>0</span><span>AQUA</span></div>
+        <div><span>HOAX</span><span>4</span><span>0</span><span>PILLAR</span></div>
+        <div><span>FLIT</span><span>0</span><span>4</span><span>VULCA</span></div>
     </div>
     <!-- <script src="lib/blable.js"></script> -->
     <script>
