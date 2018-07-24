@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>BlueMoon League</title>
+    <style>
+        body
+        {
+            font-family: Arial;
+        }
+        table
+        {
+            background-color: gray;
+            text-align: center;
+            color: darkgray;
+        }
+        table th
+        {
+            background-color: dimgray;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>BlueMoon League</h1>
+
+    <div id="classement" style="margin-bottom: 0.5em;">
+        <table>
+            <thead>
+                <td>Peuples</td><td>Joués</td><td>Dif</td><td>Pts</td>
+            </thead>
+            <tbody>
+                <tr><td>HOAX</td><td>1</td><td>+4</td><td>3</td></tr>
+                <tr><td>VULCA</td><td>1</td><td>+4</td><td>3</td></tr>
+                <tr><td>TERRAH</td><td>1</td><td>+3</td><td>3</td></tr>
+                <tr><td>KHIND</td><td>1</td><td>+1</td><td>3</td></tr>
+                <tr><td>BUKA</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><td>AQUA</td><td>1</td><td>-1</td><td>0</td></tr>
+                <tr><td>MIMIX</td><td>1</td><td>-3</td><td>0</td></tr>
+                <tr><td>FLIT</td><td>1</td><td>-4</td><td>0</td></tr>
+                <tr><td>PILLAR</td><td>1</td><td>-4</td><td>0</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <thead></thead>
+            <tbody>
+                <tr><td>MIMIX</td><td>0</td><td>3</td><td>TERRAH</td></tr>
+                <tr><td>KHIND</td><td>1</td><td>0</td><td>AQUA</td></tr>
+                <tr><td>HOAX</td><td>4</td><td>0</td><td>PILLAR</td></tr>
+                <tr><td>FLIT</td><td>0</td><td>4</td><td>VULCA</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- <script src="lib/blable.js"></script> -->
+    <script>
+        var ETeam =
+        {
+            AQUA:   0,
+            BUKA:   1,
+            FLIT:   2,
+            HOAX:   3,
+            KHIND:  4,
+            MIMIX:  5,
+            PILLAR: 6,
+            TERRAH: 7,
+            VULCA:  8,
+            properties :
+            {
+                0: { name: "Aqua" },
+                1: { name: "Buka" },
+                2: { name: "Flit" },
+                3: { name: "Hoax" },
+                4: { name: "Khind" },
+                5: { name: "Mimix" },
+                6: { name: "Pillar" },
+                7: { name: "Terrah" },
+                8: { name: "Vulca" }
+            }
+        };
+
+        var matches =
+        [
+            { localTeam: ETeam.MIMIX, awayTeam: ETeam.TERRAH, localScore: 0, awayScore: 3 },
+            { localTeam: ETeam.KHIND, awayTeam: ETeam.AQUA, localScore: 1, awayScore: 0 },
+            { localTeam: ETeam.HOAX, awayTeam: ETeam.PILLAR, localScore: 4, awayScore: 0 },
+            { localTeam: ETeam.FLIT, awayTeam: ETeam.VULCA, localScore: 0, awayScore: 4 },
+        ];
+
+        // { teamID: , played, dif: , pts: }
+        var teamScores = [];
+
+        [0,1,2,3,4,5,6,7,8].forEach(function(val)
+        {
+            teamScores[val] = { teamID: val, played: 0, dif: 0, pts: 0};
+        })
+
+        matches.forEach(function(match)
+        {
+            var difLocalMinusAway = match.localScore - match.awayScore;
+            teamScores[match.localTeam].played++;
+            teamScores[match.localTeam].dif += difLocalMinusAway;
+            teamScores[match.localTeam].pts += (difLocalMinusAway > 0 ? 3 : (difLocalMinusAway == 0 ? 1 : 0));
+
+            teamScores[match.awayTeam].played++;
+            teamScores[match.awayTeam].dif += -difLocalMinusAway;
+            teamScores[match.awayTeam].pts += (difLocalMinusAway > 0 ? 0 : (difLocalMinusAway == 0 ? 1 : 3));
+        });
+
+        teamScores.sort(function(a,b)
+        {
+            if ( a.pts != b.pts ) return b.pts-a.pts;
+            if ( a.dif != b.dif ) return b.dif-a.dif;
+            return a.teamID - b.teamID;
+        });
+
+        var classementElement = document.getElementById("classement");
+        classementElement.innerHTML = "";
+        var tableElement = document.createElement("table");
+        classementElement.appendChild(tableElement);
+
+        var rowElement = document.createElement("tr");
+        tableElement.appendChild(rowElement);
+        var cellElement = document.createElement("th");
+        rowElement.appendChild(cellElement);
+        cellElement.innerHTML = "Peuple";
+        var cellElement = document.createElement("th");
+        rowElement.appendChild(cellElement);
+        cellElement.innerHTML = "Joués";
+        var cellElement = document.createElement("th");
+        rowElement.appendChild(cellElement);
+        cellElement.innerHTML = "Diff";
+        var cellElement = document.createElement("th");
+        rowElement.appendChild(cellElement);
+        cellElement.innerHTML = "Points";
+
+        teamScores.forEach(function(ts)
+        {
+            var rowElement = document.createElement("tr");
+            tableElement.appendChild(rowElement);
+            var cellElement = document.createElement("td");
+            rowElement.appendChild(cellElement);
+            cellElement.innerHTML = ETeam.properties[ts.teamID].name;
+            var cellElement = document.createElement("td");
+            rowElement.appendChild(cellElement);
+            cellElement.innerHTML = ts.played;
+            var cellElement = document.createElement("td");
+            rowElement.appendChild(cellElement);
+            cellElement.innerHTML = ts.dif;
+            var cellElement = document.createElement("td");
+            rowElement.appendChild(cellElement);
+            cellElement.innerHTML = ts.pts;
+        });
+
+        // // More info about config & dependencies:
+        // // - https://github.com/hakimel/reveal.js#configuration
+        // // - https://github.com/hakimel/reveal.js#dependencies
+        // Reveal.initialize({
+        //     dependencies: [
+        //         { src: 'revealjs/plugin/markdown/marked.js' },
+        //         { src: 'revealjs/plugin/markdown/markdown.js' },
+        //         { src: 'revealjs/plugin/notes/notes.js', async: true },
+        //         { src: 'revealjs/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); initAfterHighlightJS(); } },
+        //     ],
+        //     width: 1280,
+        //     height: 720,
+        //     margin: 0.025,
+        //     history: true,
+        // });
+    </script>
+</body>
+
+</html>
