@@ -81,16 +81,12 @@
 <body>
     <h1>Blue Moon Legends League</h1>
 
-    <div id="classement" style="margin-bottom: 0.5em;">
+    <div id="classement" style="margin-bottom: 0.5em;"/>
     </div>
     <div id="matches">
         <div><span>Domicile</span><span>Extérieur</span></div>
-        <div><span>MIMIX</span><span>0</span><span>3</span><span>TERRAH</span></div>
-        <div><span>KHIND</span><span>1</span><span>0</span><span>AQUA</span></div>
-        <div><span>HOAX</span><span>4</span><span>0</span><span>PILLAR</span></div>
-        <div><span>FLIT</span><span>0</span><span>4</span><span>VULCA</span></div>
     </div>
-    <!-- <script src="lib/blable.js"></script> -->
+    <!-- <script src="lib/blabla.js"></script> -->
     <script>
         var ETeam =
         {
@@ -119,11 +115,30 @@
 
         var matches =
         [
-            { localTeam: ETeam.MIMIX, awayTeam: ETeam.TERRAH, localScore: 0, awayScore: 3 },
-            { localTeam: ETeam.KHIND, awayTeam: ETeam.AQUA, localScore: 1, awayScore: 0 },
-            { localTeam: ETeam.HOAX, awayTeam: ETeam.PILLAR, localScore: 4, awayScore: 0 },
-            { localTeam: ETeam.FLIT, awayTeam: ETeam.VULCA, localScore: 0, awayScore: 4 },
+            { homeTeam: ETeam.MIMIX, awayTeam: ETeam.TERRAH, homeScore: 0, awayScore: 3 },
+            { homeTeam: ETeam.KHIND, awayTeam: ETeam.AQUA, homeScore: 1, awayScore: 0 },
+            { homeTeam: ETeam.HOAX, awayTeam: ETeam.PILLAR, homeScore: 4, awayScore: 0 },
+            { homeTeam: ETeam.FLIT, awayTeam: ETeam.VULCA, homeScore: 0, awayScore: 4 },
         ];
+
+        HTMLElement.prototype.html = function(content) { this.innerHTML = content; return this; }
+        HTMLElement.prototype.append = function(tagName) { let child = document.createElement(tagName); this.appendChild(child); return child; }
+        let matchesElement = document.getElementById("matches");
+        if (matchesElement)
+        {
+            matchesElement.innerHTML = "";
+            let headerElement = matchesElement.append("div");
+            let homeSpanElement = headerElement.append("span").html("Domicile");
+            let awaySpanElement = headerElement.append("span").html("Extérieur");
+            matches.forEach(function(match)
+            {
+                let rowElement = matchesElement.append("div");
+                rowElement.append("span").html(ETeam.properties[match.homeTeam].name);
+                rowElement.append("span").html(match.homeScore);
+                rowElement.append("span").html(match.awayScore);
+                rowElement.append("span").html(ETeam.properties[match.awayTeam].name);
+            });
+        }
 
         // { teamID: , played, dif: , pts: }
         var teamScores = [];
@@ -135,10 +150,10 @@
 
         matches.forEach(function(match)
         {
-            var difLocalMinusAway = match.localScore - match.awayScore;
-            teamScores[match.localTeam].played++;
-            teamScores[match.localTeam].dif += difLocalMinusAway;
-            teamScores[match.localTeam].pts += (difLocalMinusAway > 0 ? 3 : (difLocalMinusAway == 0 ? 1 : 0));
+            var difLocalMinusAway = match.homeScore - match.awayScore;
+            teamScores[match.homeTeam].played++;
+            teamScores[match.homeTeam].dif += difLocalMinusAway;
+            teamScores[match.homeTeam].pts += (difLocalMinusAway > 0 ? 3 : (difLocalMinusAway == 0 ? 1 : 0));
 
             teamScores[match.awayTeam].played++;
             teamScores[match.awayTeam].dif += -difLocalMinusAway;
@@ -154,40 +169,21 @@
 
         var classementElement = document.getElementById("classement");
         classementElement.innerHTML = "";
-        var tableElement = document.createElement("table");
-        classementElement.appendChild(tableElement);
+        var tableElement = classementElement.append("table");
 
-        var rowElement = document.createElement("tr");
-        tableElement.appendChild(rowElement);
-        var cellElement = document.createElement("th");
-        rowElement.appendChild(cellElement);
-        cellElement.innerHTML = "Peuple";
-        var cellElement = document.createElement("th");
-        rowElement.appendChild(cellElement);
-        cellElement.innerHTML = "Joués";
-        var cellElement = document.createElement("th");
-        rowElement.appendChild(cellElement);
-        cellElement.innerHTML = "Diff";
-        var cellElement = document.createElement("th");
-        rowElement.appendChild(cellElement);
-        cellElement.innerHTML = "Points";
+        var rowElement = tableElement.append("tr");
+        rowElement.append("th").html("Peuple");
+        rowElement.append("th").html("Joués");
+        rowElement.append("th").html("Diff");
+        rowElement.append("th").html("Points");
 
         teamScores.forEach(function(ts)
         {
-            var rowElement = document.createElement("tr");
-            tableElement.appendChild(rowElement);
-            var cellElement = document.createElement("td");
-            rowElement.appendChild(cellElement);
-            cellElement.innerHTML = ETeam.properties[ts.teamID].name;
-            var cellElement = document.createElement("td");
-            rowElement.appendChild(cellElement);
-            cellElement.innerHTML = ts.played;
-            var cellElement = document.createElement("td");
-            rowElement.appendChild(cellElement);
-            cellElement.innerHTML = ts.dif;
-            var cellElement = document.createElement("td");
-            rowElement.appendChild(cellElement);
-            cellElement.innerHTML = ts.pts;
+            var rowElement = tableElement.append("tr");
+            rowElement.append("td").html(ETeam.properties[ts.teamID].name);
+            rowElement.append("td").html(ts.played);
+            rowElement.append("td").html(ts.dif);
+            rowElement.append("td").html(ts.pts);
         });
 
         // // More info about config & dependencies:
