@@ -121,22 +121,23 @@
             { homeTeam: ETeam.FLIT, awayTeam: ETeam.VULCA, homeScore: 0, awayScore: 4 },
         ];
 
+        HTMLElement.prototype.clear = function() { this.innerHTML = ""; return this; }
         HTMLElement.prototype.html = function(content) { this.innerHTML = content; return this; }
-        HTMLElement.prototype.append = function(tagName) { let child = document.createElement(tagName); this.appendChild(child); return child; }
+        HTMLElement.prototype.child = function(tagName) { let child = document.createElement(tagName); this.appendChild(child); return child; }
+        HTMLElement.prototype.sibling = function(tagName) { return this.parentElement.child(tagName); }
         let matchesElement = document.getElementById("matches");
         if (matchesElement)
         {
-            matchesElement.innerHTML = "";
-            let headerElement = matchesElement.append("div");
-            let homeSpanElement = headerElement.append("span").html("Domicile");
-            let awaySpanElement = headerElement.append("span").html("Extérieur");
+            matchesElement.clear().child("div")
+                .child("span").html("Domicile")
+                .sibling("span").html("Extérieur");
             matches.forEach(function(match)
             {
-                let rowElement = matchesElement.append("div");
-                rowElement.append("span").html(ETeam.properties[match.homeTeam].name);
-                rowElement.append("span").html(match.homeScore);
-                rowElement.append("span").html(match.awayScore);
-                rowElement.append("span").html(ETeam.properties[match.awayTeam].name);
+                matchesElement.child("div")
+                    .child("span").html(ETeam.properties[match.homeTeam].name)
+                    .sibling("span").html(match.homeScore)
+                    .sibling("span").html(match.awayScore)
+                    .sibling("span").html(ETeam.properties[match.awayTeam].name);
             });
         }
 
@@ -168,22 +169,21 @@
         });
 
         var classementElement = document.getElementById("classement");
-        classementElement.innerHTML = "";
-        var tableElement = classementElement.append("table");
-
-        var rowElement = tableElement.append("tr");
-        rowElement.append("th").html("Peuple");
-        rowElement.append("th").html("Joués");
-        rowElement.append("th").html("Diff");
-        rowElement.append("th").html("Points");
+        let tableElement = classementElement.clear().child("table");
+        tableElement
+            .child("tr")
+                .child("th").html("Peuple")
+                .sibling("th").html("Joués")
+                .sibling("th").html("Diff")
+                .sibling("th").html("Points");
 
         teamScores.forEach(function(ts)
         {
-            var rowElement = tableElement.append("tr");
-            rowElement.append("td").html(ETeam.properties[ts.teamID].name);
-            rowElement.append("td").html(ts.played);
-            rowElement.append("td").html(ts.dif);
-            rowElement.append("td").html(ts.pts);
+            var rowElement = tableElement.child("tr");
+            rowElement.child("td").html(ETeam.properties[ts.teamID].name);
+            rowElement.child("td").html(ts.played);
+            rowElement.child("td").html(ts.dif);
+            rowElement.child("td").html(ts.pts);
         });
 
         // // More info about config & dependencies:
