@@ -121,23 +121,27 @@
             { homeTeam: ETeam.FLIT, awayTeam: ETeam.VULCA, homeScore: 0, awayScore: 4 },
         ];
 
-        HTMLElement.prototype.clear = function() { this.innerHTML = ""; return this; }
-        HTMLElement.prototype.html = function(content) { this.innerHTML = content; return this; }
-        HTMLElement.prototype.child = function(tagName) { let child = document.createElement(tagName); this.appendChild(child); return child; }
-        HTMLElement.prototype.sibling = function(tagName) { return this.parentElement.child(tagName); }
+        HTMLElement.prototype.clear = function() { this.innerHTML = ""; return this; };
+        HTMLElement.prototype.html = function(content) { this.innerHTML = content; return this; };
+        HTMLElement.prototype.child = function(tagName, fun) { let child = document.createElement(tagName); this.appendChild(child); fun(child); return this; };
+        HTMLElement.prototype.parseArray = function(array, fun) { let THIS = this; array.forEach(function(value) { fun(THIS, value); }); return this; };
         let matchesElement = document.getElementById("matches");
         if (matchesElement)
         {
-            matchesElement.clear().child("div")
-                .child("span").html("Domicile")
-                .sibling("span").html("Extérieur");
-            matches.forEach(function(match)
+            matchesElement.clear().child("div", function(el)
             {
-                matchesElement.child("div")
-                    .child("span").html(ETeam.properties[match.homeTeam].name)
-                    .sibling("span").html(match.homeScore)
-                    .sibling("span").html(match.awayScore)
-                    .sibling("span").html(ETeam.properties[match.awayTeam].name);
+                el.child("span", sp => { sp.html("Domicile") });
+                el.child("span", sp => { sp.html("Extérieur") });
+            })
+            .parseArray(matches,function(parentElement, match)
+            {
+                parentElement.child("div", div =>
+                {
+                    div.child("span", sp => sp.html(ETeam.properties[match.homeTeam].name) )
+                    div.child("span", sp => sp.html(match.homeScore) )
+                    div.child("span", sp => sp.html(match.awayScore) )
+                    div.child("span", sp => sp.html(ETeam.properties[match.awayTeam].name) )
+                })
             });
         }
 
@@ -169,21 +173,26 @@
         });
 
         var classementElement = document.getElementById("classement");
-        let tableElement = classementElement.clear().child("table");
-        tableElement
-            .child("tr")
-                .child("th").html("Peuple")
-                .sibling("th").html("Joués")
-                .sibling("th").html("Diff")
-                .sibling("th").html("Points");
-
-        teamScores.forEach(function(ts)
+        let tableElement = classementElement.clear().child("table", table =>
         {
-            var rowElement = tableElement.child("tr");
-            rowElement.child("td").html(ETeam.properties[ts.teamID].name);
-            rowElement.child("td").html(ts.played);
-            rowElement.child("td").html(ts.dif);
-            rowElement.child("td").html(ts.pts);
+            table.child("tr", row =>
+            {
+                row.child("th", cell => cell.html("Peuple"));
+                row.child("th", cell => cell.html("Joués"));
+                row.child("th", cell => cell.html("Diff"));
+                row.child("th", cell => cell.html("Points"));
+            });
+            table.parseArray(teamScores, function(parentElement, ts)
+            {
+                parentElement.child("tr", row =>
+                {
+                    row.child("td", cell => cell.html(ETeam.properties[ts.teamID].name));
+                    row.child("td", cell => cell.html(ts.played));
+                    row.child("td", cell => cell.html(ts.dif));
+                    row.child("td", cell => cell.html(ts.pts));
+
+                });
+            });
         });
 
         // // More info about config & dependencies:
