@@ -55,10 +55,10 @@ document.querySelector("div#matches")
 {
     parentElement.child("div", div =>
     {
-        div.child("span", sp => sp.html(getTeamName(match.homeTeam)) )
+        div.child("span", sp => { sp.html(getTeamName(match.homeTeam)).classList.add(getTeamName(match.homeTeam)) } )
         div.child("span", sp => sp.html(match.homeScore) )
         div.child("span", sp => sp.html(match.awayScore) )
-        div.child("span", sp => sp.html(getTeamName(match.awayTeam)) )
+        div.child("span", sp => sp.html(getTeamName(match.awayTeam)).classList.add(getTeamName(match.awayTeam)) )
     })
 });
 
