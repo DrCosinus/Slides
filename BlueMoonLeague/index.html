@@ -4,76 +4,11 @@
 <head>
     <meta charset="utf-8">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+    <link rel="stylesheet" href="bmll.css"/>
 
     <title>BlueMoon League</title>
     <style>
-        body
-        {
-            font-family: Arial;
-        }
-        h1
-        {
-            color: cornflowerblue;
-            font-size: 6em;
-            text-shadow: 5px 5px 15px black;
-            font-family: "Century Gothic";
-            font-variant: small-caps;
-            margin: 0 0 0.3em 0;
-            text-align: center;
-        }
-        table
-        {
-            background-color: gray;
-            text-align: center;
-            color: darkgray;
-        }
-
-        #matches div
-        {
-            margin: 3px;
-            display: block;
-            width: 260px;
-            box-shadow: 2px 2px 1px rgba(0, 12, 24, 0.7);
-            border-radius: 5px;
-        }
-
-        #matches div:first-child span
-        {
-            background-color: lightslategray;
-            color: white;
-            width: 50%;
-        }
-
-        #matches span
-        {
-            background-color: gray;
-            color: darkgray;
-            padding: 3px 0;
-            width: 30px;
-            display: inline-block;
-            text-align: center;
-        }
-
-        #matches span:first-child,
-        #matches span:last-child
-        {
-            background-color: dimgray;
-            font-weight: bolder;
-            width: 100px;
-        }
-        #matches span:first-child
-        {
-            border-radius: 5px 0px 0px 5px;
-        }
-        #matches span:last-child
-        {
-            border-radius: 0px 5px 5px 0px;
-        }
-
-        table th
-        {
-            background-color: dimgray;
-        }
+ 
     </style>
 
 </head>
@@ -82,118 +17,24 @@
     <h1>Blue Moon Legends League</h1>
 
     <div id="classement" style="margin-bottom: 0.5em;"/>
+    <table>
+        <thead>
+            <tr>
+                <th>Peuple</th>
+                <th>Joués</th>
+                <th>Diff</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
     </div>
     <div id="matches">
         <div><span>Domicile</span><span>Extérieur</span></div>
     </div>
-    <!-- <script src="lib/blabla.js"></script> -->
+    <script src="bmll.js"/>
     <script>
-        var ETeam =
-        {
-            AQUA:   0,
-            BUKA:   1,
-            FLIT:   2,
-            HOAX:   3,
-            KHIND:  4,
-            MIMIX:  5,
-            PILLAR: 6,
-            TERRAH: 7,
-            VULCA:  8,
-            properties :
-            {
-                0: { name: "Aqua" },
-                1: { name: "Buka" },
-                2: { name: "Flit" },
-                3: { name: "Hoax" },
-                4: { name: "Khind" },
-                5: { name: "Mimix" },
-                6: { name: "Pillar" },
-                7: { name: "Terrah" },
-                8: { name: "Vulca" }
-            }
-        };
 
-        var matches =
-        [
-            { homeTeam: ETeam.MIMIX, awayTeam: ETeam.TERRAH, homeScore: 0, awayScore: 3 },
-            { homeTeam: ETeam.KHIND, awayTeam: ETeam.AQUA, homeScore: 1, awayScore: 0 },
-            { homeTeam: ETeam.HOAX, awayTeam: ETeam.PILLAR, homeScore: 4, awayScore: 0 },
-            { homeTeam: ETeam.FLIT, awayTeam: ETeam.VULCA, homeScore: 0, awayScore: 4 },
-        ];
-
-        HTMLElement.prototype.clear = function() { this.innerHTML = ""; return this; };
-        HTMLElement.prototype.html = function(content) { this.innerHTML = content; return this; };
-        HTMLElement.prototype.child = function(tagName, fun) { let child = document.createElement(tagName); this.appendChild(child); fun(child); return this; };
-        HTMLElement.prototype.parseArray = function(array, fun) { let THIS = this; array.forEach(function(value) { fun(THIS, value); }); return this; };
-        let matchesElement = document.getElementById("matches");
-        if (matchesElement)
-        {
-            matchesElement.clear().child("div", function(el)
-            {
-                el.child("span", sp => { sp.html("Domicile") });
-                el.child("span", sp => { sp.html("Extérieur") });
-            })
-            .parseArray(matches,function(parentElement, match)
-            {
-                parentElement.child("div", div =>
-                {
-                    div.child("span", sp => sp.html(ETeam.properties[match.homeTeam].name) )
-                    div.child("span", sp => sp.html(match.homeScore) )
-                    div.child("span", sp => sp.html(match.awayScore) )
-                    div.child("span", sp => sp.html(ETeam.properties[match.awayTeam].name) )
-                })
-            });
-        }
-
-        // { teamID: , played, dif: , pts: }
-        var teamScores = [];
-
-        [0,1,2,3,4,5,6,7,8].forEach(function(val)
-        {
-            teamScores[val] = { teamID: val, played: 0, dif: 0, pts: 0};
-        })
-
-        matches.forEach(function(match)
-        {
-            var difLocalMinusAway = match.homeScore - match.awayScore;
-            teamScores[match.homeTeam].played++;
-            teamScores[match.homeTeam].dif += difLocalMinusAway;
-            teamScores[match.homeTeam].pts += (difLocalMinusAway > 0 ? 3 : (difLocalMinusAway == 0 ? 1 : 0));
-
-            teamScores[match.awayTeam].played++;
-            teamScores[match.awayTeam].dif += -difLocalMinusAway;
-            teamScores[match.awayTeam].pts += (difLocalMinusAway > 0 ? 0 : (difLocalMinusAway == 0 ? 1 : 3));
-        });
-
-        teamScores.sort(function(a,b)
-        {
-            if ( a.pts != b.pts ) return b.pts-a.pts;
-            if ( a.dif != b.dif ) return b.dif-a.dif;
-            return a.teamID - b.teamID;
-        });
-
-        var classementElement = document.getElementById("classement");
-        let tableElement = classementElement.clear().child("table", table =>
-        {
-            table.child("tr", row =>
-            {
-                row.child("th", cell => cell.html("Peuple"));
-                row.child("th", cell => cell.html("Joués"));
-                row.child("th", cell => cell.html("Diff"));
-                row.child("th", cell => cell.html("Points"));
-            });
-            table.parseArray(teamScores, function(parentElement, ts)
-            {
-                parentElement.child("tr", row =>
-                {
-                    row.child("td", cell => cell.html(ETeam.properties[ts.teamID].name));
-                    row.child("td", cell => cell.html(ts.played));
-                    row.child("td", cell => cell.html(ts.dif));
-                    row.child("td", cell => cell.html(ts.pts));
-
-                });
-            });
-        });
 
         // // More info about config & dependencies:
         // // - https://github.com/hakimel/reveal.js#configuration
