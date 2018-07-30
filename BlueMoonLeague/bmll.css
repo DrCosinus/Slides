@@ -3,6 +3,65 @@ body
     font-family: Arial;
     background-color: midnightblue;
 }
+.bg
+{
+    position: absolute;
+    left: 100px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    color: rgba(214, 216, 88, 0.5);
+    box-shadow:
+        150px 240px 20px 0 currentColor,
+        300px 240px 20px 0 currentColor;
+    animation: kyf 5s infinite alternate;
+}
+
+@keyframes kyf
+{
+    /* 0%, 100% { box-shadow: 150px 240px, 300px 240px; } */
+    50% { box-shadow: 800px 60px, 950px 600px; }
+}
+
+.mustache
+{
+    position: absolute;
+    left: 100px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    color: black;
+    box-shadow:
+        150px 240px 0 0 currentColor,
+        300px 240px 0 0 currentColor;
+}
+.mustache::before
+{
+    content: "";
+    position: absolute;
+    left: 30px;
+    top: 120px;
+    width: 210px;
+    height: 120px;
+    border-bottom: solid 180px currentColor;
+    border-bottom-left-radius: 100%;
+    transform: rotate(-40deg);
+    transform-origin: right 210px;
+}
+.mustache::after
+{
+    content: "";
+    position: absolute;
+    left: 390px;
+    top: 120px;
+    width: 210px;
+    height: 120px;
+    border-bottom: solid 180px currentColor;
+    border-bottom-right-radius: 100%;
+    transform: rotate(40deg);
+    transform-origin: left 210px;
+}
+
 h1
 {
     color: cornflowerblue;
