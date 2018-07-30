@@ -29,7 +29,18 @@
                 <h2>Modern C++ Features</h2>
                 <h3>Past / Present / Future</h3>
             </section>
-
+<!--
+                   CCCCCCCCCCC                                 111          111    
+                 CCCCCCCCCCCCCC                              11111        11111    
+                CCCCC       CCC                            1111111      1111111    
+                CCCC                +++          +++      11  1111     11  1111    
+                CCCC                +++          +++          1111         1111    
+                CCCC            +++++++++++  +++++++++++      1111         1111    
+                CCCC            +++++++++++  +++++++++++      1111         1111    
+                CCCCC       CCC     +++          +++          1111         1111    
+                 CCCCCCCCCCCCCC     +++          +++          1111         1111    
+                   CCCCCCCCCCC                            111111111111 111111111111
+-->
             <section>
                 <section id="cpp11">
                     <h1>C++ 11</h1>
@@ -849,7 +860,18 @@
                     ### dynamic initializaion and destruction with concurrency(magic statics)
                 -->
             </section>
-            
+<!--
+                   CCCCCCCCCCC                                 111            4444  
+                 CCCCCCCCCCCCCC                              11111           44444  
+                CCCCC       CCC                            1111111         4444444  
+                CCCC                +++          +++      11  1111       4444 4444  
+                CCCC                +++          +++          1111      4444  4444  
+                CCCC            +++++++++++  +++++++++++      1111     4444444444444
+                CCCC            +++++++++++  +++++++++++      1111     4444444444444
+                CCCCC       CCC     +++          +++          1111            4444  
+                 CCCCCCCCCCCCCC     +++          +++          1111            4444  
+                   CCCCCCCCCCC                            111111111111        4444  
+-->
             <section>
                 <section>
                     <h1>C++ 14</h1>
@@ -968,7 +990,18 @@
                     <h2 data-category="stl">Dual-Range #(type:std::equal)#, #(type:std::is_permutation)#, #(type:std::mismatch)#</h2>
                 </section>
             </section>
-
+<!--
+                   CCCCCCCCCCC                                 111     7777777777777
+                 CCCCCCCCCCCCCC                              11111     7777777777777
+                CCCCC       CCC                            1111111             77777
+                CCCC                +++          +++      11  1111            7777
+                CCCC                +++          +++          1111           7777
+                CCCC            +++++++++++  +++++++++++      1111          7777
+                CCCC            +++++++++++  +++++++++++      1111          7777
+                CCCCC       CCC     +++          +++          1111         7777
+                 CCCCCCCCCCCCCC     +++          +++          1111         7777
+                   CCCCCCCCCCC                            111111111111     7777
+-->
             <section>
                 <section>
                     <h1>C++ 17</h1>
@@ -1097,10 +1130,50 @@
                 </section>
 
                 <section>
-                    <h2 data-category="functionality">About [[attributes]]</h2>
+                    <h2 data-category="functionality">#(attribute:fallthrough)#</h2>
                     <p>
-                        [[fallthrough]] attribute
+                        <!-- [[fallthrough]] attribute -->
+                        <article style="font-size:70%">
+                            The attribute-token #(attribute:fallthrough)# may be applied to a null statement that precedes a case of default label statement within a switch statement.
+                            <cppblock style="font-size:60%">
+                                void f(int n) {
+                                    void g(), h(), i();
+                                    switch (n) {
+                                    case 1:
+                                    case 2: // OK
+                                        g();
+                                        [[fallthrough]];
+                                    case 3: // OK
+                                        h();
+                                    case 4:
+                                        i();
+                                        [[fallthrough]]; // error: annotation does not directly precede switch label
+                                        j();
+                                    case 5: // warning: unannotated fall-through between switch labels
+                                        k();
+                                        [[fallthrough]]; // error: annotation does not directly precede switch label
+                                    }
+                                }
+                            </cppblock>
+                            To activate on clang:  <i>-Wimplicit-fallthrough</i>
+                        </article>
                     </p>
+                    <!-- <div style="position: absolute; top:0; left: 0; overflow:hidden; height:100%; width: 100%;">
+                        <div style="background-color: rgba(0, 128, 0, 0.5); width: 300px; display: inline-block; transform: translate(-50%, -50%) rotate(-45deg); font-size: 50%; font-weight: bold; position: absolute; top: 60px; left: 60px;">
+                            MANDATORY
+                        </div>
+                    </div> -->
+                    <div class="ribbon green topleft"><div>MANDATORY</div></div>
+                    <div class="ribbon yellow topright"><div>RECOMMENDED</div></div>
+                    <!-- <div style="position: absolute; top:0; right: 0; overflow:hidden; height:100%; width: 100%;">
+                        <div style="background-color: rgba(234, 238, 28, 0.5); width: 300px; display: inline-block; transform: translate(50%, -50%) rotate(45deg); font-size: 50%; font-weight: bold; position: absolute; top: 60px; right: 60px;">
+                            RECOMMENDED
+                        </div>
+                    </div> -->
+                </section>
+
+                <section>
+                    <h2 data-category="functionality">About [[attributes]]</h2>
                     <p>
                         [[nodiscard]] attribute
                     </p>

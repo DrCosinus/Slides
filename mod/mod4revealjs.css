@@ -1,4 +1,4 @@
-.header, .type, .keyword
+.header, .type, .keyword, .attribute
 {
     font-style: italic;
     background-color: rgba(255, 255, 255, 0.10);
@@ -7,7 +7,53 @@
     text-shadow: 0.05em 0.05em rgba(0, 0, 0, 0.575);
     border-radius: 5pt;
 }
-a > .header, a > .type, a > .keyword
+div.ribbon
+{
+    position: absolute;
+    top:0;
+    left: 0;
+    overflow:hidden;
+    height:100%;
+    width: 100%;
+}
+div.ribbon.topleft
+{
+    top:0;
+    left: 0;  
+}
+div.ribbon.topright
+{
+    top:0;
+    right: 0;
+}
+div.ribbon > div
+{
+    background-color: rgba(96, 96, 96, 0.5);
+    width: 300px;
+    display: inline-block;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 50%;
+    font-weight: bold;
+    position: absolute;
+    top: 60px;
+    left: 60px;
+}
+div.ribbon.topright > div
+{
+    transform: translate(50%, -50%) rotate(45deg);
+    top: 60px;
+    right: 60px;
+    left: unset; /* ignoring default left position */
+}
+div.ribbon.green > div
+{
+    background-color: rgba(0, 128, 0, 0.5);
+}
+div.ribbon.yellow > div
+{
+    background-color: rgba(234, 238, 28, 0.5);
+}
+a > .header, a > .type, a > .keyword, a > .attribute
 {
     all: unset;
 }
@@ -30,6 +76,18 @@ a > .header, a > .type, a > .keyword
 .type
 {
     color: cornflowerblue;
+}
+.attribute
+{
+    color: chocolate;
+}
+.attribute::before
+{
+    content: "[[";
+}
+.attribute::after
+{
+    content: "]]";
 }
 .code.hljs
 {
