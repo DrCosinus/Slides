@@ -49,13 +49,14 @@
 
                 <section>
                     <h2 data-category=functionality>#(keyword:alignas)# and #(keyword:alignof)#</h2>
-                    <div class="ribbon topright30 yellow"><div>USE WHEN NECESSARY</div></div>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
                     <aside class="notes">
-                        <header>
-                            <summary data-category="Current usage">not used a lot</summary>
-                            <summary data-category="Current directive">almost never recommended</summary>
-                            <summary data-category="Future directive">To use as soon as necessary</summary>
-                        </header>
+                        <ul>
+                            <li>Current usage: not used a lot</li>
+                            <li>Current directive: almost never recommended</li>
+                            <li>Future directive: To use as soon as necessary</li>
+                        </ul>
                     </aside>
                     <article>
                         C++11 allows variable alignment to be queried and controlled withs #(keyword:alignof)# and #(keyword:alignas)#.
@@ -71,11 +72,15 @@
 
                 <section>
                     <h2 data-category=stl>atomic operations</h2>
-                    <header>
-                        <summary data-category="Current usage">little used</summary>
-                        <summary data-category="Current directive">almost never recommended</summary>
-                        <summary data-category="Future directive">To use as soon as necessary</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <aside class="notes">
+                        <ul>
+                            <li>Current usage: little used</li>
+                            <li>Current directive: almost never recommended</li>
+                            <li>Future directive: To use as soon as necessary</li>
+                        </ul>
+                    </aside>
                     <article>
                         <p>
                             C++11 introduces the atomic operations library needed for lock-free concurential programmation.
@@ -94,11 +99,15 @@
 
                 <section>
                     <h2 data-category=usability>#(keyword:auto)#</h2>
-                    <header>
-                        <summary data-category="Current usage">very used</summary>
-                        <summary data-category="Current directive">recommended</summary>
-                        <summary data-category="Future directive">To use as soon as possible</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
+                    <aside class="notes">
+                        <ul>
+                            <li>Current usage: very used</li>
+                            <li>Current directive: recommended</li>
+                            <li>Future directive: To use as soon as possible</li>
+                        </ul>
+                    </aside>
                     <article>
                         <p>
                             C++11 allows type inference.
@@ -119,13 +128,19 @@
 
                 <section>
                     <h2 data-category=usability>#(keyword:decltype)#</h2>
-                    <header>
-                        <summary data-category="Current usage">uncommon</summary>
-                        <summary data-category="Current directive">rarely needed (TMP)</summary>
-                        <summary data-category="Future directive">To use as soon as necessary (TMP)</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <aside class="notes">
+                        <ul>
+                            <li>Current usage: uncommon</li>
+                            <li>Current directive: rarely needed</li>
+                            <li>Future directive: To use as soon as necessary</li>
+                        </ul>
+                    </aside>
                     <article>
-                        The keyword #(keyword:decltype)# can be used to determine the type of expression at compile-time.
+                        <p>
+                            The keyword #(keyword:decltype)# can be used to determine the type of expression at compile-time.
+                        </p>
                         <cppblock>
                             unsigned int some_int;
                             decltype(some_int) other_integer_variable = 5;
@@ -135,20 +150,24 @@
 
                 <section>
                     <h2 data-category="rtperf">#(keyword:constexpr)#</h2>
-                    <header>
-                        <summary data-category="Current usage">Used</summary>
-                        <summary data-category="Current directive">sometimes recommended</summary>
-                        <summary data-category="Future directive">to use</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
+                    <aside class="notes">
+                        <ul>
+                            <li>Current usage: used</li>
+                            <li>Current directive: sometimes recommended</li>
+                            <li>Future directive: To use</li>
+                        </ul>
+                    </aside>
                     <article>
-                        <p style="font-size: 80%">
+                        <p>
                             C++11 introduced the keyword constexpr, which allows the user to guarantee that a function or object constructor is a compile-time constant.
                             So, a constant expression is allowed to contain a function call or object constructor (the compiler can verify that it is compile-time constant).
                         </p>
-                        <p style="font-size: 80%">
+                        <p>
                             In C++11, there are some limitations for constexpr functions and constructors (non-void return type, no variable declarations or new types in the function body, only one return statement).
                         </p>
-                        <p style="font-size: 80%">
+                        <p>
                             If it is called with not constant expression arguments, the call behaves as if the function were not constexpr, and the resulting value is not a constant expression.
                             Likewise, if the expression in the return statement of a constexpr function does not evaluate to a constant expression for a given invocation, the result is not a constant expression.
                         </p>
@@ -163,11 +182,13 @@
 
                 <section>
                     <h2 data-category=functionality>Defaulted &amp; deleted functions</h2>
-                    <header>
-                        <summary data-category="Current usage">used</summary>
-                        <summary data-category="Current directive">often recommended</summary>
-                        <summary data-category="Future directive">To use whenever possible</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
+                    <aside class="notes">
+                        Current usage: used<br/>
+                        Current directive: often recommended<br/>
+                        Future directive: to use whenever possible
+                    </aside>
                     <article>
                         C++11 allows the explicit defaulting and deleting of special member functions.
                         <cppblock>
@@ -185,16 +206,18 @@
                         </cppblock>
                     </article>
                 </section>
-
+                
                 <section>
                     <h2 no-toc>Defaulted &amp; deleted functions</h2>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
                     <article>
                         The #(code:= delete)# specifier can be used to prohibit calling any function, which can be used to disallow calling a member function with particular parameters (and to guard against implicit cast).
                         <cppblock style="font-size: 90%;">
                             struct Foo
                             {
-                              Foo(double) {}
-                              Foo(int) = delete;                      // &lt;== guard from conversion from int
+                                Foo(double) {}
+                                Foo(int) = delete;                      // &lt;== guard from conversion from int
                             };
                             struct Bar
                             {
@@ -207,11 +230,13 @@
 
                 <section>
                     <h2 data-category=usability>Delegating constructors</h2>
-                    <header>
-                        <summary data-category="Current usage">not used a lot</summary>
-                        <summary data-category="Current directive">sometimes recommended</summary>
-                        <summary data-category="Future directive">To be used as soon as possible</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
+                    <aside class="notes">
+                        Current usage: not used a lot<br/>
+                        Current directive: sometimes recommended<br/>
+                        Future directive: To be used as soon as possible
+                    </aside>
                     <article>
                         C++11 allows constructors to call other peer constructors.
                         <cppblock>
@@ -228,11 +253,13 @@
 
                 <section>
                     <h2 data-category=usability>inheriting constructors</h2>
-                    <header>
-                        <summary data-category="Current usage">Not used a lot</summary>
-                        <summary data-category="Current directive">Sometimes recommended</summary>
-                        <summary data-category="Future directive">To be used as soon as possible</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
+                    <aside class="notes">
+                        Current usage: not used a lot<br/>
+                        Current directive: sometimes recommended<br/>
+                        Future directive: to be used as soon as possible
+                    </aside>
                     <article>
                         C++11 allows a class to specify that base class constructors will be inherited.
                         <cppblock style="font-size: 80%">
@@ -256,11 +283,13 @@
 
                 <section>
                     <h2 data-category=usability>#(keyword:nullptr)#</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon mandatory"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">very used</summary>
                         <summary data-category="Current directive">mandatory</summary>
                         <summary data-category="Future directive">mandatory</summary>
-                    </header>
+                    </aside>
                     <article>
                         C++11 introduces a new keyword to serve as a distinguished null pointer constant: #(keyword:nullptr)#.
                         It is of type #(type:std::nullptr_t)#, which is implicitly convertible and comparable to any pointer type or pointer-to-member type.
@@ -270,11 +299,13 @@
 
                 <section>
                     <h2 data-category=functionality>#(keyword:static_assert)#</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">used</summary>
                         <summary data-category="Current directive">recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
-                    </header>
+                    </aside>
                     <article>
                         C++11 introduces a new way to test assertions at compile-time, using the new keyword #(keyword:static_assert)#.
                         <cppblock style="font-size: 80%">
@@ -298,11 +329,13 @@
 
                 <section>
                     <h2 data-category=usability>Strongly-typed enumerations</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">used if not to be serializable</summary>
                         <summary data-category="Current directive">recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
-                    </header>
+                    </aside>
                     <article style="text-align: left; font-size: 60%;">
                         <p>
                             C++11 provides strongly-typed enumerations:
@@ -331,12 +364,15 @@
 
                 <section>
                     <h2 data-category=functionality>Template aliases</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon mandatory"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">used => #(keyword:typedef)# is deprecated</summary>
                         <summary data-category="Current directive">recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
-                    </header>
+                    </aside>
                     <article>
+                        <p>The keyword #(keyword:typedef)# is deprecated.</p>
                         C++11 allows to create templated synonym for template type.
                         The template parameters of the synonym can be different of the template parameters of the original type.<br>
                         <cppblock style="font-size: 90%">
@@ -357,11 +393,13 @@
 
                 <section>
                     <h2 data-category=functionality>variadic templates</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">very little used</summary>
                         <summary data-category="Current directive">never recommended</summary>
                         <summary data-category="Future directive">recommended for specific use</summary>
-                    </header>
+                    </aside>
                     <article>
                         In C++11, templates can take variable numbers of template parameters.<br>
                         This also allows the definition of type-safe variadic functions
@@ -370,11 +408,13 @@
 
                 <section>
                     <h2 data-category=functionality>extern templates</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">very little used</summary>
                         <summary data-category="Current directive">very little recommended</summary>
                         <summary data-category="Future directive">recommended if needed</summary>
-                    </header>
+                    </aside>
                     <article>
                         C++11 provdied a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the template in this translation unit.
                     </article>
@@ -382,11 +422,13 @@
     
                 <section>
                     <h2 data-category=functionality>Thread-local storage</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">...</summary>
                         <summary data-category="Current directive">...</summary>
                         <summary data-category="Future directive">...</summary>
-                    </header>
+                    </aside>
                     <article>
                         C++11 introduces the keyword #(keyword:thread_local)#.<br>
                         Any object which could have static storage duration may be given thread-local duration instead.<br>
@@ -397,11 +439,13 @@
 
                 <section>
                     <h2 data-category=usability>unrestricted unions</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">...</summary>
                         <summary data-category="Current directive">...</summary>
                         <summary data-category="Future directive">...</summary>
-                    </header>
+                    </aside>
                     <article>
                         C++11 lifts some restrictions on what types can me members of a #(keyword:union)#.
                         Unions can now have member with non trivial special member functions but it must be <u>manually defined</u>.
@@ -426,11 +470,13 @@
 
                 <section>
                     <h2 data-category=usability>non-static data member initializers</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">rarely used</summary>
                         <summary data-category="Current directive">sometimes recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
-                    </header>
+                    </aside>
                     <article>
                         C++11 allow to assign a default value to non-static data members.
                         Each constructor will initialize these members with the default value only if it does not override the initialization with its own.
@@ -449,11 +495,13 @@
 
                 <section>
                     <h2 data-category=usability>Range-for loop</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">very use</summary>
                         <summary data-category="Current directive">recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
-                    </header>
+                    </aside>
                     <article>
                         C++11 extends the syntax of the #(keyword:for)# statement to allow for easy iteration over a range of elements.
                         <cppblock>
@@ -469,11 +517,13 @@
 
                 <section>
                     <h2 data-category=usability>lambda expressions</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">very use</summary>
                         <summary data-category="Current directive">recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
-                    </header>
+                    </aside>
                     <article>
                         <p>
                             C++11 provides the ability to create anonymous functions, called lambda functions.
@@ -504,12 +554,17 @@
 
                 <section>
                     <h2 data-category=usability>#(keyword:override)# and #(keyword:final)#</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon mandatory"></div>
+                    <aside class="notes">
                         <summary data-category="Current usage">compilation error if #(keyword:override)# is missing</summary>
                         <summary data-category="Current directive">#(keyword:override)# is mandatory</summary>
                         <summary data-category="Future directive">#(keyword:override)# is mandatory</summary>
-                    </header>
+                    </aside>
                     <article>
+                        <p>
+                            #(keyword:override)# is mandatory
+                        </p>
                         <p>
                             C++11 provides syntax to prevent from bad virtual function overriding.
                         </p>

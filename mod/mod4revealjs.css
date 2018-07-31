@@ -13,27 +13,8 @@
 }
 div.ribbon
 {
-    position: absolute;
-    top:0;
-    left: 0;
-    overflow:hidden;
-    height:100%;
-    width: 100%;
-}
-div.ribbon.topleft
-{
-    top:0;
-    left: 0;  
-}
-div.ribbon.topright
-{
-    top:0;
-    right: 0;
-}
-div.ribbon > div
-{
     background-color: rgba(96, 96, 96, 0.5);
-    width: 300px;
+    width: 500px;
     display: inline-block;
     transform: translate(-50%, -50%) rotate(-45deg);
     font-size: 50%;
@@ -41,29 +22,65 @@ div.ribbon > div
     position: absolute;
     top: 60px;
     left: 60px;
-    text-shadow: 2px 2px black;
+    text-shadow: 0 0 3px black;
+    border: 1px solid black;
 }
-div.ribbon.topright > div
+
+div.ribbon.topright
 {
     transform: translate(50%, -50%) rotate(45deg);
     top: 60px;
     right: 60px;
     left: unset; /* ignoring default left position */
 }
-div.ribbon.topright30 > div
+div.ribbon.topright30, div.ribbon.recommended, div.ribbon.whenneeded, div.ribbon.mandatory, div.ribbon.forbidden
 {
     transform: translate(50%, -50%) rotate(30deg);
     top: 60px;
     right: 97px;
     left: unset; /* ignoring default left position */
 }
-div.ribbon.green > div
+div.ribbon.cpp11 /* top left 30° */
+{
+    transform: translate(-50%, -50%) rotate(-30deg);
+    top: 40px;
+    left: 55px;
+}
+div.ribbon.recommended
 {
     background-color: rgba(0, 128, 0, 0.75);
 }
-div.ribbon.yellow > div
+div.ribbon.recommended::after
 {
-    background-color: rgba(234, 238, 28, 0.75);
+    content: "RECOMMENDED";
+}
+div.ribbon.mandatory
+{
+    background-color: rgba(29, 197, 99, 0.75);
+    color: yellow;
+    font-size: 90%;
+}
+div.ribbon.mandatory::after
+{
+    content: "MANDATORY";
+}
+div.ribbon.whenneeded
+{
+    background-color: rgba(173, 179, 17, 0.75);
+    color: white;
+}
+div.ribbon.whenneeded::after
+{
+    content: "USE WHEN NEEDED";
+}
+div.ribbon.cpp11
+{
+    background-color: rgba(214, 27, 199, 0.75);
+    color: white;
+}
+div.ribbon.cpp11::after
+{
+    content: "C++11";
 }
 .reveal a > .header, .reveal a > .type, .reveal a > .keyword, .reveal a > .attribute
 {
@@ -127,6 +144,11 @@ cppblock.hljs
     max-height: 100%;
     height: 100%;
 }
+.reveal section section
+{
+    overflow: hidden;
+}
+
 .reveal section section header
 {
     display: unset;
