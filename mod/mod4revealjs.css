@@ -1,11 +1,15 @@
-.header, .type, .keyword, .attribute
+.reveal .header, .reveal .type, .reveal .keyword, .reveal .attribute
 {
     font-style: italic;
     background-color: rgba(255, 255, 255, 0.10);
-    padding-left: 2pt;
-    padding-right: 5pt;
+    padding-left: 0.1em;
+    padding-right: 0.3em;
     text-shadow: 0.05em 0.05em rgba(0, 0, 0, 0.575);
     border-radius: 5pt;
+    box-shadow:
+     0 0 3px 1px,
+     inset 2px 2px 2px white,
+     inset -2px -2px 2px black;
 }
 div.ribbon
 {
@@ -37,6 +41,7 @@ div.ribbon > div
     position: absolute;
     top: 60px;
     left: 60px;
+    text-shadow: 2px 2px black;
 }
 div.ribbon.topright > div
 {
@@ -45,15 +50,22 @@ div.ribbon.topright > div
     right: 60px;
     left: unset; /* ignoring default left position */
 }
+div.ribbon.topright30 > div
+{
+    transform: translate(50%, -50%) rotate(30deg);
+    top: 60px;
+    right: 97px;
+    left: unset; /* ignoring default left position */
+}
 div.ribbon.green > div
 {
-    background-color: rgba(0, 128, 0, 0.5);
+    background-color: rgba(0, 128, 0, 0.75);
 }
 div.ribbon.yellow > div
 {
-    background-color: rgba(234, 238, 28, 0.5);
+    background-color: rgba(234, 238, 28, 0.75);
 }
-a > .header, a > .type, a > .keyword, a > .attribute
+.reveal a > .header, .reveal a > .type, .reveal a > .keyword, .reveal a > .attribute
 {
     all: unset;
 }
@@ -75,7 +87,7 @@ a > .header, a > .type, a > .keyword, a > .attribute
 }
 .type
 {
-    color: cornflowerblue;
+    color: violet;
 }
 .attribute
 {
@@ -160,11 +172,14 @@ cppblock.hljs
     all: unset;
     display: block;
     font-size: 1.10em;
-    margin-top: 0em;
+    margin-top: -20px;
     margin-bottom: 0.5em;
     margin-left: 0;
     margin-right: 0;
     font-weight: bold;
+    background-color: dodgerblue;
+    border-bottom: 5px solid deepskyblue;
+    padding: 0.5em 0;
 }
 .reveal section section nav[data-auto]
 {

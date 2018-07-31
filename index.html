@@ -49,11 +49,14 @@
 
                 <section>
                     <h2 data-category=functionality>#(keyword:alignas)# and #(keyword:alignof)#</h2>
-                    <header>
-                        <summary data-category="Current usage">not used a lot</summary>
-                        <summary data-category="Current directive">almost never recommended</summary>
-                        <summary data-category="Future directive">To use as soon as necessary</summary>
-                    </header>
+                    <div class="ribbon topright30 yellow"><div>USE WHEN NECESSARY</div></div>
+                    <aside class="notes">
+                        <header>
+                            <summary data-category="Current usage">not used a lot</summary>
+                            <summary data-category="Current directive">almost never recommended</summary>
+                            <summary data-category="Future directive">To use as soon as necessary</summary>
+                        </header>
+                    </aside>
                     <article>
                         C++11 allows variable alignment to be queried and controlled withs #(keyword:alignof)# and #(keyword:alignas)#.
                         The #(keyword:alignof)# operator takes the type and returns the power of 2 byte boundary on which the type instances must be allocated (as a #(type:std::size_t)#).
@@ -176,8 +179,8 @@
                             struct NonCopyable
                             {
                                 NonCopyable() = default;
-                                NonCopyable(const NonCopiable&amp;) = delete;
-                                NonCopyable&amp; operator=(const NonCopiable&amp;) = delete;
+                                NonCopyable(const NonCopyable&amp;) = delete;
+                                NonCopyable&amp; operator=(const NonCopyable&amp;) = delete;
                             };
                         </cppblock>
                     </article>
@@ -500,7 +503,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category=usability>override and final</h2>
+                    <h2 data-category=usability>#(keyword:override)# and #(keyword:final)#</h2>
                     <header>
                         <summary data-category="Current usage">compilation error if #(keyword:override)# is missing</summary>
                         <summary data-category="Current directive">#(keyword:override)# is mandatory</summary>
@@ -615,7 +618,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category=functionality>noexcept</h2>
+                    <h2 data-category=functionality>#(keyword:noexcept)#</h2>
                     <header>
                         <summary data-category="Current usage">almost not used</summary>
                         <summary data-category="Current directive">no recommendation</summary>
@@ -742,7 +745,7 @@
                     <article>
                         C++11 improves the specification of the parser so that multiple right angle brackets will be interpreted as closing the template argument list where it is reasonable.
                         This can be overridden by using parentheses around parameter expressions using the <q>></q>, <q>>=</q> or <q>>></q> binary operators:
-                        <cppblock>
+                        <cppblock style="font-size: 90%">
                             template&lt;bool Test> class SomeType;
                             std::vector&lt;SomeType&lt;1>2>> x1;  // Interpreted as a std::vector of SomeType&lt;true>,
                                 // followed by "2 >> x1", which is not valid syntax for a declarator. 1 is true.
@@ -1280,6 +1283,7 @@
             height: 720,
             margin: 0.025,
             history: true,
+            mouseWheel: true,
         });
     </script>
 </body>
