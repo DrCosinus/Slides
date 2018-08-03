@@ -76,7 +76,7 @@ document.querySelectorAll("cppblock").forEach(function(block)
 // converting #(CLASS:VALUE) to <span class="CLASS">VALUE</span>
 document.querySelectorAll("article, h2, summary").forEach(function(element)
 {
-    element.innerHTML = element.innerHTML.replace(/#\((.*?):(.*?)\)#/g, "<span class=\"$1\">$2</span>");
+    element.innerHTML = element.innerHTML.replace(/#\((.*?):(.*?)\)#/g, "<span class=\"$1 emphasis\">$2</span>");
 });
 
 document.querySelectorAll(".slides > section > section > nav[data-auto]").forEach(function(toc)
