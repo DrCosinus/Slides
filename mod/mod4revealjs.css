@@ -204,6 +204,9 @@ div.ribbon.cpp11::after
     font-size: 80%;
     height: 660px;
     padding: 0.5em;
+    align-items: center;
+    grid-gap: 0.5em;
+    font-size: 110%;
 }
 .reveal section section summary
 {
@@ -220,15 +223,13 @@ div.ribbon.cpp11::after
     display: block;
     content: attr(data-category);
 }
-/* .reveal section article p
+.reveal section article > p
 {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-} */
-.reveal section article p + p
+    margin: 0;
+}
+.reveal section article > p cppblock, .reveal section article > div cppblock
 {
-    margin-top: 0;
+    font-size: 50%;
 }
 .reveal section section nav[data-auto]
 {

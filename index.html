@@ -126,9 +126,7 @@
                             The definition of a variable with an explicit initialization can use the #(keyword:auto)# keyword.<br>
                         </p>
                         <p>
-                            <p>
-                                This creates a variable of the specific type of the initializer:
-                            </p>
+                            This creates a variable of the specific type of the initializer:
                             <cppblock style="font-size: 50%">
                                 auto some_strange_callable_type = std::bind(&amp;some_function, _2, _1, some_object);
                                 auto other_variable = 5;
@@ -151,12 +149,10 @@
                             <li>Future directive: To use as soon as necessary</li>
                         </ul>
                     </aside>
-                    <article>
+                    <article style="font-size: 110%">
                         <p>
                             The keyword #(keyword:decltype)# can be used to determine the type of expression at compile-time.
-                        </p>
-                        <p>
-                            <cppblock>
+                            <cppblock style="font-size: 50%">
                                 unsigned int some_int;
                                 decltype(some_int) other_integer_variable = 5;
                             </cppblock>
@@ -175,18 +171,24 @@
                             <li>Future directive: To use</li>
                         </ul>
                     </aside>
-                    <article style="font-size: 70%">
+                    <article style="font-size: 110%">
                         <p>
-                            C++11 introduced the keyword constexpr, which allows the user to guarantee that a function or object constructor is a compile-time constant.
-                            So, a constant expression is allowed to contain a function call or object constructor (the compiler can verify that it is compile-time constant).
+                            <!-- C++11 introduced the keyword #(keyword:constexpr)#, which allows the user to guarantee that a function or object constructor is a compile-time constant. -->
+                            C++11 introduced the keyword #(keyword:constexpr)#.
                         </p>
                         <p>
-                            In C++11, there are some limitations for constexpr functions and constructors (non-void return type, no variable declarations or new types in the function body, only one return statement).
+                            The user can express that a function is a compile-time constant.
+                            <!-- So, a constant expression is allowed to contain a function call or object constructor (the compiler can verify that it is compile-time constant). -->
                         </p>
                         <p>
-                            If it is called with not constant expression arguments, the call behaves as if the function were not constexpr, and the resulting value is not a constant expression.
-                            Likewise, if the expression in the return statement of a constexpr function does not evaluate to a constant expression for a given invocation, the result is not a constant expression.
-                            <cppblock style="font-size: 80%">
+                            <!-- In C++11, there are some limitations for constexpr functions and constructors (non-void return type, no variable declarations or new types in the function body, only one return statement). -->
+                            There are some limitations.
+                        </p>
+                        <p>
+                            If it is called with not constant expression arguments, the call behaves as if the function were not constexpr.
+                            <!-- If it is called with not constant expression arguments, the call behaves as if the function were not constexpr, and the resulting value is not a constant expression. -->
+                            <!-- Likewise, if the expression in the return statement of a constexpr function does not evaluate to a constant expression for a given invocation, the result is not a constant expression. -->
+                            <cppblock style="font-size: 50%">
                                 constexpr int siz() { return 42; }
                                 int array[siz() + 17]; // illformed if siz() is not constexpr
                                 template&lt;int I&gt; struct Bar {};
@@ -208,9 +210,7 @@
                     <article>
                         <p>
                             C++11 allows the explicit defaulting and deleting of special member functions.
-                        </p>
-                        <p>
-                            <cppblock style="font-size: 80%">
+                            <cppblock>
                                 struct Foo
                                 {
                                     Foo() = default; // explicit instantiantion of default constructor
@@ -234,9 +234,7 @@
                     <article>
                         <p>
                             The #(code:= delete)# specifier can be used to prohibit calling any function, which can be used to disallow calling a member function with particular parameters (and to guard against implicit cast).
-                        </p>
-                        <p>
-                            <cppblock style="font-size: 90%;">
+                            <cppblock>
                                 struct Foo
                                 {
                                     Foo(double) {}
@@ -264,8 +262,6 @@
                     <article>
                         <p>
                             C++11 allows constructors to call other peer constructors.
-                        </p>
-                        <p>
                             <cppblock>
                                 struct Foo
                                 {
@@ -291,9 +287,7 @@
                     <article>
                         <p>
                             C++11 allows a class to specify that base class constructors will be inherited.
-                        </p>
-                        <p>
-                            <cppblock style="font-size: 70%">
+                            <cppblock>
                                 struct Parent
                                 {
                                     explicit Parent(int _value) : value_{_value} {}
@@ -322,7 +316,7 @@
                         <summary data-category="Current directive">mandatory</summary>
                         <summary data-category="Future directive">mandatory</summary>
                     </aside>
-                    <article style="font-size: 120%;">
+                    <article>
                         <p>
                             C++11 introduces a new keyword to serve as a distinguished null pointer constant: #(keyword:nullptr)#.
                         </p>
@@ -345,11 +339,9 @@
                         <summary data-category="Future directive">recommended</summary>
                     </aside>
                     <article>
-                        <p style="font-size: 120%">
+                        <div>
                             C++11 introduces a new way to test assertions<br>at compile-time,using the new keyword #(keyword:static_assert)#.
-                        </p>
-                        <p>
-                            <cppblock style="font-size: 60%">
+                            <cppblock>
                                 static_assert((MC_PI > 3.14) && (MC_PI < 3.15), "MC_PI is inaccurate!");
 
                                 template&lt;typename T>
@@ -365,7 +357,7 @@
                                     "foo() parameter must be an integral type.");
                                 }
                             </cppblock>
-                        </p>
+                        </div>
                     </article>
                 </section>
 
@@ -378,28 +370,28 @@
                         <summary data-category="Current directive">recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
                     </aside>
-                    <article style="text-align: left; font-size: 60%;">
-                        <p>
+                    <article style="text-align: left; font-size: 100%;">
+                        <div>
                             C++11 provides strongly-typed enumerations:
-                            <ul>
+                            <ul style=" font-size: 50%;">
                                 <li>it can not be used for/assigned to/compared with another enumeration.</li>
                                 <li>it is not implicitly converted to #(type:int)#.</li>
                                 <li>there is no risk of name collisions due to the need to use scope resolution operator to access values,</li>
                                 <li>the underlying type can be overridden to a different integral type (#(type:int)# by default)</li>
                             </ul>
-                        </p>
-                        <p>
-                            Forward-declaring enums is possible in C+11. As long as the size of the enumeration is specified either implicitly or explicitly, it can be forward-declared:
-                            <cppblock style=" font-size: 70%;">
-                                enum Enum1;                      // Invalid in C++03 and C++11; the underlying type cannot be determined.
-                                enum Enum2 : unsigned int;       // Valid in C++11, the underlying type is specified explicitly.
-                                enum class Enum3;                // Valid in C++11, the underlying type is int.
-                                enum class Enum4 : unsigned int; // Valid in C++11.
-                                enum Enum2 : unsigned short;     // Invalid in C++11, because Enum2 was formerly declared with a different underlying type.
+                        </div>
+                        <div>
+                            In C+11, as long as the size of the enumeration is specified implicitly or explicitly, it can be forward-declared:
+                            <cppblock>
+                                enum Enum1;                  // Invalid in C++03 and C++11; the underlying type cannot be determined.
+                                enum Enum2 : unsigned int;   // Valid in C++11, the underlying type is specified explicitly.
+                                enum class Enum3;            // Valid in C++11, the underlying type is int.
+                                enum class Enum4 : int;      // Valid in C++11.
+                                enum Enum2 : unsigned short; // Invalid in C++11, Enum2 was formerly declared with other underlying type.
                             </cppblock>
-                        </p>
+                        </div>
                         <p>
-                            C++11 allows the forward-declaration, the use of the scope resolution operator, and the choice of the underlying type <strong>even for old-style enumerations</strong>.
+                            The forward-declaration, the scope resolution operator, and the choice of the underlying type are available <strong>even for old-style enumerations</strong>.
                         </p>
                     </article>
                 </section>
@@ -414,22 +406,24 @@
                         <summary data-category="Future directive">recommended</summary>
                     </aside>
                     <article>
-                        <p>The keyword #(keyword:typedef)# is deprecated.</p>
-                        C++11 allows to create templated synonym for template type.
-                        The template parameters of the synonym can be different of the template parameters of the original type.<br>
-                        <cppblock style="font-size: 90%">
-                            template&lt;typename First, typename Second, int Third>
-                            class SomeType;
+                        <div>
+                            <!-- <p>The keyword #(keyword:typedef)# is deprecated.</p> -->
+                            C++11 allows to create templated synonym for template type.
+                            The template parameters of the synonym can be different of the template parameters of the original type.<br>
+                            <cppblock>
+                                template&lt;typename First, typename Second, int Third>
+                                class SomeType;
 
-                            template&lt;typename Second>
-                            using TypedefName = SomeType&lt;OtherType, Second, 5>;
-                        </cppblock>
-                        The syntax is generalized to define any synonym type in a more intuitively readable manner.
-                        <cppblock style="font-size: 90%">
-                            typedef void (*OldFunctionType)(double);  // <== old style. tricky to read 
+                                template&lt;typename Second>
+                                using TypedefName = SomeType&lt;OtherType, Second, 5>;
+                            </cppblock>
+                            The syntax is generalized to define any synonym type in a more intuitively readable manner.
+                            <cppblock>
+                                typedef void (*OldFunctionType)(double);  // <== old style. tricky to read 
 
-                            using NewFunctionType = void (*)(double); // <== new style. more obvious
-                        </cppblock>
+                                using NewFunctionType = void (*)(double); // <== new style. more obvious
+                            </cppblock>
+                        </div>
                     </article>
                 </section>
 
