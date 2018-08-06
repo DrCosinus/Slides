@@ -452,7 +452,9 @@
                         <summary data-category="Future directive">recommended if needed</summary>
                     </aside>
                     <article>
-                        C++11 provdied a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the template in this translation unit.
+                        <p>
+                            C++11 provides a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the template in this translation unit.
+                        </p>
                     </article>
                 </section>
     
@@ -466,10 +468,14 @@
                         <summary data-category="Future directive">...</summary>
                     </aside>
                     <article>
-                        C++11 introduces the keyword #(keyword:thread_local)#.<br>
-                        Any object which could have static storage duration may be given thread-local duration instead.<br>
-                        Each thread holds its own copy of such variables.<br>
-                        Lifetime of each copies of these variables is bound to the thread holding them.
+                        <p>
+                            C++11 introduces the keyword #(keyword:thread_local)#.<br>
+                            Any object which could have static storage duration may be given thread-local duration instead.<br>
+                        </p>
+                        <p>
+                            Each thread holds its own copy of such variables.<br>
+                            Lifetime of each copies of these variables is bound to the thread holding them.
+                        </p>
                     </article>
                 </section>
 
@@ -483,24 +489,26 @@
                         <summary data-category="Future directive">...</summary>
                     </aside>
                     <article>
-                        C++11 lifts some restrictions on what types can me members of a #(keyword:union)#.
-                        Unions can now have member with non trivial special member functions but it must be <u>manually defined</u>.
-                        <cppblock style="font-size:65%;">
-                            #include &lt;new> // Needed for placement 'new'.
-                            struct Point {
-                                Point() {}
-                                Point(int _x, int _y): x_(_x), y_(_y) {}
-                                int x_, y_;
-                            };
-                            union U {
-                                int z;
-                                double w;
-                                Point p;
-                                U() {} // Due to the Point member, a constructor definition is needed.
-                                U(const Point& pt) : p(pt) {} // Construct Point object using initializer list.
-                                U& operator=(const Point& pt) { new(&p) Point(pt); return *this; } // Assign Point object using placement 'new'.
-                            };
-                        </cppblock>
+                        <p>
+                            C++11 lifts some restrictions on what types can me members of a #(keyword:union)#.
+                            Unions can now have member with non trivial special member functions but it must be <u>manually defined</u>.
+                            <cppblock style="font-size:40%;">
+                                #include &lt;new> // Needed for placement 'new'.
+                                struct Point {
+                                    Point() {}
+                                    Point(int _x, int _y): x_(_x), y_(_y) {}
+                                    int x_, y_;
+                                };
+                                union U {
+                                    int z;
+                                    double w;
+                                    Point p;
+                                    U() {} // Due to the Point member, a constructor definition is needed.
+                                    U(const Point& pt) : p(pt) {} // Construct Point object using initializer list.
+                                    U& operator=(const Point& pt) { new(&p) Point(pt); return *this; } // Assign Point object using placement 'new'.
+                                };
+                            </cppblock>
+                        </p>
                     </article>
                 </section>
 
@@ -514,8 +522,12 @@
                         <summary data-category="Future directive">recommended</summary>
                     </aside>
                     <article>
-                        C++11 allow to assign a default value to non-static data members.
-                        Each constructor will initialize these members with the default value only if it does not override the initialization with its own.
+                        <p>
+                            C++11 allow to assign a default value to non-static data members.
+                        </p>
+                        <p>
+                            Each constructor will initialize these members with the default value only if it does not override the initialization with its own.
+                        </p>
                     </article>
                     <cppblock style="font-size:60%">
                         struct Foo
@@ -539,15 +551,17 @@
                         <summary data-category="Future directive">recommended</summary>
                     </aside>
                     <article>
-                        C++11 extends the syntax of the #(keyword:for)# statement to allow for easy iteration over a range of elements.
-                        <cppblock>
-                            int my_array[5] = {1, 2, 3, 4, 5};
-                            // double the value of each element in my_array:
-                            for (int& x : my_array)
-                            {
-                                x *= 2;
-                            }
-                        </cppblock>
+                        <p>
+                            C++11 extends the syntax of the #(keyword:for)# statement to allow for easy iteration over a range of elements.
+                            <cppblock>
+                                int my_array[5] = {1, 2, 3, 4, 5};
+                                // double the value of each element in my_array:
+                                for (int& x : my_array)
+                                {
+                                    x *= 2;
+                                }
+                            </cppblock>
+                        </p>
                     </article>
                 </section>
 
@@ -560,23 +574,27 @@
                         <summary data-category="Current directive">recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
                     </aside>
-                    <article>
+                    <article style="font-size:90%">
                         <p>
-                            C++11 provides the ability to create anonymous functions, called lambda functions.
-                        </p>
-                        <p>
-                            These are defined as follows: #(code:[](int x, int y) -> int { return x + y; })#
-                        </p>
-                        <p>
-                            The return type can be omitted when all #(keyword:return)# returns the same type: #(code:[](int x, int y) { return x + y; })#
-                        </p>
-                        <p>
-                            The type of a lambda is unspecified. User must use #(keyword:auto)#:
-                            #(code:auto lambda = [](int x, int y) { return x + y; })#
+                            Lambda are anonymous functions defined as follows:
+                            <cppblock>
+                                [](int x, int y) -> int { return x + y; }
+                            </cppblock>
                         </p>
                         <p>
                             A lambda can capture variables (by copy or by reference):
-                            #(code:[copy, &amp;ref](int x) { ref = x + copy; })#
+                            <cppblock>
+                                [copy, &amp;ref](int x) { ref = x + copy; }
+                            </cppblock>
+                        </p>
+                        <p>
+                            The return type can be omitted.
+                             <!-- when all #(keyword:return)# returns the same type: #(code:[](int x, int y) { return x + y; })# -->
+                        </p>
+                        <p>
+                            The type of a lambda is unspecified.
+                            <!-- User must use #(keyword:auto)#. -->
+                            <!-- #(code:auto lambda = [](int x, int y) { return x + y; })# -->
                         </p>
                         <p>
                             A lamba which capture no variable can be converted into a function pointer:
@@ -589,7 +607,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category=usability>#(keyword:override)# and #(keyword:final)#</h2>
+                    <h2 data-category=usability>#(keyword:override)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon mandatory"></div>
                     <aside class="notes">
@@ -599,25 +617,33 @@
                     </aside>
                     <article>
                         <p>
-                            #(keyword:override)# is mandatory
+                            Prevent from bad virtual function overriding.
                         </p>
                         <p>
-                            C++11 provides syntax to prevent from bad virtual function overriding.
-                        </p>
-                        <p>
-                            The #(keyword:override)# special identifier means that the compiler will check the base classes to see if there is a vistual function with this exact signature.
+                            The compiler will check the base classes to see if there is a virtual function with this exact signature.
                             If there is not, the compiler will indicate an error.
-                        </p>
-                        <cppblock style="font-size: 80%">
-                            struct Base
-                            { virtual void foo(float);
-                            };
-                            struct Derived : Base
-                            { void foo(int) override; // error: doesn't override a base class method
+                            <cppblock>
+                                struct Base
+                                { virtual void foo(float);
+                                };
+                                struct Derived : Base
+                                { void foo(int) override; // error: doesn't override a base class method
                             };
                         </cppblock>
+                    </p>
+                    <p>
+                        #(keyword:override)# is mandatory
+                    </p>
+                    </article>
+                </section>
+
+                <section>
+                    <h2 data-category=usability>#(keyword:final)#</h2>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon mandatory"></div>
+                    <article>
                         <p>
-                            C+11 also adds the ability to prevent inheriting from classes or simply preventing overriding method in derived classes.
+                            Prevent inheriting from classes or simply preventing overriding method in derived classes.
                             This is done with special identifier #(keyword:final)#.
                         </p>
                     </article>
@@ -625,11 +651,8 @@
 
                 <section>
                     <h2 data-category="rtperf">rvalue reference and move semantics</h2>
-                    <header data-category="core language runtime performance">
-                        <summary data-category="Current usage">use</summary>
-                        <summary data-category="Current directive">recommended if needed</summary>
-                        <summary data-category="Future directive">recommended if needed</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
                     <article>
                         <p>
                             C++11 adds a new non-const reference type called an rvalue reference, identified by #(code:T&&)#.
@@ -644,67 +667,68 @@
 
                 <section>
                     <h2 data-category=functionality>Raw string literals</h2>
-                    <header>
-                        <summary data-category="Current usage">never used</summary>
-                        <summary data-category="Current directive">never think about them</summary>
-                        <summary data-category="Future directive">to be considered if needed</summary>
-                    </header>
-                    <article>
-                        C++11 provides a raw string literal:
-                        <p style="background-color: rgba(0,0,0,0.3); margin: 0 13%;">
-                            <cppblock>
-                                R"(The String Data \ Stuff " )"
-                            </cppblock>
-                            In this first case, everything between the #(code:"()# and the #(code:)")# is part of the string.<br>
-                            The #(code:")# and #(code:\)# characters do not need to be escaped.
-                        </p>
-                        <p style="background-color: rgba(0,0,0,0.3);">
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <article style="font-size:90%">
+                        <p>
+                            C++11 provides a raw string literal:
                             <cppblock>
                                 R"delimiter(The String Data \ Stuff " )delimiter"
                             </cppblock>
-                            In this second case, the #(code:"delimiter()# starts the string, and it ends only when #(code:)delimiter")# is reached.
-                            The string #(code:delimiter)# can be any string up to 16 characters in length, including the empty string.
+                        </p>
+                        <p>
+                            Everything between the #(code:"delimiter()# and the #(code:)delimiter")# is part of the string.<br>
+                        </p>
+                        <p >
+                            The #(code:")# and #(code:\)# characters do not need to be escaped.
+                        </p>
+                        <p >
+                            The string #(code:delimiter)#  can be any string up to 16 characters in length, including the empty string.
                             This string cannot contain spaces, control characters, #(code:()#, #(code:))#, or the #(code:\)# character.
-                            Using this delimiter string allows the user to have #(code:))# characters within raw string literals.
+                            Using non-empty delimiter string allows the user to have #(code:))# characters within raw string literals.
                         </p>
                     </article>
                 </section>
 
                 <section>
                     <h2 data-category=functionality>User-defined literals</h2>
-                    <header>
-                        <summary data-category="Current usage">very little used</summary>
-                        <summary data-category="Current directive">rarely recommended</summary>
-                        <summary data-category="Future directive">to be considered if needed</summary>
-                    </header>
-                    <article>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <article style="font-size: 90%">
                         <p>
-                            C++11 enables the user to define new kinds of literal modifiers that will construct objects based on the string of characters that the literal modifies.
-                            Transformation of literals is redefined into two distinct phases: raw and cooked.
-                            A raw literal is a sequence of characters of some specific type, while the cooked literal is of a separate type.
-                            The C++ literal #(code:1234)#, as a raw literal, is this sequence of characters #(code:'1')#, #(code:'2')#, #(code:'3')#, #(code:'4')#.
-                            As a cooked literal, it is the integer 1234.
-                            The C++ literal #(code:0xA)# in raw form is #(code:'0')#, #(code:'x')#, #(code:'A')#, while in cooked form it is the integer 10.
+                            The user can define new kinds of literal modifiers that will construct objects based on the string of characters that the literal modifies.
+                            User can intervene while two distinct phases: raw and cooked.
+                            <table>
+                                <tr><th>C++ literal</th><th>raw literal</th><th>cooked literal</th></tr>
+                                <tr><td>#(code:1234)#</td><td>#(code:'1')#, #(code:'2')#, #(code:'3')#, #(code:'4')#</td><td>integer 1234</td></tr>
+                                <tr><td>#(code:0xA)#</td><td>#(code:'0')#, #(code:'x')#, #(code:'A')#</td><td>integer 10</td></tr>
+                            </table>
                         </p>
                         <p>
-                            All user-defined literals are suffixes; defining prefix literals is not possible.
-                            All suffixes starting with any character except underscore (#(code:_)#) are reserved by the standard.
-                            Thus, all user-defined literals must have suffixes starting with an underscore (#(code:_)#).
+                            All user-defined literals are suffixes; defining prefix literals is not possible.<br>
+                            All user-defined literals must start with an underscore (#(code:_)#), others are reserved by the standard.
                         </p>
                     </article>
                 </section>
 
                 <section>
                     <h2 data-category=usability>Explicit conversion operators</h2>
-                    <header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon mandatory"></div>
+                    <!-- <header>
                         <summary data-category="Current usage">used</summary>
                         <summary data-category="Current directive">recommended</summary>
                         <summary data-category="Future directive">recommended</summary>
-                    </header>
+                    </header> -->
                     <article>
-                        In C++11, the #(keyword:explicit)# keyword can now be applied to conversion operators.
-                        As with constructors, it prevents using those conversion functions in implicit conversions.
-                        However, language contexts that specifically need a boolean value (the conditions of if-statements and loops, and operands to the logical operators) count as explicit conversions and can thus use a #(type:bool)# conversion operator.
+                        <p>
+                            The #(keyword:explicit)# keyword can be applied to conversion operators.
+                        </p>
+                        <p>
+                            As with constructors, it prevents using those conversion functions in implicit conversions. However, language contexts that
+                            specifically need a boolean value (the conditions of if-statements and loops, and operands to the logical operators)
+                            count as explicit conversions and can thus use a #(type:bool)# conversion operator.
+                        </p>
                     </article>
                 </section>
 

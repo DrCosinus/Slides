@@ -196,13 +196,14 @@ div.ribbon.cpp11::after
     border-bottom: 5px solid rgb(24, 132, 168);
     margin-top: -0.5em;
     padding: 0.5em 0;
-    height: 60px;
+    height: 100px;
+    box-sizing: border-box; /* because of the unset: all */
 }
 .reveal section article
 {
     display: grid;
     font-size: 80%;
-    height: 660px;
+    height: 620px;
     padding: 0.5em;
     align-items: center;
     grid-gap: 0.5em;
