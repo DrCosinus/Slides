@@ -58,7 +58,7 @@
                             <li>Future directive: To use as soon as necessary</li>
                         </ul>
                     </aside>
-                    <article style="font-size: 110%">
+                    <article>
                         <p>
                             C++11 allows variable alignment to be queried and controlled with #(keyword:alignof)# and #(keyword:alignas)#.
                         </p>
@@ -71,12 +71,12 @@
                         <p>
                             The #(keyword:alignas)# specifier controls the memory alignment for a variable. The specifier takes a constant or a type; when supplied a type #(code:alignas(T))# is shorthand for #(code:alignas(alignof(T)))#.
                         </p>
-                        <p>
+                        <!-- <p>
                             For example, to specify that a char array should be properly aligned to hold a float:
                             <cppblock>
                                 alignas(float) unsigned char c[sizeof(float)];
                             </cppblock>
-                        </p>
+                        </p> -->
                     </article>
                 </section>
 
@@ -84,14 +84,7 @@
                     <h2 data-category=stl>atomic operations</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
-                    <aside class="notes">
-                        <ul>
-                            <li>Current usage: little used</li>
-                            <li>Current directive: almost never recommended</li>
-                            <li>Future directive: To use as soon as necessary</li>
-                        </ul>
-                    </aside>
-                    <article style="font-size: 110%">
+                    <article>
                         <p>
                             C++11 introduces the atomic operations library<br>needed for lock-free concurential programmation.
                         </p>
@@ -111,14 +104,7 @@
                     <h2 data-category=usability>#(keyword:auto)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
-                    <aside class="notes">
-                        <ul>
-                            <li>Current usage: very used</li>
-                            <li>Current directive: recommended</li>
-                            <li>Future directive: To use as soon as possible</li>
-                        </ul>
-                    </aside>
-                    <article style="font-size: 110%">
+                    <article>
                         <p>
                             C++11 allows type inference.
                         </p>
@@ -127,12 +113,12 @@
                         </p>
                         <p>
                             This creates a variable of the specific type of the initializer:
-                            <cppblock style="font-size: 50%">
+                            <cppblock>
                                 auto some_strange_callable_type = std::bind(&amp;some_function, _2, _1, some_object);
                                 auto other_variable = 5;
                             </cppblock>
                         </p>
-                        <p style="font-size: 150%;">
+                        <p>
                             Almost always #(keyword:auto)#?
                         </p>
                     </article>
@@ -142,17 +128,10 @@
                     <h2 data-category=usability>#(keyword:decltype)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
-                    <aside class="notes">
-                        <ul>
-                            <li>Current usage: uncommon</li>
-                            <li>Current directive: rarely needed</li>
-                            <li>Future directive: To use as soon as necessary</li>
-                        </ul>
-                    </aside>
-                    <article style="font-size: 110%">
+                    <article>
                         <p>
                             The keyword #(keyword:decltype)# can be used to determine the type of expression at compile-time.
-                            <cppblock style="font-size: 50%">
+                            <cppblock>
                                 unsigned int some_int;
                                 decltype(some_int) other_integer_variable = 5;
                             </cppblock>
@@ -164,31 +143,19 @@
                     <h2 data-category="rtperf">#(keyword:constexpr)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
-                    <aside class="notes">
-                        <ul>
-                            <li>Current usage: used</li>
-                            <li>Current directive: sometimes recommended</li>
-                            <li>Future directive: To use</li>
-                        </ul>
-                    </aside>
-                    <article style="font-size: 110%">
+                    <article>
                         <p>
-                            <!-- C++11 introduced the keyword #(keyword:constexpr)#, which allows the user to guarantee that a function or object constructor is a compile-time constant. -->
                             C++11 introduced the keyword #(keyword:constexpr)#.
                         </p>
                         <p>
                             The user can express that a function is a compile-time constant.
-                            <!-- So, a constant expression is allowed to contain a function call or object constructor (the compiler can verify that it is compile-time constant). -->
                         </p>
                         <p>
-                            <!-- In C++11, there are some limitations for constexpr functions and constructors (non-void return type, no variable declarations or new types in the function body, only one return statement). -->
                             There are some limitations.
                         </p>
                         <p>
                             If it is called with not constant expression arguments, the call behaves as if the function were not constexpr.
-                            <!-- If it is called with not constant expression arguments, the call behaves as if the function were not constexpr, and the resulting value is not a constant expression. -->
-                            <!-- Likewise, if the expression in the return statement of a constexpr function does not evaluate to a constant expression for a given invocation, the result is not a constant expression. -->
-                            <cppblock style="font-size: 50%">
+                            <cppblock>
                                 constexpr int siz() { return 42; }
                                 int array[siz() + 17]; // illformed if siz() is not constexpr
                                 template&lt;int I&gt; struct Bar {};
@@ -201,12 +168,7 @@
                 <section>
                     <h2 data-category=functionality>Defaulted &amp; deleted functions</h2>
                     <div class="ribbon cpp11"></div>
-                    <div class="ribbon recommended"></div>
-                    <aside class="notes">
-                        Current usage: used<br/>
-                        Current directive: often recommended<br/>
-                        Future directive: to use whenever possible
-                    </aside>
+                    <div class="ribbon mandatory"></div>
                     <article>
                         <p>
                             C++11 allows the explicit defaulting and deleting of special member functions.
@@ -230,20 +192,20 @@
                 <section>
                     <h2 no-toc>Defaulted &amp; deleted functions</h2>
                     <div class="ribbon cpp11"></div>
-                    <div class="ribbon recommended"></div>
+                    <div class="ribbon mandatory"></div>
                     <article>
                         <p>
-                            The #(code:= delete)# specifier can be used to prohibit calling any function, which can be used to disallow calling a member function with particular parameters (and to guard against implicit cast).
+                            The #(code:= delete)# specifier can be used to prohibit calling any function,
+                            which can be used to disallow calling a member function with particular parameters
+                            (and to guard against implicit cast).
                             <cppblock>
-                                struct Foo
-                                {
-                                    Foo(double) {}
-                                    Foo(int) = delete;                      // &lt;== guard from conversion from int
+                                struct Foo {
+                                  Foo(double) {}
+                                  Foo(int) =delete;                     // &lt;== guard from conversion from int
                                 };
-                                struct Bar
-                                {
-                                    Bar(double) {}
-                                    template&lt;typename T&gt; Bar(T) = delete;  // &lt;== guard from any conversion but double
+                                struct Bar {
+                                  Bar(double) {}
+                                  template&lt;typename T&gt; Bar(T) =delete; // &lt;== guard from any conversion but double
                                 };
                             </cppblock>
                         </p>
@@ -254,20 +216,13 @@
                     <h2 data-category=usability>Delegating constructors</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
-                    <aside class="notes">
-                        Current usage: not used a lot<br/>
-                        Current directive: sometimes recommended<br/>
-                        Future directive: To be used as soon as possible
-                    </aside>
                     <article>
                         <p>
-                            C++11 allows constructors to call other peer constructors.
+                            Constructors can call other peer constructors:
                             <cppblock>
-                                struct Foo
-                                {
+                                struct Foo {
                                     Foo(int _value) : value_(_value) {}
                                     Foo() : Foo(42) {} // &lt;== this constructor calls the other one
-                                private:
                                     int value_;
                                 };
                             </cppblock>
@@ -279,29 +234,21 @@
                     <h2 data-category=usability>inheriting constructors</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
-                    <aside class="notes">
-                        Current usage: not used a lot<br/>
-                        Current directive: sometimes recommended<br/>
-                        Future directive: to be used as soon as possible
-                    </aside>
                     <article>
                         <p>
-                            C++11 allows a class to specify that base class constructors will be inherited.
+                            A class can inherit constructors from its base class:
                             <cppblock>
-                                struct Parent
-                                {
+                                struct Parent {
                                     explicit Parent(int _value) : value_{_value} {}
                                     Parent() : value_(-1) {}
                                     Parent(int _value1, int _value2) : value_{_value1 + _value2} {}
                                 private:
                                     int value_;
                                 };
-                                struct Child : Parent
-                                {
+                                struct Child : Parent {
                                     using Parent::Parent; // &lt;== inheriting all constructors of Parent
                                 };
-                                ...
-                                Child child0, child1{14, 28}, child2{17}; // child values are respectively: -1 42 17
+                                Child child0, child1(14, 28), child2(17); // child values are respectively: -1 42 17
                             </cppblock>
                         </p>
                     </article>
@@ -311,20 +258,15 @@
                     <h2 data-category=usability>#(keyword:nullptr)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon mandatory"></div>
-                    <aside class="notes">
-                        <summary data-category="Current usage">very used</summary>
-                        <summary data-category="Current directive">mandatory</summary>
-                        <summary data-category="Future directive">mandatory</summary>
-                    </aside>
                     <article>
                         <p>
-                            C++11 introduces a new keyword to serve as a distinguished null pointer constant: #(keyword:nullptr)#.
+                            #(keyword:nullptr)# serves as a distinguished null pointer constant.
                         </p>
                         <p>
                             It is of type #(type:std::nullptr_t)#, which is implicitly convertible and comparable to any pointer type or pointer-to-member type.
                         </p>
                         <p>
-                            It is not implicitly convertible or comparable to integral types, except for #(type:bool)#.
+                            It is <b><u>not</u></b> implicitly convertible or comparable to integral types, except for #(type:bool)#.
                         </p>
                 </article>
                 </section>
@@ -333,26 +275,25 @@
                     <h2 data-category=functionality>#(keyword:static_assert)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
-                    <aside class="notes">
-                        <summary data-category="Current usage">used</summary>
-                        <summary data-category="Current directive">recommended</summary>
-                        <summary data-category="Future directive">recommended</summary>
-                    </aside>
                     <article>
                         <div>
                             C++11 introduces a new way to test assertions<br>at compile-time,using the new keyword #(keyword:static_assert)#.
                             <cppblock>
                                 static_assert((MC_PI > 3.14) && (MC_PI < 3.15), "MC_PI is inaccurate!");
-
+                            </cppblock>
+                        </div>
+                        <div>
+                            <cppblock>
                                 template&lt;typename T>
-                                struct Check
-                                {
+                                struct Check {
                                 static_assert(sizeof(int) <= sizeof(T), "T is not big enough!");
                                 };
-
+                            </cppblock>
+                        </div>
+                        <div>
+                            <cppblock>
                                 template&lt;typename INTEGRAL>
-                                INTEGRAL foo(INTEGRAL x, INTEGRAL y)
-                                {
+                                INTEGRAL foo(INTEGRAL x, INTEGRAL y) {
                                 static_assert(std::is_integral&lt;INTEGRAL>::value,
                                     "foo() parameter must be an integral type.");
                                 }
@@ -365,24 +306,29 @@
                     <h2 data-category=usability>Strongly-typed enumerations</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
-                    <aside class="notes">
-                        <summary data-category="Current usage">used if not to be serializable</summary>
-                        <summary data-category="Current directive">recommended</summary>
-                        <summary data-category="Future directive">recommended</summary>
-                    </aside>
-                    <article style="text-align: left; font-size: 100%;">
+                    <article>
                         <div>
-                            C++11 provides strongly-typed enumerations:
-                            <ul style=" font-size: 50%;">
+                            <p>
+                                C++11 provides strongly-typed enumerations:
+                            </p>
+                            <ul>
                                 <li>it can not be used for/assigned to/compared with another enumeration.</li>
                                 <li>it is not implicitly converted to #(type:int)#.</li>
                                 <li>there is no risk of name collisions due to the need to use scope resolution operator to access values,</li>
                                 <li>the underlying type can be overridden to a different integral type (#(type:int)# by default)</li>
                             </ul>
                         </div>
+                    </article>
+                </section>
+
+                <section>
+                    <h2 no-toc>Strongly-typed enumerations</h2>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
+                    <article>
                         <div>
                             In C+11, as long as the size of the enumeration is specified implicitly or explicitly, it can be forward-declared:
-                            <cppblock>
+                            <cppblock style="font-size: 45%;">
                                 enum Enum1;                  // Invalid in C++03 and C++11; the underlying type cannot be determined.
                                 enum Enum2 : unsigned int;   // Valid in C++11, the underlying type is specified explicitly.
                                 enum class Enum3;            // Valid in C++11, the underlying type is int.
@@ -407,7 +353,6 @@
                     </aside>
                     <article>
                         <div>
-                            <!-- <p>The keyword #(keyword:typedef)# is deprecated.</p> -->
                             C++11 allows to create templated synonym for template type.
                             The template parameters of the synonym can be different of the template parameters of the original type.<br>
                             <cppblock>
@@ -428,14 +373,20 @@
                 </section>
 
                 <section>
+                    <h2 no-toc>Template aliases</h2>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon mandatory"></div>
+                    <article>
+                        <div>
+                            #(keyword:typedef)# is deprecated!
+                        </div>
+                    </article>
+                </section>
+
+                <section>
                     <h2 data-category=functionality>variadic templates</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
-                    <aside class="notes">
-                        <summary data-category="Current usage">very little used</summary>
-                        <summary data-category="Current directive">never recommended</summary>
-                        <summary data-category="Future directive">recommended for specific use</summary>
-                    </aside>
                     <article>
                         In C++11, templates can take variable numbers of template parameters.<br>
                         This also allows the definition of type-safe variadic functions
@@ -446,27 +397,17 @@
                     <h2 data-category=functionality>extern templates</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
-                    <aside class="notes">
-                        <summary data-category="Current usage">very little used</summary>
-                        <summary data-category="Current directive">very little recommended</summary>
-                        <summary data-category="Future directive">recommended if needed</summary>
-                    </aside>
                     <article>
                         <p>
                             C++11 provides a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the template in this translation unit.
                         </p>
                     </article>
                 </section>
-    
+
                 <section>
                     <h2 data-category=functionality>Thread-local storage</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
-                    <aside class="notes">
-                        <summary data-category="Current usage">...</summary>
-                        <summary data-category="Current directive">...</summary>
-                        <summary data-category="Future directive">...</summary>
-                    </aside>
                     <article>
                         <p>
                             C++11 introduces the keyword #(keyword:thread_local)#.<br>
@@ -483,14 +424,9 @@
                     <h2 data-category=usability>unrestricted unions</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
-                    <aside class="notes">
-                        <summary data-category="Current usage">...</summary>
-                        <summary data-category="Current directive">...</summary>
-                        <summary data-category="Future directive">...</summary>
-                    </aside>
                     <article>
                         <p>
-                            C++11 lifts some restrictions on what types can me members of a #(keyword:union)#.
+                            Some restrictions on what types can be members of a #(keyword:union)# are lifted.
                             Unions can now have member with non trivial special member functions but it must be <u>manually defined</u>.
                             <cppblock style="font-size:40%;">
                                 #include &lt;new> // Needed for placement 'new'.
@@ -505,7 +441,7 @@
                                     Point p;
                                     U() {} // Due to the Point member, a constructor definition is needed.
                                     U(const Point& pt) : p(pt) {} // Construct Point object using initializer list.
-                                    U& operator=(const Point& pt) { new(&p) Point(pt); return *this; } // Assign Point object using placement 'new'.
+                                    U& operator=(const Point& pt) { new(&p) Point(pt); return *this; } // placement 'new'.
                                 };
                             </cppblock>
                         </p>
@@ -523,40 +459,36 @@
                     </aside>
                     <article>
                         <p>
-                            C++11 allow to assign a default value to non-static data members.
+                            The user can assign a default value to non-static data members.
                         </p>
                         <p>
                             Each constructor will initialize these members with the default value only if it does not override the initialization with its own.
                         </p>
+                        <p>
+                            <cppblock>
+                                struct Foo {
+                                    Foo() {}             // value_ initialized with 509
+                                    explicit Foo(int _value)
+                                     : value_(_value) {} // value_ initialized with given parameter
+                                private:
+                                    int value_ = 509;
+                                };
+                            </cppblock>
+                        </p>
                     </article>
-                    <cppblock style="font-size:60%">
-                        struct Foo
-                        {
-                            Foo() {}             // value_ initialized with 509
-                            explicit Foo(int _value)
-                             : value_(_value) {} // value_ initialized with given parameter
-                        private:
-                            int value_ = 509;
-                        };
-                    </cppblock>
                 </section>
 
                 <section>
                     <h2 data-category=usability>Range-for loop</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
-                    <aside class="notes">
-                        <summary data-category="Current usage">very use</summary>
-                        <summary data-category="Current directive">recommended</summary>
-                        <summary data-category="Future directive">recommended</summary>
-                    </aside>
                     <article>
                         <p>
                             C++11 extends the syntax of the #(keyword:for)# statement to allow for easy iteration over a range of elements.
                             <cppblock>
                                 int my_array[5] = {1, 2, 3, 4, 5};
                                 // double the value of each element in my_array:
-                                for (int& x : my_array)
+                                for (int& x: my_array)
                                 {
                                     x *= 2;
                                 }
@@ -569,16 +501,17 @@
                     <h2 data-category=usability>lambda expressions</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
-                    <aside class="notes">
-                        <summary data-category="Current usage">very use</summary>
-                        <summary data-category="Current directive">recommended</summary>
-                        <summary data-category="Future directive">recommended</summary>
-                    </aside>
-                    <article style="font-size:90%">
+                    <article>
                         <p>
                             Lambda are anonymous functions defined as follows:
                             <cppblock>
                                 [](int x, int y) -> int { return x + y; }
+                            </cppblock>
+                        </p>
+                        <p>
+                            The return type can be omitted.
+                            <cppblock>
+                                [](int x, int y) { return x + y; }
                             </cppblock>
                         </p>
                         <p>
@@ -587,16 +520,20 @@
                                 [copy, &amp;ref](int x) { ref = x + copy; }
                             </cppblock>
                         </p>
-                        <p>
-                            The return type can be omitted.
-                             <!-- when all #(keyword:return)# returns the same type: #(code:[](int x, int y) { return x + y; })# -->
-                        </p>
+                    </article>
+                </section>
+
+                <section>
+                    <h2 no-toc>lambda expressions</h2>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <article>
                         <p>
                             The type of a lambda is unspecified.
                             <!-- User must use #(keyword:auto)#. -->
                             <!-- #(code:auto lambda = [](int x, int y) { return x + y; })# -->
                         </p>
-                        <p>
+                        <p style="--width: 80%">
                             A lamba which capture no variable can be converted into a function pointer:
                             <cppblock>
                                 int f(int(*_callback)(int, int)) { return _callback( 17, 25 ); }
@@ -610,29 +547,21 @@
                     <h2 data-category=usability>#(keyword:override)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon mandatory"></div>
-                    <aside class="notes">
-                        <summary data-category="Current usage">compilation error if #(keyword:override)# is missing</summary>
-                        <summary data-category="Current directive">#(keyword:override)# is mandatory</summary>
-                        <summary data-category="Future directive">#(keyword:override)# is mandatory</summary>
-                    </aside>
                     <article>
                         <p>
                             Prevent from bad virtual function overriding.
                         </p>
-                        <p>
+                        <p style="--width: 80%">
                             The compiler will check the base classes to see if there is a virtual function with this exact signature.
                             If there is not, the compiler will indicate an error.
                             <cppblock>
-                                struct Base
-                                { virtual void foo(float);
-                                };
-                                struct Derived : Base
-                                { void foo(int) override; // error: doesn't override a base class method
+                            struct Base {
+                              virtual void foo(float);
+                            };
+                            struct Derived : Base {
+                              void foo(int) override; // error: doesn't override a base class method
                             };
                         </cppblock>
-                    </p>
-                    <p>
-                        #(keyword:override)# is mandatory
                     </p>
                     </article>
                 </section>
@@ -640,11 +569,10 @@
                 <section>
                     <h2 data-category=usability>#(keyword:final)#</h2>
                     <div class="ribbon cpp11"></div>
-                    <div class="ribbon mandatory"></div>
+                    <div class="ribbon whenneeded"></div>
                     <article>
-                        <p>
+                        <p style="--width: 80%;">
                             Prevent inheriting from classes or simply preventing overriding method in derived classes.
-                            This is done with special identifier #(keyword:final)#.
                         </p>
                     </article>
                 </section>
@@ -654,11 +582,11 @@
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
                     <article>
-                        <p>
+                        <p style="--width: 94%">
                             C++11 adds a new non-const reference type called an rvalue reference, identified by #(code:T&&)#.
                             This refers to temporaries that are permitted to be modified after they are initialized, for the purpose of allowing "move semantics".
                         </p>
-                        <p>
+                        <p style="--width: 90%">
                             For safety reasons, some restrictions are imposed. A named variable will never be considered to be an rvalue even if it is declared as such.
                             To get an rvalue, the function template #(code:std::move)# should be used.
                         </p>
@@ -682,7 +610,7 @@
                         <p >
                             The #(code:")# and #(code:\)# characters do not need to be escaped.
                         </p>
-                        <p >
+                        <p style="--width: 90%">
                             The string #(code:delimiter)#  can be any string up to 16 characters in length, including the empty string.
                             This string cannot contain spaces, control characters, #(code:()#, #(code:))#, or the #(code:\)# character.
                             Using non-empty delimiter string allows the user to have #(code:))# characters within raw string literals.
@@ -715,16 +643,11 @@
                     <h2 data-category=usability>Explicit conversion operators</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon mandatory"></div>
-                    <!-- <header>
-                        <summary data-category="Current usage">used</summary>
-                        <summary data-category="Current directive">recommended</summary>
-                        <summary data-category="Future directive">recommended</summary>
-                    </header> -->
                     <article>
                         <p>
                             The #(keyword:explicit)# keyword can be applied to conversion operators.
                         </p>
-                        <p>
+                        <p style="--width: 88%">
                             As with constructors, it prevents using those conversion functions in implicit conversions. However, language contexts that
                             specifically need a boolean value (the conditions of if-statements and loops, and operands to the logical operators)
                             count as explicit conversions and can thus use a #(type:bool)# conversion operator.
@@ -734,98 +657,93 @@
 
                 <section>
                     <h2 data-category=functionality>#(keyword:noexcept)#</h2>
-                    <header>
-                        <summary data-category="Current usage">almost not used</summary>
-                        <summary data-category="Current directive">no recommendation</summary>
-                        <summary data-category="Future directive">???</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon idontknow"></div>
                     <article>
-                        Compile-time specification of non-exception-throwing functions is available with the #(keyword:noexcept)# keyword, which is useful for optimization.
+                        <p style="--width: 80%">
+                            Compile-time specification of non-exception-throwing functions is available with the #(keyword:noexcept)# keyword, which is useful for optimization.
+                        </p>
                     </article>
                 </section>
 
                 <section>
                     <h2 data-category=usability>Trailing function return types</h2>
-                    <header>
-                        <summary data-category="Current usage">almost always used</summary>
-                        <summary data-category="Current directive">recommended</summary>
-                        <summary data-category="Future directive"><span style="color: red;">abandoned</span></summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon abandonned"></div>
                     <article>
-                        C++11 introduced trailing-return-type function declaration syntax so the return type can depend on function parameters:
-                        <cppblock style="font-size: 80%">
-                            template&lt;typename Lhs, typename Rhs>
-                            auto adding_func(const Lhs &lhs, const Rhs &rhs) -> decltype(lhs+rhs) {return lhs + rhs;}
-                        </cppblock>
-                        This syntax can be used for classic function declarations and definitions.
-                        <cppblock style="font-size: 80%">
-                            struct SomeStruct
-                            {
-                                auto func_name(int x, int y) -> int;
-                            };
-                            auto SomeStruct::func_name(int x, int y) -> int
-                            {
-                                return x + y;
-                            }
-                        </cppblock>
+                        <p>
+                            C++11 introduced trailing-return-type function declaration syntax so the return type can depend on function parameters:
+                            <cppblock>
+                                template&lt;typename Lhs, typename Rhs>
+                                auto adding_func(const Lhs &lhs, const Rhs &rhs) -> decltype(lhs+rhs) {return lhs + rhs;}
+                            </cppblock>
+                        </p>
+                        <p style="--width:66%">
+                            This syntax can be used for classic function declarations and definitions.
+                            <cppblock>
+                                struct SomeStruct {
+                                    auto func_name(int x, int y) -> int;
+                                };
+                                auto SomeStruct::func_name(int x, int y) -> int {
+                                    return x + y;
+                                }
+                            </cppblock>
+                        </p>
                     </article>
                 </section>
 
                 <section>
                     <h2 data-category=functionality>Type #(type:long long int)#</h2>
-                    <header>
-                        <summary data-category="Current usage">almost not used</summary>
-                        <summary data-category="Current directive">no recommendation</summary>
-                        <summary data-category="Future directive">???</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
                     <article>
-                        C++11 adds a new integer type #(type:long long int)# to address the problem that type #(type:long int)# having size of 64 bits on some popular implementations and 32 bits on others.
-                        The new type is guaranteed to be at least as large as a long int, and have no fewer than 64 bits.
-                    </article>
+                        <p style="--width: 72%">
+                            C++11 adds a new integer type #(type:long long int)# to address the problem that type #(type:long int)# having size of 64 bits on some popular implementations and 32 bits on others.
+                            The new type is guaranteed to be at least as large as a long int, and have no fewer than 64 bits.
+                        </p>
+                        </article>
                 </section>
 
                 <section>
                     <h2 data-category=usability>Uniform initialization</h2>
-                    <header>
-                        <summary data-category="Current usage">used</summary>
-                        <summary data-category="Current directive">sometimes recommended</summary>
-                        <summary data-category="Future directive">recommended</summary>
-                    </header>
-                    <article style="font-size: 50%">
-                        C++11 provides a syntax that allows for fully uniform type initialization that works on any object.
-                        It expands on the initializer list syntax:
-                        <div style="column-count: 2; font-size: 90%;">
-                            <cppblock>
-                                struct BasicStruct
-                                {
-                                    int x;
-                                    double y;
-                                };
-                                struct AltStruct
-                                {
-                                    AltStruct(int x, double y) : x_{x}, y_{y}
-                                    {}
-                                private:
-                                    int x_;
-                                    double y_;
-                                };
-                                BasicStruct var1{5, 3.2};
-                                AltStruct var2{2, 4.3};
-                            </cppblock><br>
-                            <cppblock>
-                                struct IdString
-                                {
-                                    std::string name;
-                                    int identifier;
-                                };
-                                
-                                IdString get_string()
-                                {
-                                    return {"foo", 42}; //Note the lack of explicit type.
-                                }
-                            </cppblock>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
+                    <article>
+                        <div>
+                            C++11 provides a syntax that allows for fully uniform type initialization that works on any object.
+                            It expands on the initializer list syntax:
+                            <div style="column-count: 2; font-size: 90%;">
+                                <cppblock style="margin:0">
+                                    struct BasicStruct
+                                    {
+                                        int x;
+                                        double y;
+                                    };
+                                    struct AltStruct
+                                    {
+                                        AltStruct(int x, double y) : x_{x}, y_{y}
+                                        {}
+                                    private:
+                                        int x_;
+                                        double y_;
+                                    };
+                                    BasicStruct var1{5, 3.2};
+                                    AltStruct var2{2, 4.3};
+                                </cppblock><br>
+                                <cppblock style="margin:0">
+                                    struct IdString
+                                    {
+                                        std::string name;
+                                        int identifier;
+                                    };
+                                    
+                                    IdString get_string()
+                                    {
+                                        return {"foo", 42}; //Note the lack of explicit type.
+                                    }
+                                </cppblock>
+                            </div>
                         </div>
-
                     </article>
                 </section>
 
@@ -1402,6 +1320,7 @@
             mouseWheel: true,
             center: false,
             display: 'block',
+            transition: 'none',
         });
     </script>
 </body>

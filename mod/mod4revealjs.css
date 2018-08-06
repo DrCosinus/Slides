@@ -108,7 +108,7 @@ div.ribbon.topright
     right: 60px;
     left: unset; /* ignoring default left position */
 }
-div.ribbon.topright30, div.ribbon.recommended, div.ribbon.whenneeded, div.ribbon.mandatory, div.ribbon.forbidden
+div.ribbon.topright30, div.ribbon.recommended, div.ribbon.whenneeded, div.ribbon.mandatory, div.ribbon.forbidden, div.ribbon.idontknow, div.ribbon.abandonned
 {
     transform: translate(50%, -50%) rotate(30deg);
     top: 60px;
@@ -136,9 +136,15 @@ div.ribbon.mandatory
     color: yellow;
     font-size: 90%;
 }
+@keyframes blink
+{
+    0%  { opacity: 0.0; }
+    100% { opacity: 1.0;}
+}
 div.ribbon.mandatory::after
 {
     content: "MANDATORY";
+    animation: blink 0.4s infinite alternate-reverse ease;
 }
 div.ribbon.whenneeded
 {
@@ -149,6 +155,27 @@ div.ribbon.whenneeded::after
 {
     content: "USE WHEN NEEDED";
 }
+div.ribbon.abandonned
+{
+    background-color: rgba(255, 0, 0, 0.75);
+    color: rgb(255, 255, 255);
+}
+div.ribbon.abandonned::after
+{
+    content: "ABANDONNED";
+}
+div.ribbon.idontknow
+{
+    background-color: rgba(255, 255, 255, 0.75);
+    color: rgb(255, 0, 0);
+}
+div.ribbon.idontknow::after
+{
+    content: "? ? ?";
+}
+
+/* TO BE CONSIDERED */
+
 div.ribbon.cpp11
 {
     background-color: rgba(214, 27, 199, 0.75);
@@ -208,6 +235,7 @@ div.ribbon.cpp11::after
     align-items: center;
     grid-gap: 0.5em;
     font-size: 110%;
+    width: calc(1280px - 1em);
 }
 .reveal section section summary
 {
@@ -224,9 +252,11 @@ div.ribbon.cpp11::after
     display: block;
     content: attr(data-category);
 }
-.reveal section article > p
+.reveal section article > p, .reveal section article > div
 {
-    margin: 0;
+    --width: 100%;
+    width:var(--width);
+    margin: 0 calc((100% - var(--width))/2);
 }
 .reveal section article > p cppblock, .reveal section article > div cppblock
 {
