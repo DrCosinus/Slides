@@ -713,37 +713,34 @@
                         <div>
                             C++11 provides a syntax that allows for fully uniform type initialization that works on any object.
                             It expands on the initializer list syntax:
-                            <div style="column-count: 2; font-size: 90%;">
-                                <cppblock style="margin:0">
-                                    struct BasicStruct
-                                    {
+                            <div style="display:grid; grid-template-columns: 30% 70%">
+                                <cppblock>
+                                    struct BasicStruct {
                                         int x;
                                         double y;
                                     };
-                                    struct AltStruct
-                                    {
-                                        AltStruct(int x, double y) : x_{x}, y_{y}
+                                    struct AltStruct {
+                                        AltStruct(int x, double y)
+                                         : x_{x}, y_{y}
                                         {}
-                                    private:
                                         int x_;
                                         double y_;
                                     };
-                                    BasicStruct var1{5, 3.2};
-                                    AltStruct var2{2, 4.3};
-                                </cppblock><br>
-                                <cppblock style="margin:0">
-                                    struct IdString
-                                    {
+                                    struct IdString {
                                         std::string name;
                                         int identifier;
                                     };
+                                </cppblock>
+                                <cppblock>
+                                    BasicStruct var1{5, 3.2};
+                                    AltStruct var2{2, 4.3};
                                     
                                     IdString get_string()
                                     {
                                         return {"foo", 42}; //Note the lack of explicit type.
                                     }
                                 </cppblock>
-                            </div>
+                            </p>
                         </div>
                     </article>
                 </section>
@@ -1315,6 +1312,11 @@
             </section>
         </div>
     </div>
+
+    <!--
+        GUIDELINES:
+        parameter non-const ref parameter prohibited => use GSL non_null<pointer>
+    -->
 
     <script src="revealjs/lib/js/head.min.js"></script>
     <script src="revealjs/js/reveal.js"></script>
