@@ -108,7 +108,7 @@ div.ribbon.topright
     right: 60px;
     left: unset; /* ignoring default left position */
 }
-div.ribbon.topright30, div.ribbon.recommended, div.ribbon.whenneeded, div.ribbon.mandatory, div.ribbon.forbidden, div.ribbon.idontknow, div.ribbon.abandonned
+div.ribbon.topright30, div.ribbon.recommended, div.ribbon.whenneeded, div.ribbon.mandatory, div.ribbon.forbidden, div.ribbon.idontknow, div.ribbon.abandonned, div.ribbon.ifnochoice
 {
     transform: translate(50%, -50%) rotate(30deg);
     top: 60px;
@@ -173,6 +173,16 @@ div.ribbon.idontknow::after
 {
     content: "? ? ?";
 }
+div.ribbon.ifnochoice
+{
+    background-color: rgba(255, 255, 255, 0.75);
+    color: rgb(255, 0, 0);
+}
+div.ribbon.ifnochoice::after
+{
+    content: "ONLY IF NO CHOICE";
+}
+
 
 /* TO BE CONSIDERED */
 

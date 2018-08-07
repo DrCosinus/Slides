@@ -704,6 +704,7 @@
                         </article>
                 </section>
 
+<!-- BROKEN LAYOUT-->
                 <section>
                     <h2 data-category=usability>Uniform initialization</h2>
                     <div class="ribbon cpp11"></div>
@@ -747,138 +748,155 @@
                     </article>
                 </section>
 
-
                 <section>
                     <h2>Variadic macros</h2>
-                    <header>
-                        <summary data-category="Current usage">Used in very specific cases</summary>
-                        <summary data-category="Current directive">Very rarely needed</summary>
-                        <summary data-category="Future directive">only when you have no choice</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon ifnochoice"></div>
                     <article>
-                        <cppblock>
-                            #define FOO(...) fprintf(stderr, __VA_ARGS__)
-                            #define BAR(...) puts(#__VA_ARGS__)
-                            #define QUZ(check, ...) ((check)?puts(#check):printf(__VA_ARGS__))
-                            FOO("a = %d\n", a);
-                            BAR(First, second and third);
-                            QUZ(x>z, "x is %d and y is %d", x, y);
-                        </cppblock>
-                        becomes after the preprocessor pass
-                        <cppblock>
-                            fprintf(stderr, "a = %d\n", a);
-                            puts("First, second and third");
-                            ((x>z)?puts("x>z"):printf("x is %d and y is %d", x, y))
-                        </cppblock>
+                        <div>
+                            <cppblock>
+                                #define FOO(...) fprintf(stderr, __VA_ARGS__)
+                                #define BAR(...) puts(#__VA_ARGS__)
+                                #define QUZ(check, ...) ((check)?puts(#check):printf(__VA_ARGS__))
+                                FOO("a = %d\n", a);
+                                BAR(First, second and third);
+                                QUZ(x>z, "x is %d and y is %d", x, y);
+                            </cppblock>
+                            becomes after the preprocessor pass
+                            <cppblock>
+                                fprintf(stderr, "a = %d\n", a);
+                                puts("First, second and third");
+                                ((x>z)?puts("x>z"):printf("x is %d and y is %d", x, y))
+                            </cppblock>
+                        </div>
                     </article>
                 </section>
 
                 <section>
                     <h2 data-category=usability>Right angle bracket</h2>
+                    <div class="ribbon cpp11"></div>
                     <article>
-                        C++11 improves the specification of the parser so that multiple right angle brackets will be interpreted as closing the template argument list where it is reasonable.
-                        This can be overridden by using parentheses around parameter expressions using the <q>></q>, <q>>=</q> or <q>>></q> binary operators:
-                        <cppblock style="font-size: 90%">
-                            template&lt;bool Test> class SomeType;
-                            std::vector&lt;SomeType&lt;1>2>> x1;  // Interpreted as a std::vector of SomeType&lt;true>,
-                                // followed by "2 >> x1", which is not valid syntax for a declarator. 1 is true.
-                            std::vector&lt;SomeType&lt;(1>2)>> x1;  // Interpreted as std::vector of SomeType&lt;false>,
-                                // followed by the declarator "x1", which is valid C++11 syntax. (1>2) is false.
-                        </cppblock>
+                        <div>
+                            C++11 improves the specification of the parser so that multiple right angle brackets will be interpreted as closing the template argument list where it is reasonable.
+                            This can be overridden by using parentheses around parameter expressions using the <q>></q>, <q>>=</q> or <q>>></q> binary operators:
+                            <cppblock>
+                                template&lt;bool Test> class SomeType;
+                                std::vector&lt;SomeType&lt;1>2>> x1;   // Interpreted as a std::vector of SomeType&lt;true>,
+                                    // followed by "2 >> x1", which is not valid syntax for a declarator.
+                                std::vector&lt;SomeType&lt;(1>2)>> x1; // Interpreted as std::vector of SomeType&lt;false>,
+                                    // followed by the declarator "x1", which is valid C++11 syntax.
+                            </cppblock>
+                        </div>
                     </article>
                 </section>
 
                 <section>
                     <h2 data-category=stl>STL</h2>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
                     <article>
-                        <ul>
-                            <li>hashtables: #(type:std::unordered_set)#, #(type:std::unordered_map)#, ...</li>
-                            <li>Type traits for meta-programming: #(type:std::enable_if)#, #(type:std::conditional)#, ...</li>
-                            <li>#(code:std::begin)#, #(code:std::end)#</li>
-                            <li>#(type:std::reference_wrapper)#</li>
-                            <li>Extensible random number facility</li>
-                            <li>Threading facilities</li>
-                            <li>Polymorphic wrappers for function objects: #(type:std::function)#</li>
-                        </ul>
+                        <div>
+                            <ul>
+                                <li>hashtables: #(type:std::unordered_set)#, #(type:std::unordered_map)#, ...</li>
+                                <li>Type traits for meta-programming: #(type:std::enable_if)#, #(type:std::conditional)#, ...</li>
+                                <li>#(code:std::begin)#, #(code:std::end)#</li>
+                                <li>#(type:std::reference_wrapper)#</li>
+                                <li>Extensible random number facility</li>
+                                <li>Threading facilities</li>
+                                <li>Polymorphic wrappers for function objects: #(type:std::function)#</li>
+                            </ul>
+                        </div>
                     </article>
                 </section>
 
                 <section>
                     <h2 data-category=stl>smart pointers</h2>
-                    <header>
-                        <summary data-category="Current usage">use</summary>
-                        <summary data-category="Current directive">#(type:unique_ptr)# recommended</summary>
-                        <summary data-category="Future directive">recommended</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon recommended"></div>
                     <article>
-                        C++11 provides #(type:std::shared_ptr)#, #(type:std::weak_ptr)#, #(type:std::unique_ptr)#
+                        <div>
+                        <p>C++11 provides #(type:std::shared_ptr)#, #(type:std::weak_ptr)#, #(type:std::unique_ptr)#</p>
                         <p>#(type:std::auto_ptr)# is deprecated.</p>
+                        </div>
                     </article>
                 </section>
     
                 <section>
                     <h2 data-category=stl>Regular expressions</h2>
-                    <header>
-                        <summary data-category="Current usage">never used</summary>
-                        <summary data-category="Current directive">never think about them</summary>
-                        <summary data-category="Future directive">to be considered if needed</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
                     <article>
-                        The new library, defined in the new header #(header:regex)#, is made of a couple of new classes:
-                        <ul>
-                            <li>regular expressions are represented by instance of the template class #(type:std::regex)#,</li>
-                            <li>occurences are represented by instance of the template class #(type:std::match_results)#.</li>
-                        </ul>
-                        <p>
-                            The function #(code:std::regex_search)# is used for searching, and #(code:std::regex_replace)# is used for replacing.
-                        </p>
+                        <div>
+                            The new library, defined in the new header #(header:regex)#, is made of a couple of new classes:
+                            <ul>
+                                <li>regular expressions are represented by instance of the template class #(type:std::regex)#,</li>
+                                <li>occurences are represented by instance of the template class #(type:std::match_results)#.</li>
+                            </ul>
+                            <p>
+                                The function #(code:std::regex_search)# is used for searching, and #(code:std::regex_replace)# is used for replacing.
+                            </p>
+                        </div>
                     </article>
                 </section>
 
                 <section>
                     <h2 data-category=stl>#(type:std::tuple)#</h2>
-                    <header>
-                        <summary data-category="Current usage">quite never used</summary>
-                        <summary data-category="Current directive">never recommended</summary>
-                        <summary data-category="Future directive">recommended (see c++17 structured binding)</summary>
-                    </header>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
                     <article>
-                        Tuples are collections composed of heterogeneous objects of pre-arranged dimensions.
-                        A tuple can be considered a generalization of a struct's member variables.
-                        <cppblock>
-                            typedef std::tuple&lt;int, double, long&, const char*> test_tuple;
-                            long lengthy = 12;
-                            test_tuple proof (18, 6.5, lengthy, "Ciao!");
+                        <div>
+                            Tuples are collections composed of heterogeneous objects of pre-arranged dimensions.
+                            A tuple can be considered a generalization of a struct's member variables.
+                            <cppblock>
+                                typedef std::tuple&lt;int, double, long&, const char*> test_tuple;
+                                long lengthy = 12;
+                                test_tuple proof (18, 6.5, lengthy, "Ciao!");
 
-                            lengthy = std::get<0>(proof);  // Assign to 'lengthy' the value 18.
-                            std::get<3>(proof) = " Beautiful!";  // Modify the tuple’s fourth element.
-                        </cppblock>
+                                lengthy = std::get<0>(proof);  // Assign to 'lengthy' the value 18.
+                                std::get<3>(proof) = " Beautiful!";  // Modify the tuple’s fourth element.
+                            </cppblock>
+                        </div>
                     </article>
                 </section>
 
                 <section>
                     <h2 data-category=stl>initializer lists</h2>
-                    <article style="font-size: 70%">
-                        C++11 extends initializer-lists, so they can be used for all classes (C++03 allow them only on structs and classes that conform to the POD definition.
-                        C++11 binds the concept to a template, called #(code:std::initializer_list)#.
-                        This allows constructors and other functions to take initializer-lists as parameters.
-                        <cppblock>
-                            struct SequenceClass
-                            {
-                                SequenceClass(std::initializer_list&lt;int> list);
-                            };
-                        </cppblock>
-                        This allows #(type:SequenceClass)# to be constructed from a sequence of integers, such as
-                        <cppblock>
-                            SequenceClass some_var = {1, 4, 5, 6};
-                        </cppblock>
-                        This constructor is a special kind of constructor, called an initializer-list-constructor.
-                        Classes with such a constructor are treated specially during uniform initialization.
-                        If a class has an initializer list constructor, then it takes priority over other forms of construction, provided that the initializer list conforms to the sequence constructor's type.
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <article>
+                        <div>
+                            C++11 extends initializer-lists, so they can be used for all classes (C++03 allow them only on structs and classes that conform to the POD definition.
+                            C++11 binds the concept to a template, called #(code:std::initializer_list)#.
+                            This allows constructors and other functions to take initializer-lists as parameters.
+                            <cppblock>
+                                struct SequenceClass
+                                {
+                                    SequenceClass(std::initializer_list&lt;int> list);
+                                };
+                            </cppblock>
+                        </div>
                     </article>
                 </section>
 
                 <section>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <h2 no-toc>initializer lists</h2>
+                    <article>
+                        <div>
+                            This allows #(type:SequenceClass)# to be constructed from a sequence of integers, such as
+                            <cppblock>
+                                SequenceClass some_var = {1, 4, 5, 6};
+                            </cppblock>
+                            This constructor is a special kind of constructor, called an initializer-list-constructor.
+                            Classes with such a constructor are treated specially during uniform initialization.
+                            If a class has an initializer list constructor, then it takes priority over other forms of construction, provided that the initializer list conforms to the sequence constructor's type.
+                        </div>
+                    </article>
+                </section>
+
+                <section>
+                    <div class="ribbon cpp11"></div>
                     <h2>misc</h2>
                     <article>
                         <p>
