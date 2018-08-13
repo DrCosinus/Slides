@@ -704,7 +704,6 @@
                         </article>
                 </section>
 
-<!-- BROKEN LAYOUT-->
                 <section>
                     <h2 data-category=usability>Uniform initialization</h2>
                     <div class="ribbon cpp11"></div>
@@ -713,31 +712,30 @@
                         <div>
                             C++11 provides a syntax that allows for fully uniform type initialization that works on any object.
                             It expands on the initializer list syntax:
-                            <div style="display:grid; grid-template-columns: 30% 70%">
+                            <div style="display:grid; grid-template-columns: 50% 50%">
                                 <cppblock>
                                     struct BasicStruct {
                                         int x;
                                         double y;
                                     };
+                                    BasicStruct var1{5, 3.2};
+
                                     struct AltStruct {
-                                        AltStruct(int x, double y)
-                                         : x_{x}, y_{y}
-                                        {}
-                                        int x_;
-                                        double y_;
+                                        AltStruct(int x, double y) : x{x}, y{y} {}
+                                        int x;
+                                        double y;
                                     };
+                                    AltStruct var2{2, 4.3};
+                                </cppblock>
+                                <cppblock>
                                     struct IdString {
                                         std::string name;
                                         int identifier;
                                     };
-                                </cppblock>
-                                <cppblock>
-                                    BasicStruct var1{5, 3.2};
-                                    AltStruct var2{2, 4.3};
-                                    
-                                    IdString get_string()
-                                    {
-                                        return {"foo", 42}; //Note the lack of explicit type.
+
+                                    IdString get_string() {
+                                        // Note the lack of explicit type.
+                                        return {"foo", 42};
                                     }
                                 </cppblock>
                             </p>
