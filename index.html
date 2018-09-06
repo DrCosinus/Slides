@@ -1163,7 +1163,7 @@
                     </article>
                 </section> -->
 
-                <section>
+                <!-- <section>
                     <h2>Clarifying memory allocation (avoiding/fusing allocations)</h2>
                     <div class="ribbon cpp14"></div>
                     <div class="ribbon tobedefined"></div>
@@ -1172,16 +1172,35 @@
                             ???
                         </div>
                     </article>
-                </section>
+                </section> -->
 
                 <section>
                     <h2 data-category="language">[[deprecated]] attribute</h2>
                     <div class="ribbon cpp14"></div>
                     <div class="ribbon tobedefined"></div>
-                    <article>
+                    <article style="font-size:80%">
                         <div>
-                            ???
+                            <p>
+                                The #(attribute:deprecated)# attribute allows marking an entity deprecated, which makes it still legal to use but puts users on notice that use is discouraged and may cause a warning message to be printed during compilation.
+                            </p>
+                            <p>
+                                An optional string literal can appear as the argument of deprecated, to explain the rationale for deprecation and/or to suggest a replacement.
+                            </p>
+                            <cppblock>
+                                [[deprecated]] int f();
+                                
+                                [[deprecated("g() is thread-unsafe. Use h() instead")]]
+                                void g( int& x );
+                                
+                                void h( int& x );
+                                
+                                void test() {
+                                    int a = f(); // warning: 'f' is deprecated
+                                    g(a); // warning: 'g' is deprecated: g() is thread-unsafe. Use h() instead
+                                }
+                            </cppblock>
                         </div>
+
                     </article>
                 </section>
 
@@ -1191,7 +1210,16 @@
                     <div class="ribbon tobedefined"></div>
                     <article>
                         <div>
-                            ???
+                            <p>
+                                C++14 introduces the opportunity to declare a global overload of operator delete suitable for sized deallocation.
+                            </p>
+                            <p>
+                                However, the Standard also mandates that a developer cannot declare just one of the two related functions below, it must declare either none, or both
+                            </p>
+                            <cppblock>
+                                void operator delete (void*) noexcept;
+                                void operator delete (void*, std::size_t) noexcept; // sized deallocation
+                            </cppblock>
                         </div>
                     </article>
                 </section>
