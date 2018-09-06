@@ -108,14 +108,14 @@ div.ribbon.topright
     right: 60px;
     left: unset; /* ignoring default left position */
 }
-div.ribbon.topright30, div.ribbon.recommended, div.ribbon.whenneeded, div.ribbon.mandatory, div.ribbon.forbidden, div.ribbon.idontknow, div.ribbon.abandonned, div.ribbon.ifnochoice
+div.ribbon.topright30, div.ribbon.recommended, div.ribbon.whenneeded, div.ribbon.mandatory, div.ribbon.forbidden, div.ribbon.idontknow, div.ribbon.abandonned, div.ribbon.ifnochoice, div.ribbon.tobedefined
 {
     transform: translate(50%, -50%) rotate(30deg);
     top: 60px;
     right: 97px;
     left: unset; /* ignoring default left position */
 }
-div.ribbon.cpp11 /* top left 30° */
+div.ribbon.cpp11, div.ribbon.cpp14, div.ribbon.cpp17 /* top left 30° */
 {
     transform: translate(-50%, -50%) rotate(-30deg);
     top: 40px;
@@ -173,6 +173,15 @@ div.ribbon.idontknow::after
 {
     content: "? ? ?";
 }
+div.ribbon.tobedefined
+{
+    background-color: rgba(255, 255, 255, 0.75);
+    color: rgb(255, 0, 0);
+}
+div.ribbon.tobedefined::after
+{
+    content: "to be defined";
+}
 div.ribbon.ifnochoice
 {
     background-color: rgba(255, 255, 255, 0.75);
@@ -194,6 +203,24 @@ div.ribbon.cpp11
 div.ribbon.cpp11::after
 {
     content: "C++11";
+}
+div.ribbon.cpp14
+{
+    background-color: rgba(214, 27, 199, 0.75);
+    color: white;
+}
+div.ribbon.cpp14::after
+{
+    content: "C++14";
+}
+div.ribbon.cpp17
+{
+    background-color: rgba(214, 27, 199, 0.75);
+    color: white;
+}
+div.ribbon.cpp17::after
+{
+    content: "C++17";
 }
 
 .reveal section

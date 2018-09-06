@@ -924,119 +924,400 @@
             <section>
                 <section>
                     <h1>C++ 14</h1>
-                    <nav data-auto="feature='new language feature', stl='new standard library feature', misc='miscellaneous'"/>
+                    <nav data-auto="language='new language feature', stl='new standard library feature', misc='miscellaneous'"/>
                 </section>
-                
+
+                <!-- <section>
+                    <h2 data-category="language">Tweaked wording for contextual conversions</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
+                </section> -->
+
                 <section>
-                    <h2>Tweaked wording for contextual conversions</h2>
+                    <h2 data-category="language">Binary literals</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <article>
+                        <div>
+                            Numeric literals in C++14 can be specified in binary form.<br><br>
+                            The syntax uses the prefixes #(code:0b)# or #(code:0B)#.
+                        </div>
+                    </article>
                 </section>
 
                 <section>
-                    <h2 data-category="feature">Binary literals</h2>
+                    <h2 data-category="language" >Return type deduction for normal functions</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <!-- #(keyword:decltype(auto))#,  -->
+                    <article>
+                        <div style="font-size: 70%">
+                            <p>
+                                C++11 allowed lambda functions to deduce the return type based on the type of the expression given to the return statement.
+                            </p>
+                            <p>
+                                C++14 provides this ability to all functions.
+                            </p>
+                            <p>
+                                It also extends these facilities to lambda functions, allowing return type deduction for functions that are not of the form #(code:return expression;)#
+                            </p>
+                            <p>
+                                To induce return type deduction, the function must be declared with #(keyword:auto)# as the return type, but without the trailing return type specifier.
+                                <cppblock>
+                                    auto DeduceReturnType();   // Return type to be determined.
+                                </cppblock>
+                            </p>
+                            <p>
+                                Recursion can be used with a function of this type, but the recursive call must happen after at least one return statement in the definition of the function.
+                            </p>
+                        </div>
+                    </article>
                 </section>
 
                 <section>
-                    <h2>#(keyword:decltype(auto))#, Return type deduction for normal functions</h2>
+                    <h2 no-toc>Return type deduction for normal functions (2/2)</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article style="font-size: 65%; text-align: left;">
+                        <div>
+                            In C++11, two methods of type deduction were added:
+                            <ul>
+                                <li>
+                                    #(keyword:auto)# was a way to create a variable of the appropriate type, based on a given expression.
+                                </li>
+                                <li>
+                                    #(keyword:decltype)# was a way to compute the type of a given expression.
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            However, decltype and auto deduce types in different ways:
+                            <ul>
+                                <li>
+                                    #(code:auto)# always deduces a non-reference type, while #(code:auto&&)# always deduces a reference type.
+                                </li>
+                                <li>
+                                    #(code:decltype)# can be prodded into deducing a reference or non-reference type, based on the value category of the expression and the nature of the expression it is deducing
+                                </li>
+                            </ul>
+                            <cppblock>
+                                int   i;
+                                int&& f();
+                                auto          x3a = i;     // decltype(x3a) is int
+                                decltype(i)   x3d = i;     // decltype(x3d) is int
+                                auto          x4a = (i);   // decltype(x4a) is int
+                                decltype((i)) x4d = (i);   // decltype(x4d) is int&
+                                auto          x5a = f();   // decltype(x5a) is int
+                                decltype(f()) x5d = f();   // decltype(x5d) is int&&
+                            </cppblock>
+                            C++14 adds the #(code:decltype(auto))# syntax. This allows #(keyword:auto)# declarations to use the #(keyword:decltype)# rules on the given expression.
+                        </div>
+                        <div>
+
+                        </div>
+                    </article>
+
                 </section>
 
                 <section>
-                    <h2 data-category="feature">Initialized/Generalized lambda captures (init-capture)</h2>
+                    <h2 data-category="language">Initialized/Generalized lambda captures (init-capture)</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon whenneeded"></div>
+                    <article style="font-size: 75%;">
+                        <div>
+                            <p>
+                                C++11 lambda functions capture variables declared in their outer scope by copy or by reference.<br>
+                                This means that value members of a lambda cannot be move-only types.
+                            </p>
+                            <p>
+                                C++14 allows captured members to be initialized with arbitrary expressions.<br>
+                                This allows both capture by value-move and declaring arbitrary members of the lambda, without having a correspondingly named variable in an outer scope:
+                            </p>
+                            <cppblock>
+                                auto lambda = [value = 1] {return value;};
+                            </cppblock>
+                            <p>
+                                The lambda function lambda returns 1, which is what value was initialized with.
+                            </p>
+                            <p>
+                                The declared capture deduces the type from the initializer expression as if by #(keyword:auto)#.<br>
+                                This can be used to capture by move, via the use of the standard #(code:std::move)# function:
+                            </p>
+                            <cppblock>
+                                std::unique_ptr&lt;int> ptr(new int(10));
+                                auto lambda = [value = std::move(ptr)] {return *value;};
+                            </cppblock>
+                        </div>
+                    </article>
                 </section>
 
                 <section>
-                    <h2 data-category="feature">Generic (polymorphic) lambda expressions</h2>
+                    <h2 data-category="language">Generic (polymorphic) lambda expressions</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
-                    <h2 data-category="feature">Variable templates</h2>
+                    <h2 data-category="language">Variable templates</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
-                    <h2 data-category="feature">Extended constexpr</h2>
+                    <h2 data-category="language">Extended constexpr</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2>Member initializers and aggregates (NSDMI)</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2>Clarifying memory allocation (avoiding/fusing allocations)</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
-                    <h2 data-category="feature">[[deprecated]] attribute</h2>
+                    <h2 data-category="language">[[deprecated]] attribute</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
-                    <h2 data-category="feature">Sized deallocation</h2>
+                    <h2 data-category="language">Sized deallocation</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
-                    <h2 data-category="feature">Single quote as digit separator</h2>
+                    <h2 data-category="language">Single quote as digit separator</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">#(type:std::result_of)# and SFINAE</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">#(keyword:constexpr)# for #(header:complex)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">#(keyword:constexpr)# for #(header:chrono)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">#(keyword:constexpr)# for #(header:array)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">#(keyword:constexpr)# for #(header:initializer_list)#, #(header:utility)#, #(header:tuple)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">Improved #(type:std::integral_constant)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
                 
                 <section>
                     <h2 data-category="stl">User-defined literals for #(header:chrono)# and #(header:string)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
                 
                 <section>
                     <h2>Null forward iterators</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">#(type:std::quoted)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2>Heterogeneous associative lookup</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">#(type:std::integer_sequence)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">#(type:std::shared_timed_mutex)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">#(type:std::exchange)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
                 
                 <section>
                     <h2>fixing #(keyword:constexpr)# member functions without #(keyword:const)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">#(type:std::get&lt;T&gt;)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
 
                 <section>
                     <h2 data-category="stl">Dual-Range #(type:std::equal)#, #(type:std::is_permutation)#, #(type:std::mismatch)#</h2>
+                    <div class="ribbon cpp14"></div>
+                    <div class="ribbon tobedefined"></div>
+                    <article>
+                        <div>
+                            ???
+                        </div>
+                    </article>
                 </section>
             </section>
 <!--
