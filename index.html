@@ -1060,9 +1060,29 @@
                     <h2 data-category="language">Generic (polymorphic) lambda expressions</h2>
                     <div class="ribbon cpp14"></div>
                     <div class="ribbon tobedefined"></div>
-                    <article>
+                    <article style="font-size: 80%">
                         <div>
-                            ???
+                            <p>
+                                In C++11, lambda function parameters need to be declared with concrete types.<br>
+                                C++14 relaxes this requirement, allowing lambda function parameters to be declared with the auto type specifier.
+                            </p>
+                            <cppblock>
+                                auto lambda = [](auto x, auto y) {return x + y;};
+                            </cppblock>
+                            <p>
+                                As for auto type deduction, generic lambdas follow the rules of template argument deduction (which are similar, but not identical in all respects).
+                            </p>
+                            <p>
+                                The above code is equivalent to this:
+                            </p>
+                            <cppblock>
+                                struct unnamed_lambda
+                                {
+                                    template&lt;typename T, typename U>
+                                    auto operator()(T x, U y) const {return x + y;}
+                                };
+                                auto lambda = unnamed_lambda{};
+                            </cppblock>
                         </div>
                     </article>
                 </section>
@@ -1070,10 +1090,26 @@
                 <section>
                     <h2 data-category="language">Variable templates</h2>
                     <div class="ribbon cpp14"></div>
-                    <div class="ribbon tobedefined"></div>
-                    <article>
+                    <div class="ribbon whenneeded"></div>
+                    <article style="font-size: 83%">
+                        <p>
+                            In prior versions of C++, only functions, classes or type aliases could be templated.
+                        </p>
+                        <p>
+                            C++14 now allows the creation of variables that are templated.
+                        </p>
+                            <p>
+                            The usual rules of templates apply to such declarations and definitions, including specialization.
+                        </p>
                         <div>
-                            ???
+                            <cppblock>
+                                template&lt;typename T>
+                                constexpr T pi = T(3.141592653589793238462643383);
+
+                                // Usual specialization rules apply:
+                                template&lt;>
+                                constexpr const char* pi&lt;const char*> = "pi";
+                            </cppblock>
                         </div>
                     </article>
                 </section>
@@ -1081,15 +1117,42 @@
                 <section>
                     <h2 data-category="language">Extended constexpr</h2>
                     <div class="ribbon cpp14"></div>
-                    <div class="ribbon tobedefined"></div>
-                    <article>
+                    <div class="ribbon whenneeded"></div>
+                    <article style="font-size:75%">
                         <div>
-                            ???
+                            <p>
+                                #(keyword:constexpr)#-declared functions may now contain the following:
+                            </p>
+                            <ul style="width:70%">
+                                <li>
+                                    any declarations except:
+                                    <ul>
+                                        <li>#(keyword:static)# or #(keyword:thread_local)# variables,</li>
+                                        <li>variable declaration without initializers.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    The conditional branching #(keyword:if)# and #(keyword:switch)#.
+                                </li>
+                                <li>
+                                    Any looping statement, including range-based #(keyword:for)#
+                                </li>
+                                <li>
+                                    Expressions which change the value of an object if the lifetime of that object began within the constant expression function.
+                                </li>
+                            </ul>
+                            <p>
+                                #(keyword:goto)# statements are forbidden in C++14 relaxed constexpr-declared functions.
+                            </p>
+                            <p>
+                                Non-static member constexpr functions may be non-const.<br>
+                                However these kind of functions can only modify a class member if that object's lifetime began within the constant expression evaluation.
+                            </p>
                         </div>
                     </article>
                 </section>
 
-                <section>
+                <!-- <section>
                     <h2>Member initializers and aggregates (NSDMI)</h2>
                     <div class="ribbon cpp14"></div>
                     <div class="ribbon tobedefined"></div>
@@ -1098,7 +1161,7 @@
                             ???
                         </div>
                     </article>
-                </section>
+                </section> -->
 
                 <section>
                     <h2>Clarifying memory allocation (avoiding/fusing allocations)</h2>
