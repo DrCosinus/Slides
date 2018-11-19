@@ -15,11 +15,11 @@ class Card {
         Card.path_s = path;
     }
 
-    draw(ctx: CanvasRenderingContext2D) {
+    draw(ctx: CanvasRenderingContext2D, selected:boolean) {
         ctx.save();
         ctx.strokeStyle = 'rgb(0,0,0)';
         ctx.lineWidth = 2;
-        if (this.hittest(ctx, mouse_x, mouse_y))
+        if (selected)
             ctx.fillStyle = 'rgba(0, 250, 0, 1)';
         else
             ctx.fillStyle = 'rgba(250, 250, 250, 1)';
@@ -33,10 +33,7 @@ class Card {
     }
 
     hittest(ctx: CanvasRenderingContext2D, x: number, y: number): boolean {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        var result: boolean = ctx.isPointInPath(Card.path_s, x, y);
-        ctx.restore();
+        var result: boolean = ctx.isPointInPath(Card.path_s, x - this.x, y - this.y);
         return result;
     }
 
@@ -62,13 +59,18 @@ class CardCollection {
         return card;
     }
 
-    draw(ctx: CanvasRenderingContext2D) {
+    draw(ctx: CanvasRenderingContext2D) : void {
         this.cards.forEach(card => {
-            card.draw(ctx);
+            card.draw(ctx, this.selected==card);
         });
     }
 
+    hittest(ctx: CanvasRenderingContext2D, x: number, y: number) : void {
+        this.selected = this.cards.slice().reverse().find(card => card.hittest(ctx, x, y));
+    }
+
     cards: Card[] = [];
+    selected: Card = null;
 };
 
 /* CANVAS CREATION */
@@ -124,5 +126,10 @@ cardCollection.AddCard(50, 50);
 cardCollection.AddCard(54, 54);
 cardCollection.AddCard(57, 57);
 
+setInterval(function () {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    cardCollection.hittest(ctx, mouse_x, mouse_y);
+    cardCollection.draw(ctx);
+}, 33);
 //cardCollection.hittest(mouse_x, mouse_y);
-cardCollection.draw(ctx);
+

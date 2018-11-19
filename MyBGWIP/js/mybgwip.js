@@ -12,11 +12,11 @@ var Card = /** @class */ (function () {
         path.closePath();
         Card.path_s = path;
     };
-    Card.prototype.draw = function (ctx) {
+    Card.prototype.draw = function (ctx, selected) {
         ctx.save();
         ctx.strokeStyle = 'rgb(0,0,0)';
         ctx.lineWidth = 2;
-        if (this.hittest(ctx, mouse_x, mouse_y))
+        if (selected)
             ctx.fillStyle = 'rgba(0, 250, 0, 1)';
         else
             ctx.fillStyle = 'rgba(250, 250, 250, 1)';
@@ -26,10 +26,7 @@ var Card = /** @class */ (function () {
         ctx.restore();
     };
     Card.prototype.hittest = function (ctx, x, y) {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        var result = ctx.isPointInPath(Card.path_s, x, y);
-        ctx.restore();
+        var result = ctx.isPointInPath(Card.path_s, x - this.x, y - this.y);
         return result;
     };
     Card.radius = 10;
@@ -43,6 +40,7 @@ Card.makePath();
 var CardCollection = /** @class */ (function () {
     function CardCollection() {
         this.cards = [];
+        this.selected = null;
     }
     CardCollection.prototype.AddCard = function (x, y) {
         var card = new Card(x, y);
@@ -50,9 +48,13 @@ var CardCollection = /** @class */ (function () {
         return card;
     };
     CardCollection.prototype.draw = function (ctx) {
+        var _this = this;
         this.cards.forEach(function (card) {
-            card.draw(ctx);
+            card.draw(ctx, _this.selected == card);
         });
+    };
+    CardCollection.prototype.hittest = function (ctx, x, y) {
+        this.selected = this.cards.slice().reverse().find(function (card) { return card.hittest(ctx, x, y); });
     };
     return CardCollection;
 }());
@@ -95,6 +97,10 @@ for (var row = 0; row < cols_by_row.length; ++row) {
 cardCollection.AddCard(50, 50);
 cardCollection.AddCard(54, 54);
 cardCollection.AddCard(57, 57);
+setInterval(function () {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    cardCollection.hittest(ctx, mouse_x, mouse_y);
+    cardCollection.draw(ctx);
+}, 33);
 //cardCollection.hittest(mouse_x, mouse_y);
-cardCollection.draw(ctx);
 //# sourceMappingURL=mybgwip.js.map
