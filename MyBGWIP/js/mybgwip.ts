@@ -24,7 +24,7 @@ class Card {
         else
             ctx.fillStyle = 'rgba(250, 250, 250, 1)';
 
-        ctx.translate(this.x, this.y);
+        this.applyTransform(ctx);
 
         ctx.fill(Card.path_s);
         ctx.stroke(Card.path_s);
@@ -32,9 +32,22 @@ class Card {
         ctx.restore();
     }
 
+    applyTransform(ctx: CanvasRenderingContext2D)
+    {
+        ctx.translate(this.x, this.y);
+    }
+
     hittest(ctx: CanvasRenderingContext2D, x: number, y: number): boolean {
-        var result: boolean = ctx.isPointInPath(Card.path_s, x - this.x, y - this.y);
+        ctx.save();
+        this.applyTransform(ctx);
+        var result: boolean = ctx.isPointInPath(Card.path_s, x, y);
+        ctx.restore();
         return result;
+    }
+
+    click()
+    {
+        this.x += 25;
     }
 
     static radius: number = 10;
@@ -85,13 +98,21 @@ document.body.appendChild(canvas);
 var mouse_x: number = null;
 var mouse_y: number = null;
 
+// 'mouseup', 'mousedown'
 canvas.addEventListener('mousemove', onMouseUpdate, false);
 canvas.addEventListener('mouseenter', onMouseUpdate, false);
+canvas.addEventListener('click', onMouseClick, false);
 
 function onMouseUpdate(e: MouseEvent) {
     mouse_x = e.offsetX;
     mouse_y = e.offsetY;
-    console.log(mouse_x, mouse_y);
+}
+
+function onMouseClick(e:MouseEvent) {
+    if (cardCollection.selected)
+    {
+        cardCollection.selected.click();
+    }
 }
 
 function getMouseX() {
@@ -131,5 +152,5 @@ setInterval(function () {
     cardCollection.hittest(ctx, mouse_x, mouse_y);
     cardCollection.draw(ctx);
 }, 33);
-//cardCollection.hittest(mouse_x, mouse_y);
+
 

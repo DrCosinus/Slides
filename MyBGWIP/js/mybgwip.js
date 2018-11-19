@@ -20,14 +20,24 @@ var Card = /** @class */ (function () {
             ctx.fillStyle = 'rgba(0, 250, 0, 1)';
         else
             ctx.fillStyle = 'rgba(250, 250, 250, 1)';
-        ctx.translate(this.x, this.y);
+        this.applyTransform(ctx);
         ctx.fill(Card.path_s);
         ctx.stroke(Card.path_s);
         ctx.restore();
     };
+    Card.prototype.applyTransform = function (ctx) {
+        ctx.rotate(1);
+        ctx.translate(this.x, this.y);
+    };
     Card.prototype.hittest = function (ctx, x, y) {
-        var result = ctx.isPointInPath(Card.path_s, x - this.x, y - this.y);
+        ctx.save();
+        this.applyTransform(ctx);
+        var result = ctx.isPointInPath(Card.path_s, x, y);
+        ctx.restore();
         return result;
+    };
+    Card.prototype.click = function () {
+        this.x += 25;
     };
     Card.radius = 10;
     Card.width = 88;
@@ -69,10 +79,15 @@ var mouse_x = null;
 var mouse_y = null;
 canvas.addEventListener('mousemove', onMouseUpdate, false);
 canvas.addEventListener('mouseenter', onMouseUpdate, false);
+canvas.addEventListener('click', onMouseClick, false);
 function onMouseUpdate(e) {
     mouse_x = e.offsetX;
     mouse_y = e.offsetY;
-    console.log(mouse_x, mouse_y);
+}
+function onMouseClick(e) {
+    if (cardCollection.selected) {
+        cardCollection.selected.click();
+    }
 }
 function getMouseX() {
     return mouse_x;
@@ -102,5 +117,4 @@ setInterval(function () {
     cardCollection.hittest(ctx, mouse_x, mouse_y);
     cardCollection.draw(ctx);
 }, 33);
-//cardCollection.hittest(mouse_x, mouse_y);
 //# sourceMappingURL=mybgwip.js.map
