@@ -4,72 +4,125 @@ class Card {
         this.y = y;
     }
 
+    static makePath() {
+        var path = new Path2D();
+        path.arc(Card.radius, Card.radius, Card.radius, 2 * Math.PI / 2, 3 * Math.PI / 2);
+        path.arc(Card.width - Card.radius, Card.radius, Card.radius, 3 * Math.PI / 2, 0);
+        path.arc(Card.width - Card.radius, Card.height - Card.radius, Card.radius, 4 * Math.PI / 2, Math.PI / 2);
+        path.arc(Card.radius, Card.height - Card.radius, Card.radius, 1 * Math.PI / 2, 2 * Math.PI / 2);
+        path.closePath();
+
+        Card.path_s = path;
+    }
+
     draw(ctx: CanvasRenderingContext2D) {
         ctx.save();
         ctx.strokeStyle = 'rgb(0,0,0)';
         ctx.lineWidth = 2;
-        ctx.fillStyle = 'rgba(250, 250, 250, 1)';
+        if (this.hittest(ctx, mouse_x, mouse_y))
+            ctx.fillStyle = 'rgba(0, 250, 0, 1)';
+        else
+            ctx.fillStyle = 'rgba(250, 250, 250, 1)';
 
         ctx.translate(this.x, this.y);
 
-        ctx.beginPath();
-        ctx.arc(this.radius, this.radius, this.radius, 2 * Math.PI / 2, 3 * Math.PI / 2);
-        ctx.arc(card_width - this.radius, this.radius, this.radius, 3 * Math.PI / 2, 0);
-        ctx.arc(card_width - this.radius, card_height - this.radius, this.radius, 4 * Math.PI / 2, Math.PI / 2);
-        ctx.arc(this.radius, card_height - this.radius, this.radius, 1 * Math.PI / 2, 2 * Math.PI / 2);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
+        ctx.fill(Card.path_s);
+        ctx.stroke(Card.path_s);
+
         ctx.restore();
     }
 
-    radius: number = 10;
+    hittest(ctx: CanvasRenderingContext2D, x: number, y: number): boolean {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        var result: boolean = ctx.isPointInPath(Card.path_s, x, y);
+        ctx.restore();
+        return result;
+    }
+
+    static radius: number = 10;
+    static width: number = 88;
+    static height: number = 63;
+    static path_s: Path2D;
     x: number;
     y: number;
 };
 
+// eager "static" construction
+Card.makePath();
 
+class CardCollection {
+    constructor() {
+
+    }
+
+    AddCard(x: number, y: number): Card {
+        var card = new Card(x, y);
+        this.cards.push(card);
+        return card;
+    }
+
+    draw(ctx: CanvasRenderingContext2D) {
+        this.cards.forEach(card => {
+            card.draw(ctx);
+        });
+    }
+
+    cards: Card[] = [];
+};
+
+/* CANVAS CREATION */
 
 var canvas = document.createElement("canvas");
 canvas.width = 640;
 canvas.height = 640;
 document.body.appendChild(canvas);
 
-var div = document.createElement("div");
-div.innerHTML = "plop";
-document.body.appendChild(div);
+/* MOUSE HANDLING - BEGIN */
+
+var mouse_x: number = null;
+var mouse_y: number = null;
+
+canvas.addEventListener('mousemove', onMouseUpdate, false);
+canvas.addEventListener('mouseenter', onMouseUpdate, false);
+
+function onMouseUpdate(e: MouseEvent) {
+    mouse_x = e.offsetX;
+    mouse_y = e.offsetY;
+    console.log(mouse_x, mouse_y);
+}
+
+function getMouseX() {
+    return mouse_x;
+}
+
+function getMouseY() {
+    return mouse_y;
+}
+
+/* MOUSE HANDLING - END */
 
 var ctx = canvas.getContext("2d");
 
-const card_width = 88;
-const card_height = 63;
 ctx.strokeStyle = 'rgb(200,0,0)';
 const width = canvas.width;
 
 const cols_by_row = [4, 5, 6, 7, 6, 5, 4];
-const offset_y = (canvas.height - cols_by_row.length * card_height) / 2;
+const offset_y = (canvas.height - cols_by_row.length * Card.height) / 2;
 
-var cards : Card[] = [];
+var cardCollection = new CardCollection();
 
 for (var row = 0; row < cols_by_row.length; ++row) {
     const cards_by_row = cols_by_row[row];
-    const offset_x = (width - cards_by_row * card_width) / 2;
+    const offset_x = (width - cards_by_row * Card.width) / 2;
     for (var col_into_row = 0; col_into_row < cards_by_row; ++col_into_row) {
-        cards.push(new Card(offset_x + col_into_row * card_width, offset_y + row * card_height));
-        //ctx.strokeRect(offset_x + col_into_row * card_width, offset_y + row * card_height, card_width, card_height);
-        //console.log(offset_x + col_into_row * card_width);
+        cardCollection.AddCard(offset_x + col_into_row * Card.width, offset_y + row * Card.height);
     }
 }
 
+cardCollection.AddCard(50, 50);
+cardCollection.AddCard(54, 54);
+cardCollection.AddCard(57, 57);
 
-cards.push(new Card(50, 50));
-cards.push(new Card(54, 54));
-
-// var card = new Card(50, 50);
-// card.draw(ctx);
-// var card2 = new Card(54, 54);
-// card2.draw(ctx);
-
-cards.forEach(card => {
-    card.draw(ctx);
-});
+//cardCollection.hittest(mouse_x, mouse_y);
+cardCollection.draw(ctx);
