@@ -4,15 +4,19 @@ class Card {
         this.y = y;
     }
 
-    static makePath() {
+    static makeStatic(ctx: CanvasRenderingContext2D) {
         var path = new Path2D();
-        path.arc(Card.radius, Card.radius, Card.radius, 2 * Math.PI / 2, 3 * Math.PI / 2);
-        path.arc(Card.width - Card.radius, Card.radius, Card.radius, 3 * Math.PI / 2, 0);
-        path.arc(Card.width - Card.radius, Card.height - Card.radius, Card.radius, 4 * Math.PI / 2, Math.PI / 2);
-        path.arc(Card.radius, Card.height - Card.radius, Card.radius, 1 * Math.PI / 2, 2 * Math.PI / 2);
+        path.arc(-Card.width/2 + Card.radius, -Card.height/2 + Card.radius, Card.radius, 2 * Math.PI / 2, 3 * Math.PI / 2);
+        path.arc(Card.width/2 - Card.radius, -Card.height/2 + Card.radius, Card.radius, 3 * Math.PI / 2, 0);
+        path.arc(Card.width/2 - Card.radius, Card.height/2 - Card.radius, Card.radius, 4 * Math.PI / 2, Math.PI / 2);
+        path.arc(-Card.width/2 + Card.radius, Card.height/2 - Card.radius, Card.radius, 1 * Math.PI / 2, 2 * Math.PI / 2);
         path.closePath();
-
         Card.path_s = path;
+
+        var gradient : CanvasGradient= ctx.createLinearGradient(0,0,Card.width,Card.height);
+        gradient.addColorStop(0,'rgba(250, 250, 250, 1)');
+        gradient.addColorStop(1,'rgba(120, 120, 180, 1)');
+        Card.gradient_s = gradient;
     }
 
     draw(ctx: CanvasRenderingContext2D, selected:boolean) {
@@ -22,8 +26,7 @@ class Card {
         if (selected)
             ctx.fillStyle = 'rgba(0, 250, 0, 1)';
         else
-            ctx.fillStyle = 'rgba(250, 250, 250, 1)';
-
+            ctx.fillStyle = Card.gradient_s;
         this.applyTransform(ctx);
 
         ctx.fill(Card.path_s);
@@ -35,6 +38,7 @@ class Card {
     applyTransform(ctx: CanvasRenderingContext2D)
     {
         ctx.translate(this.x, this.y);
+        ctx.rotate(Math.PI*2*this.t)
     }
 
     hittest(ctx: CanvasRenderingContext2D, x: number, y: number): boolean {
@@ -47,19 +51,19 @@ class Card {
 
     click()
     {
-        this.x += 25;
+        //this.x += 25;
+        this.t += 0.25;
     }
 
     static radius: number = 10;
     static width: number = 88;
     static height: number = 63;
     static path_s: Path2D;
+    static gradient_s: CanvasGradient;
     x: number;
     y: number;
+    t: number = 0;
 };
-
-// eager "static" construction
-Card.makePath();
 
 class CardCollection {
     constructor() {
@@ -127,17 +131,20 @@ function getMouseY() {
 
 var ctx = canvas.getContext("2d");
 
+// eager "static" construction
+Card.makeStatic(ctx);
+
 ctx.strokeStyle = 'rgb(200,0,0)';
 const width = canvas.width;
 
 const cols_by_row = [4, 5, 6, 7, 6, 5, 4];
-const offset_y = (canvas.height - cols_by_row.length * Card.height) / 2;
+const offset_y = (canvas.height + ( 1 - cols_by_row.length ) * Card.height) / 2;
 
 var cardCollection = new CardCollection();
 
 for (var row = 0; row < cols_by_row.length; ++row) {
     const cards_by_row = cols_by_row[row];
-    const offset_x = (width - cards_by_row * Card.width) / 2;
+    const offset_x = (width + ( 1 - cards_by_row ) * Card.width) / 2;
     for (var col_into_row = 0; col_into_row < cards_by_row; ++col_into_row) {
         cardCollection.AddCard(offset_x + col_into_row * Card.width, offset_y + row * Card.height);
     }
