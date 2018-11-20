@@ -1,15 +1,15 @@
 var Card = /** @class */ (function () {
     function Card(x, y) {
-        this.t = 0;
+        this.turn = 0;
         this.x = x;
         this.y = y;
     }
-    Card.makeStatic = function (ctx) {
+    Card.StaticInit = function (ctx) {
         var path = new Path2D();
-        path.arc(-Card.width / 2 + Card.radius, -Card.height / 2 + Card.radius, Card.radius, 2 * Math.PI / 2, 3 * Math.PI / 2);
-        path.arc(Card.width / 2 - Card.radius, -Card.height / 2 + Card.radius, Card.radius, 3 * Math.PI / 2, 0);
-        path.arc(Card.width / 2 - Card.radius, Card.height / 2 - Card.radius, Card.radius, 4 * Math.PI / 2, Math.PI / 2);
-        path.arc(-Card.width / 2 + Card.radius, Card.height / 2 - Card.radius, Card.radius, 1 * Math.PI / 2, 2 * Math.PI / 2);
+        path.arc(-Card.width / 2 + Card.cornerRadius_s, -Card.height / 2 + Card.cornerRadius_s, Card.cornerRadius_s, 2 * Math.PI / 2, 3 * Math.PI / 2);
+        path.arc(Card.width / 2 - Card.cornerRadius_s, -Card.height / 2 + Card.cornerRadius_s, Card.cornerRadius_s, 3 * Math.PI / 2, 0);
+        path.arc(Card.width / 2 - Card.cornerRadius_s, Card.height / 2 - Card.cornerRadius_s, Card.cornerRadius_s, 4 * Math.PI / 2, Math.PI / 2);
+        path.arc(-Card.width / 2 + Card.cornerRadius_s, Card.height / 2 - Card.cornerRadius_s, Card.cornerRadius_s, 1 * Math.PI / 2, 2 * Math.PI / 2);
         path.closePath();
         Card.path_s = path;
         var gradient = ctx.createLinearGradient(0, 0, Card.width, Card.height);
@@ -17,22 +17,23 @@ var Card = /** @class */ (function () {
         gradient.addColorStop(1, 'rgba(120, 120, 180, 1)');
         Card.gradient_s = gradient;
     };
-    Card.prototype.draw = function (ctx, selected) {
+    Card.prototype.draw = function (ctx, highlight) {
         ctx.save();
+        this.applyTransform(ctx);
+        ctx.fillStyle = Card.gradient_s;
+        ctx.fill(Card.path_s);
+        if (highlight) {
+            ctx.fillStyle = 'rgba(0, 250, 0, 0.5)';
+            ctx.fill(Card.path_s);
+        }
         ctx.strokeStyle = 'rgb(0,0,0)';
         ctx.lineWidth = 2;
-        if (selected)
-            ctx.fillStyle = 'rgba(0, 250, 0, 1)';
-        else
-            ctx.fillStyle = Card.gradient_s;
-        this.applyTransform(ctx);
-        ctx.fill(Card.path_s);
         ctx.stroke(Card.path_s);
         ctx.restore();
     };
     Card.prototype.applyTransform = function (ctx) {
         ctx.translate(this.x, this.y);
-        ctx.rotate(Math.PI * 2 * this.t);
+        ctx.rotate(Math.PI * 2 * this.turn);
     };
     Card.prototype.hittest = function (ctx, x, y) {
         ctx.save();
@@ -43,9 +44,9 @@ var Card = /** @class */ (function () {
     };
     Card.prototype.click = function () {
         //this.x += 25;
-        this.t += 0.25;
+        this.turn += 0.25;
     };
-    Card.radius = 10;
+    Card.cornerRadius_s = 10;
     Card.width = 88;
     Card.height = 63;
     return Card;
@@ -103,7 +104,7 @@ function getMouseY() {
 /* MOUSE HANDLING - END */
 var ctx = canvas.getContext("2d");
 // eager "static" construction
-Card.makeStatic(ctx);
+Card.StaticInit(ctx);
 ctx.strokeStyle = 'rgb(200,0,0)';
 var width = canvas.width;
 var cols_by_row = [4, 5, 6, 7, 6, 5, 4];
