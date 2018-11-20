@@ -118,7 +118,8 @@ Rembobiner le temps
 Mécaniques classiques :
 
 - [ ] Draft
-- [ ] Enchères
+- [ ] Enchères classiques
+- [ ] Enchères au second prix (le gagnant de l'enchère paye le prix anoncé par le second)
 - [ ] Rôles cachés
 - [ ] Cartes Objectifs / Objectifs cachés
 - [ ] Deck Building
