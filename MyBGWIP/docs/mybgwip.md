@@ -2,7 +2,19 @@
 
 Pas de hasard.
 
+Rapide (30 min la partie).
+
+Rapide à expliquer.
+Rapide à comprendre.
+Rapide à mettre en place.
+Rapide à ranger.
+
+Accessible / Evidemment / Profond
+
 Simultanéité.
+On programme son action. On révèle. On résoud.
+
+2 à 4 (au moins) joueurs. Mode equipe ?
 
 Partage des ressources.
 
@@ -10,7 +22,7 @@ Dylèmne : coopérer pour mieux trahir.
 
 ## Le jeu
 
-Genre : Placement de Cartes.
+Genre : Placement de Cartes/Tuiles.
 
 ### Cartes
 
@@ -79,11 +91,15 @@ Une Carte placée dans la zone globale est utilisable gratuitement par tous les 
 
 ### Condition de victoire
 
-### Ages
+### Ages/Periodes
 
 Developpement
 
 ### Ressources
+
+4 couleurs de tuiles
+
+2 tuiles de couleur identiques ne peut pas se toucher
 
 #### Stock
 
@@ -125,9 +141,45 @@ Mécaniques classiques :
 - [ ] Deck Building
 - [ ] Majorité
 - [ ] Monopole
-- [ ] Course
+- [ ] Course, fuite...
 - [ ] Paris
 - [ ] Carte à trou
+- [ ] Gestion/Revenu
+- [ ] Pose d'ouvrier
+- [x] Pose de tuiles
+- [ ] Defausse
+- [ ] Plis
+- [ ] Bluff
+- [ ] Capture
+- [ ] Collecte, Collection
+- [ ] Combinaison
+- [ ] Commerce
+- [ ] Connection
+- [ ] Coop
+- [ ] Enigme, enquete, déduction
+- [ ] Mémoire
+- [ ] Négo
+- [ ] Elimination
+- [ ] Equipe
+- [ ] Pari
+- [ ] Loto
+- [ ] Placement
+- [ ] Point d'action
+- [x] Simultané
+- [ ] Programmation
+- [ ] Réduction de l'aire de jeu (PUBG)
+- [ ] Stop ou encore
+- [ ] Prend ça dans ta gueule
+- [ ] King of the hill
+- [ ] Capture the flag
+- [ ] Règles evolutives (Red7)
+- [ ] Dylèmne du prisonnier
+- [ ] Duplicate
+- [ ] Observation
+- [ ] Adresse
+- [ ] Rapidité
+- [ ] Quantité limitée des ressources
+- [ ] Limite de taille de main
 
 Action de base : piocher, se défausser, deplacer
 
@@ -150,7 +202,17 @@ Industrie
 Résistance
 Utopie
 
-### Jeux video
+Zachtronic:
+
+- Cycles
+- Size
+- Activité
+
+Les 9 princes d'Ambre : modifie un point de règle
+
+### Thèmes
+
+#### Jeux video
 
 - Fun
 - Scénario
@@ -165,6 +227,7 @@ Utopie
 - Uchronia
 - CIV
 - Paper Tales
+- Splendor
 
 - Highgrounds
 - 4X (Explore, expand, exploit, exterminate)
