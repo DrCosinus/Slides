@@ -21,3 +21,9 @@ need complete definition:
 - inherit from
 - operator dot
 - operator arrow
+
+
+cmake .. -G "Visual Studio 15 2017" -DCMAKE_GENERATOR_PLATFORM=x64 -Thost=x64 -DLLVM_INCLUDE_TESTS=OFF -DLLVM_BUILD_TOOLS=OFF -DLLVM_INCLUDE_UTILS=OFF -DLLVM_TARGETS_TO_BUILD="" -DCLANG_ENABLE_STATIC_ANALYZER=OFF -DCLANG_ENABLE_ARCMT=OFF
+
+cmake --build . --target clang-tidy --config RelWithDebInfo
+cmake --build . --target clang-query --config RelWithDebInfo
