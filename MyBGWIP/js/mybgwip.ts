@@ -5,6 +5,70 @@
 // User -> View : sees
 // User -> Controller : uses
 
+//
+//     A  B  C  D  E  F  G  H  I
+//     |  |  |  |  |  |  |  |  |
+//      6\    7\    8\    9\
+// 5\  __    __    __    __    __
+//    /A5\__/C6\__/E7\__/G8\__/I9\__
+// 4\ \__/B5\__/D6\__/F7\__/H8\__/  
+//    /A4\__/C5\__/E6\__/G7\__/I8\__
+// 3\ \__/B4\__/D5\__/F6\__/H5\__/  
+//    /A3\__/C4\__/E5\__/G6\__/I7\__
+// 2\ \__/B3\__/D4\__/F5\__/H6\__/  
+//    /A2\__/C3\__/E4\__/G5\__/I6\__
+// 1\ \__/B2\__/D3\__/E5\__/H5\__/  
+//    /A1\__/C2\__/E3\__/G6\__/I5\__
+//    \__/  \__/  \__/  \__/  \__/  
+
+// Neighbors of [LETTER/NUMBER] are [LETTER/NUMBER+1], [LETTER+1/NUMBER+1], [LETTER+1/NUMBER], [LETTER/NUMBER-1], [LETTER-1/NUMBER-1], [LETTER-1/NUMBER]
+// - North neighbor delta is [0,+1]
+// - North East neighbor delta is [+1,+1]
+// - South East neighbor delta is [+1,0]
+// - South neighbor delta is [0,-1]
+// - South West neighbor delta is [-1,-1]
+// - North West neighbor delta is [-1,0]
+
+//      A  B  C  D  E  F  G  H  I
+//      |  |  |  |  |  |  |  |  |
+//
+//     +--+--+--+--+--+--+--+--+--+
+// 9-  |  |  |  |  |  |  |  |  |I9|
+//     +--+--+--+--+--+--+--+--+--+
+// 8-  |  |  |  |  |  |  |G8|H8|I8|
+//     +--+--+--+--+--+--+--+--+--+
+// 7-  |  |  |  |  |E7|F7|G7|H7|I7|
+//     +--+--+--+--+--+--+--+--+--+
+// 6-  |  |  |C6|D6|E6|F6|G6|H6|I6|
+//     +--+--+--+--+--+--+--+--+--+
+// 5-  |A5|B5|C5|D5|E5|F5|G5|H5|I5|
+//     +--+--+--+--+--+--+--+--+--+
+// 4-  |A4|B4|C4|D4|E4|F4|G4|  |  |
+//     +--+--+--+--+--+--+--+--+--+
+// 3-  |A3|B3|C3|D3|E3|  |  |  |  |
+//     +--+--+--+--+--+--+--+--+--+
+// 2-  |A2|B2|C2|  |  |  |  |  |  |
+//     +--+--+--+--+--+--+--+--+--+
+// 1-  |A1|  |  |  |  |  |  |  |  |
+//     +--+--+--+--+--+--+--+--+--+
+
+// Thank to a modulo on row index we can compress the array: (row-1)%5+1
+
+//      A  B  C  D  E  F  G  H  I
+//      |  |  |  |  |  |  |  |  |
+//
+//     +--+--+--+--+--+--+--+--+--+
+// 5-  |A5|B5|C5|D5|E5|F5|G5|H5|I5|
+//     +--+--+--+--+--+--+--+--+--+
+// 4-  |A4|B4|C4|D4|E4|F4|G4|  |I9|
+//     +--+--+--+--+--+--+--+--+--+
+// 3-  |A3|B3|C3|D3|E3|  |G8|H8|I8|
+//     +--+--+--+--+--+--+--+--+--+
+// 2-  |A2|B2|C2|  |E7|F7|G7|H7|I7|
+//     +--+--+--+--+--+--+--+--+--+
+// 1-  |A1|  |C6|D6|E6|F6|G6|H6|I6|
+//     +--+--+--+--+--+--+--+--+--+
+
 
 class CardModel {
     constructor(x, y) {
@@ -12,19 +76,19 @@ class CardModel {
         this.y = y;
     }
 
-    hittest(ctx: CanvasRenderingContext2D, x: number, y: number): boolean {
-        ctx.save();
-        this.applyTransform(ctx);
-        var result: boolean = ctx.isPointInPath(Card.path_s, x, y);
-        ctx.restore();
-        return result;
-    }
+    // hittest(ctx: CanvasRenderingContext2D, x: number, y: number): boolean {
+    //     ctx.save();
+    //     this.applyTransform(ctx);
+    //     var result: boolean = ctx.isPointInPath(Card.path_s, x, y);
+    //     ctx.restore();
+    //     return result;
+    // }
 
-    click()
-    {
-        //this.x += 25;
-        this.turn += 0.25;
-    }
+    // click()
+    // {
+    //     //this.x += 25;
+    //     this.turn += 0.25;
+    // }
     
     x: number;
     y: number;
