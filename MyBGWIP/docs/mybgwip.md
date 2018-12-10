@@ -180,6 +180,7 @@ Mécaniques classiques :
 - [ ] Rapidité
 - [ ] Quantité limitée des ressources
 - [ ] Limite de taille de main
+- [ ] Pick and delivery
 
 Action de base : piocher, se défausser, deplacer
 
