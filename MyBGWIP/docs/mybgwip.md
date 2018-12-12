@@ -24,6 +24,16 @@ Dylèmne : coopérer pour mieux trahir.
 
 Genre : Placement de Cartes/Tuiles.
 
+Gestion de ces jetons/tuiles.
+
+Les jetons servent à tout (compteur de pv, compteur d'argent, de points, de marqueurs d'action,...) mais sont en nombre limité.
+
+Une rivière de cartes "contrat" présente des structures d'hexagone à réaliser.
+
+Un pool de tuile hexagonal est disponible.
+
+A son tour, le joueur actif doit positionner un hexagone adjacent à un hexagone déjà présent de couleur différente.
+
 ### Cartes
 
 Chaque joueur à une main. En faite, non... enfin je ne pense pas. Il pioche des cartes, les revèle à tous en les posant devant lui dans sa zone privée. Mais sa zone privée est limité en taille et les cartes ont un cout d'embauche et un cout d'entretient. Il va donc devoir se défaire des cartes qui ne veut/peut pas garder vers la zone globale.
@@ -181,6 +191,7 @@ Mécaniques classiques :
 - [ ] Quantité limitée des ressources
 - [ ] Limite de taille de main
 - [ ] Pick and delivery
+- [ ] reservation
 
 Action de base : piocher, se défausser, deplacer
 
