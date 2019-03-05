@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Shake // Modern C++ Features</title>
+    <title>Modern C++ Features</title>
 
     <link rel="stylesheet" href="revealjs/css/reveal.css">
     <link rel="stylesheet" href="revealjs/css/theme/white.css">
@@ -29,7 +29,7 @@
                 <h2>Modern C++ Features</h2>
                 <h3>Past / Present / Future</h3>
             </section>
-<!--
+            <!--
                    CCCCCCCCCCC                                 111          111    
                  CCCCCCCCCCCCCC                              11111        11111    
                 CCCCC       CCC                            1111111      1111111    
@@ -44,7 +44,8 @@
             <section>
                 <section id="cpp11">
                     <h1>C++ 11</h1>
-                    <nav data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', rtperf='core language runtime performance', misc='miscellaneous'"/>
+                    <nav
+                        data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', rtperf='core language runtime performance', misc='miscellaneous'" />
                 </section>
 
                 <section>
@@ -60,16 +61,21 @@
                     </aside>
                     <article>
                         <p>
-                            C++11 allows variable alignment to be queried and controlled with #(keyword:alignof)# and #(keyword:alignas)#.
+                            C++11 allows variable alignment to be queried and controlled with #(keyword:alignof)# and
+                            #(keyword:alignas)#.
                         </p>
                         <p style="display: none;">
-                            The #(keyword:alignof)# operator takes the type and returns the power of 2 byte boundary on which the type instances must be allocated (as a #(type:std::size_t)#).
+                            The #(keyword:alignof)# operator takes the type and returns the power of 2 byte boundary on
+                            which the type instances must be allocated (as a #(type:std::size_t)#).
                         </p>
                         <p style="display: none;">
-                            When given a reference type alignof returns the referenced type's alignment; for arrays it returns the element type's alignment.
+                            When given a reference type alignof returns the referenced type's alignment; for arrays it
+                            returns the element type's alignment.
                         </p>
                         <p>
-                            The #(keyword:alignas)# specifier controls the memory alignment for a variable. The specifier takes a constant or a type; when supplied a type #(code:alignas(T))# is shorthand for #(code:alignas(alignof(T)))#.
+                            The #(keyword:alignas)# specifier controls the memory alignment for a variable. The
+                            specifier takes a constant or a type; when supplied a type #(code:alignas(T))# is shorthand
+                            for #(code:alignas(alignof(T)))#.
                         </p>
                         <!-- <p>
                             For example, to specify that a char array should be properly aligned to hold a float:
@@ -86,10 +92,12 @@
                     <div class="ribbon whenneeded"></div>
                     <article>
                         <p>
-                            C++11 introduces the atomic operations library<br>needed for lock-free concurential programmation.
+                            C++11 introduces the atomic operations library<br>needed for lock-free concurential
+                            programmation.
                         </p>
                         <p>
-                            Every atomic operation is not splittable by any<br>other atomic operation involving the same object.
+                            Every atomic operation is not splittable by any<br>other atomic operation involving the same
+                            object.
                         </p>
                         <p>
                             Atomic objects are "data races"-free.
@@ -109,7 +117,8 @@
                             C++11 allows type inference.
                         </p>
                         <p>
-                            The definition of a variable with an explicit initialization can use the #(keyword:auto)# keyword.<br>
+                            The definition of a variable with an explicit initialization can use the #(keyword:auto)#
+                            keyword.<br>
                         </p>
                         <p>
                             This creates a variable of the specific type of the initializer:
@@ -130,7 +139,8 @@
                     <div class="ribbon whenneeded"></div>
                     <article>
                         <p>
-                            The keyword #(keyword:decltype)# can be used to determine the type of expression at compile-time.
+                            The keyword #(keyword:decltype)# can be used to determine the type of expression at
+                            compile-time.
                             <cppblock>
                                 unsigned int some_int;
                                 decltype(some_int) other_integer_variable = 5;
@@ -154,12 +164,13 @@
                             There are some limitations.
                         </p>
                         <p>
-                            If it is called with not constant expression arguments, the call behaves as if the function were not constexpr.
+                            If it is called with not constant expression arguments, the call behaves as if the function
+                            were not constexpr.
                             <cppblock>
                                 constexpr int siz() { return 42; }
                                 int array[siz() + 17]; // illformed if siz() is not constexpr
                                 template&lt;int I&gt; struct Bar {};
-                                Bar&lt;siz()&gt; bar;  // illformed if siz() is not constexpr
+                                Bar&lt;siz()&gt; bar; // illformed if siz() is not constexpr
                             </cppblock>
                         </p>
                     </article>
@@ -175,20 +186,20 @@
                             <cppblock>
                                 struct Foo
                                 {
-                                    Foo() = default; // explicit instantiantion of default constructor
-                                    Foo(int _value);
+                                Foo() = default; // explicit instantiantion of default constructor
+                                Foo(int _value);
                                 };
                                 struct NonCopyable
                                 {
-                                    NonCopyable() = default;
-                                    NonCopyable(const NonCopyable&amp;) = delete;
-                                    NonCopyable&amp; operator=(const NonCopyable&amp;) = delete;
+                                NonCopyable() = default;
+                                NonCopyable(const NonCopyable&amp;) = delete;
+                                NonCopyable&amp; operator=(const NonCopyable&amp;) = delete;
                                 };
                             </cppblock>
                         </p>
                     </article>
                 </section>
-                
+
                 <section>
                     <h2 no-toc>Defaulted &amp; deleted functions</h2>
                     <div class="ribbon cpp11"></div>
@@ -200,12 +211,13 @@
                             (and to guard against implicit cast).
                             <cppblock>
                                 struct Foo {
-                                  Foo(double) {}
-                                  Foo(int) =delete;                     // &lt;== guard from conversion from int
+                                Foo(double) {}
+                                Foo(int) =delete; // &lt;== guard from conversion from int
                                 };
                                 struct Bar {
-                                  Bar(double) {}
-                                  template&lt;typename T&gt; Bar(T) =delete; // &lt;== guard from any conversion but double
+                                Bar(double) {}
+                                template&lt;typename T&gt; Bar(T) =delete; // &lt;== guard from any conversion but
+                                double
                                 };
                             </cppblock>
                         </p>
@@ -221,9 +233,9 @@
                             Constructors can call other peer constructors:
                             <cppblock>
                                 struct Foo {
-                                    Foo(int _value) : value_(_value) {}
-                                    Foo() : Foo(42) {} // &lt;== this constructor calls the other one
-                                    int value_;
+                                Foo(int _value) : value_(_value) {}
+                                Foo() : Foo(42) {} // &lt;== this constructor calls the other one
+                                int value_;
                                 };
                             </cppblock>
                         </p>
@@ -239,14 +251,14 @@
                             A class can inherit constructors from its base class:
                             <cppblock>
                                 struct Parent {
-                                    explicit Parent(int _value) : value_{_value} {}
-                                    Parent() : value_(-1) {}
-                                    Parent(int _value1, int _value2) : value_{_value1 + _value2} {}
+                                explicit Parent(int _value) : value_{_value} {}
+                                Parent() : value_(-1) {}
+                                Parent(int _value1, int _value2) : value_{_value1 + _value2} {}
                                 private:
-                                    int value_;
+                                int value_;
                                 };
                                 struct Child : Parent {
-                                    using Parent::Parent; // &lt;== inheriting all constructors of Parent
+                                using Parent::Parent; // &lt;== inheriting all constructors of Parent
                                 };
                                 Child child0, child1(14, 28), child2(17); // child values are respectively: -1 42 17
                             </cppblock>
@@ -263,12 +275,14 @@
                             #(keyword:nullptr)# serves as a distinguished null pointer constant.
                         </p>
                         <p>
-                            It is of type #(type:std::nullptr_t)#, which is implicitly convertible and comparable to any pointer type or pointer-to-member type.
+                            It is of type #(type:std::nullptr_t)#, which is implicitly convertible and comparable to any
+                            pointer type or pointer-to-member type.
                         </p>
                         <p>
-                            It is <b><u>not</u></b> implicitly convertible or comparable to integral types, except for #(type:bool)#.
+                            It is <b><u>not</u></b> implicitly convertible or comparable to integral types, except for
+                            #(type:bool)#.
                         </p>
-                </article>
+                    </article>
                 </section>
 
                 <section>
@@ -277,27 +291,23 @@
                     <div class="ribbon recommended"></div>
                     <article>
                         <div>
-                            C++11 introduces a new way to test assertions<br>at compile-time,using the new keyword #(keyword:static_assert)#.
+                            C++11 introduces a new way to test assertions<br>at compile-time,using the new keyword
+                            #(keyword:static_assert)#.
                             <cppblock>
-                                static_assert((MC_PI > 3.14) && (MC_PI < 3.15), "MC_PI is inaccurate!");
-                            </cppblock>
-                        </div>
-                        <div>
-                            <cppblock>
-                                template&lt;typename T>
-                                struct Check {
-                                static_assert(sizeof(int) <= sizeof(T), "T is not big enough!");
-                                };
-                            </cppblock>
-                        </div>
-                        <div>
-                            <cppblock>
-                                template&lt;typename INTEGRAL>
-                                INTEGRAL foo(INTEGRAL x, INTEGRAL y) {
-                                static_assert(std::is_integral&lt;INTEGRAL>::value,
-                                    "foo() parameter must be an integral type.");
-                                }
-                            </cppblock>
+                                static_assert((PI > 3.14) && (PI < 3.15), "PI is inaccurate!" ); </cppblock> </div>
+                                    <div>
+                                    <cppblock>
+                                        template&lt;typename T>
+                                        struct Check {
+                                        static_assert(sizeof(int) <= sizeof(T), "T is not big enough!" ); }; </cppblock>
+                                            </div> <div>
+                                            <cppblock>
+                                                template&lt;typename INTEGRAL>
+                                                INTEGRAL foo(INTEGRAL x, INTEGRAL y) {
+                                                static_assert(std::is_integral&lt;INTEGRAL>::value,
+                                                "foo() parameter must be an integral type.");
+                                                }
+                                            </cppblock>
                         </div>
                     </article>
                 </section>
@@ -314,8 +324,10 @@
                             <ul>
                                 <li>it can not be used for/assigned to/compared with another enumeration.</li>
                                 <li>it is not implicitly converted to #(type:int)#.</li>
-                                <li>there is no risk of name collisions due to the need to use scope resolution operator to access values,</li>
-                                <li>the underlying type can be overridden to a different integral type (#(type:int)# by default)</li>
+                                <li>there is no risk of name collisions due to the need to use scope resolution operator
+                                    to access values,</li>
+                                <li>the underlying type can be overridden to a different integral type (#(type:int)# by
+                                    default)</li>
                             </ul>
                         </div>
                     </article>
@@ -327,17 +339,21 @@
                     <div class="ribbon recommended"></div>
                     <article>
                         <div>
-                            In C+11, as long as the size of the enumeration is specified implicitly or explicitly, it can be forward-declared:
+                            In C+11, as long as the size of the enumeration is specified implicitly or explicitly, it
+                            can be forward-declared:
                             <cppblock style="font-size: 45%;">
-                                enum Enum1;                  // Invalid in C++03 and C++11; the underlying type cannot be determined.
-                                enum Enum2 : unsigned int;   // Valid in C++11, the underlying type is specified explicitly.
-                                enum class Enum3;            // Valid in C++11, the underlying type is int.
-                                enum class Enum4 : int;      // Valid in C++11.
-                                enum Enum2 : unsigned short; // Invalid in C++11, Enum2 was formerly declared with other underlying type.
+                                enum Enum1; // Invalid in C++03 and C++11; the underlying type cannot be determined.
+                                enum Enum2 : unsigned int; // Valid in C++11, the underlying type is specified
+                                explicitly.
+                                enum class Enum3; // Valid in C++11, the underlying type is int.
+                                enum class Enum4 : int; // Valid in C++11.
+                                enum Enum2 : unsigned short; // Invalid in C++11, Enum2 was formerly declared with other
+                                underlying type.
                             </cppblock>
                         </div>
                         <p>
-                            The forward-declaration, the scope resolution operator, and the choice of the underlying type are available <strong>even for old-style enumerations</strong>.
+                            The forward-declaration, the scope resolution operator, and the choice of the underlying
+                            type are available <strong>even for old-style enumerations</strong>.
                         </p>
                     </article>
                 </section>
@@ -354,7 +370,8 @@
                     <article>
                         <div>
                             C++11 allows to create templated synonym for template type.
-                            The template parameters of the synonym can be different of the template parameters of the original type.<br>
+                            The template parameters of the synonym can be different of the template parameters of the
+                            original type.<br>
                             <cppblock>
                                 template&lt;typename First, typename Second, int Third>
                                 class SomeType;
@@ -364,23 +381,17 @@
                             </cppblock>
                             The syntax is generalized to define any synonym type in a more intuitively readable manner.
                             <cppblock>
-                                typedef void (*OldFunctionType)(double);  // <== old style. tricky to read 
-
-                                using NewFunctionType = void (*)(double); // <== new style. more obvious
-                            </cppblock>
-                        </div>
-                    </article>
-                </section>
-
-                <section>
-                    <h2 no-toc>Template aliases</h2>
-                    <div class="ribbon cpp11"></div>
-                    <div class="ribbon mandatory"></div>
-                    <article>
-                        <div>
-                            #(keyword:typedef)# is deprecated!
-                        </div>
-                    </article>
+                                typedef void (*OldFunctionType)(double); // <== old style. tricky to read using
+                                    NewFunctionType=void (*)(double); // <==new style. more obvious </cppblock> </div>
+                                    </article> </section> <section>
+                                    <h2 no-toc>Template aliases</h2>
+                                    <div class="ribbon cpp11"></div>
+                                    <div class="ribbon mandatory"></div>
+                                    <article>
+                                        <div>
+                                            #(keyword:typedef)# is deprecated!
+                                        </div>
+                                    </article>
                 </section>
 
                 <section>
@@ -399,7 +410,9 @@
                     <div class="ribbon whenneeded"></div>
                     <article>
                         <p>
-                            C++11 provides a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the template in this translation unit.
+                            C++11 provides a syntax to tell the compiler <span
+                                style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the
+                            template in this translation unit.
                         </p>
                     </article>
                 </section>
@@ -411,7 +424,8 @@
                     <article>
                         <p>
                             C++11 introduces the keyword #(keyword:thread_local)#.<br>
-                            Any object which could have static storage duration may be given thread-local duration instead.<br>
+                            Any object which could have static storage duration may be given thread-local duration
+                            instead.<br>
                         </p>
                         <p>
                             Each thread holds its own copy of such variables.<br>
@@ -427,21 +441,22 @@
                     <article>
                         <p>
                             Some restrictions on what types can be members of a #(keyword:union)# are lifted.
-                            Unions can now have member with non trivial special member functions but it must be <u>manually defined</u>.
+                            Unions can now have member with non trivial special member functions but it must be
+                            <u>manually defined</u>.
                             <cppblock style="font-size:40%;">
                                 #include &lt;new> // Needed for placement 'new'.
                                 struct Point {
-                                    Point() {}
-                                    Point(int _x, int _y): x_(_x), y_(_y) {}
-                                    int x_, y_;
+                                Point() {}
+                                Point(int _x, int _y): x_(_x), y_(_y) {}
+                                int x_, y_;
                                 };
                                 union U {
-                                    int z;
-                                    double w;
-                                    Point p;
-                                    U() {} // Due to the Point member, a constructor definition is needed.
-                                    U(const Point& pt) : p(pt) {} // Construct Point object using initializer list.
-                                    U& operator=(const Point& pt) { new(&p) Point(pt); return *this; } // placement 'new'.
+                                int z;
+                                double w;
+                                Point p;
+                                U() {} // Due to the Point member, a constructor definition is needed.
+                                U(const Point& pt) : p(pt) {} // Construct Point object using initializer list.
+                                U& operator=(const Point& pt) { new(&p) Point(pt); return *this; } // placement 'new'.
                                 };
                             </cppblock>
                         </p>
@@ -462,16 +477,17 @@
                             The user can assign a default value to non-static data members.
                         </p>
                         <p>
-                            Each constructor will initialize these members with the default value only if it does not override the initialization with its own.
+                            Each constructor will initialize these members with the default value only if it does not
+                            override the initialization with its own.
                         </p>
                         <p>
                             <cppblock>
                                 struct Foo {
-                                    Foo() {}             // value_ initialized with 509
-                                    explicit Foo(int _value)
-                                     : value_(_value) {} // value_ initialized with given parameter
+                                Foo() {} // value_ initialized with 509
+                                explicit Foo(int _value)
+                                : value_(_value) {} // value_ initialized with given parameter
                                 private:
-                                    int value_ = 509;
+                                int value_ = 509;
                                 };
                             </cppblock>
                         </p>
@@ -484,13 +500,14 @@
                     <div class="ribbon recommended"></div>
                     <article>
                         <p>
-                            C++11 extends the syntax of the #(keyword:for)# statement to allow for easy iteration over a range of elements.
+                            C++11 extends the syntax of the #(keyword:for)# statement to allow for easy iteration over a
+                            range of elements.
                             <cppblock>
                                 int my_array[5] = {1, 2, 3, 4, 5};
                                 // double the value of each element in my_array:
                                 for (int& x: my_array)
                                 {
-                                    x *= 2;
+                                x *= 2;
                                 }
                             </cppblock>
                         </p>
@@ -552,17 +569,18 @@
                             Prevent from bad virtual function overriding.
                         </p>
                         <p style="--width: 80%">
-                            The compiler will check the base classes to see if there is a virtual function with this exact signature.
+                            The compiler will check the base classes to see if there is a virtual function with this
+                            exact signature.
                             If there is not, the compiler will indicate an error.
                             <cppblock>
-                            struct Base {
-                              virtual void foo(float);
-                            };
-                            struct Derived : Base {
-                              void foo(int) override; // error: doesn't override a base class method
-                            };
-                        </cppblock>
-                    </p>
+                                struct Base {
+                                virtual void foo(float);
+                                };
+                                struct Derived : Base {
+                                void foo(int) override; // error: doesn't override a base class method
+                                };
+                            </cppblock>
+                        </p>
                     </article>
                 </section>
 
@@ -583,11 +601,14 @@
                     <div class="ribbon whenneeded"></div>
                     <article>
                         <p style="--width: 94%">
-                            C++11 adds a new non-const reference type called an rvalue reference, identified by #(code:T&&)#.
-                            This refers to temporaries that are permitted to be modified after they are initialized, for the purpose of allowing "move semantics".
+                            C++11 adds a new non-const reference type called an rvalue reference, identified by
+                            #(code:T&&)#.
+                            This refers to temporaries that are permitted to be modified after they are initialized, for
+                            the purpose of allowing "move semantics".
                         </p>
                         <p style="--width: 90%">
-                            For safety reasons, some restrictions are imposed. A named variable will never be considered to be an rvalue even if it is declared as such.
+                            For safety reasons, some restrictions are imposed. A named variable will never be considered
+                            to be an rvalue even if it is declared as such.
                             To get an rvalue, the function template #(code:std::move)# should be used.
                         </p>
                     </article>
@@ -605,15 +626,19 @@
                             </cppblock>
                         </p>
                         <p>
-                            Everything between the #(code:"delimiter()# and the #(code:)delimiter")# is part of the string.<br>
+                            Everything between the #(code:"delimiter()# and the #(code:)delimiter")# is part of the
+                            string.<br>
                         </p>
-                        <p >
+                        <p>
                             The #(code:")# and #(code:\)# characters do not need to be escaped.
                         </p>
                         <p style="--width: 90%">
-                            The string #(code:delimiter)#  can be any string up to 16 characters in length, including the empty string.
-                            This string cannot contain spaces, control characters, #(code:()#, #(code:))#, or the #(code:\)# character.
-                            Using non-empty delimiter string allows the user to have #(code:))# characters within raw string literals.
+                            The string #(code:delimiter)# can be any string up to 16 characters in length, including the
+                            empty string.
+                            This string cannot contain spaces, control characters, #(code:()#, #(code:))#, or the
+                            #(code:\)# character.
+                            Using non-empty delimiter string allows the user to have #(code:))# characters within raw
+                            string literals.
                         </p>
                     </article>
                 </section>
@@ -624,17 +649,31 @@
                     <div class="ribbon whenneeded"></div>
                     <article style="font-size: 90%">
                         <p>
-                            The user can define new kinds of literal modifiers that will construct objects based on the string of characters that the literal modifies.
+                            The user can define new kinds of literal modifiers that will construct objects based on the
+                            string of characters that the literal modifies.
                             User can intervene while two distinct phases: raw and cooked.
                             <table>
-                                <tr><th>C++ literal</th><th>raw literal</th><th>cooked literal</th></tr>
-                                <tr><td>#(code:1234)#</td><td>#(code:'1')#, #(code:'2')#, #(code:'3')#, #(code:'4')#</td><td>integer 1234</td></tr>
-                                <tr><td>#(code:0xA)#</td><td>#(code:'0')#, #(code:'x')#, #(code:'A')#</td><td>integer 10</td></tr>
+                                <tr>
+                                    <th>C++ literal</th>
+                                    <th>raw literal</th>
+                                    <th>cooked literal</th>
+                                </tr>
+                                <tr>
+                                    <td>#(code:1234)#</td>
+                                    <td>#(code:'1')#, #(code:'2')#, #(code:'3')#, #(code:'4')#</td>
+                                    <td>integer 1234</td>
+                                </tr>
+                                <tr>
+                                    <td>#(code:0xA)#</td>
+                                    <td>#(code:'0')#, #(code:'x')#, #(code:'A')#</td>
+                                    <td>integer 10</td>
+                                </tr>
                             </table>
                         </p>
                         <p>
                             All user-defined literals are suffixes; defining prefix literals is not possible.<br>
-                            All user-defined literals must start with an underscore (#(code:_)#), others are reserved by the standard.
+                            All user-defined literals must start with an underscore (#(code:_)#), others are reserved by
+                            the standard.
                         </p>
                     </article>
                 </section>
@@ -648,8 +687,10 @@
                             The #(keyword:explicit)# keyword can be applied to conversion operators.
                         </p>
                         <p style="--width: 88%">
-                            As with constructors, it prevents using those conversion functions in implicit conversions. However, language contexts that
-                            specifically need a boolean value (the conditions of if-statements and loops, and operands to the logical operators)
+                            As with constructors, it prevents using those conversion functions in implicit conversions.
+                            However, language contexts that
+                            specifically need a boolean value (the conditions of if-statements and loops, and operands
+                            to the logical operators)
                             count as explicit conversions and can thus use a #(type:bool)# conversion operator.
                         </p>
                     </article>
@@ -661,7 +702,8 @@
                     <div class="ribbon idontknow"></div>
                     <article>
                         <p style="--width: 80%">
-                            Compile-time specification of non-exception-throwing functions is available with the #(keyword:noexcept)# keyword, which is useful for optimization.
+                            Compile-time specification of non-exception-throwing functions is available with the
+                            #(keyword:noexcept)# keyword, which is useful for optimization.
                         </p>
                     </article>
                 </section>
@@ -672,20 +714,22 @@
                     <div class="ribbon abandonned"></div>
                     <article>
                         <p>
-                            C++11 introduced trailing-return-type function declaration syntax so the return type can depend on function parameters:
+                            C++11 introduced trailing-return-type function declaration syntax so the return type can
+                            depend on function parameters:
                             <cppblock>
                                 template&lt;typename Lhs, typename Rhs>
-                                auto adding_func(const Lhs &lhs, const Rhs &rhs) -> decltype(lhs+rhs) {return lhs + rhs;}
+                                auto adding_func(const Lhs &lhs, const Rhs &rhs) -> decltype(lhs+rhs) {return lhs +
+                                rhs;}
                             </cppblock>
                         </p>
                         <p style="--width:66%">
                             This syntax can be used for classic function declarations and definitions.
                             <cppblock>
                                 struct SomeStruct {
-                                    auto func_name(int x, int y) -> int;
+                                auto func_name(int x, int y) -> int;
                                 };
                                 auto SomeStruct::func_name(int x, int y) -> int {
-                                    return x + y;
+                                return x + y;
                                 }
                             </cppblock>
                         </p>
@@ -698,10 +742,13 @@
                     <div class="ribbon whenneeded"></div>
                     <article>
                         <p style="--width: 72%">
-                            C++11 adds a new integer type #(type:long long int)# to address the problem that type #(type:long int)# having size of 64 bits on some popular implementations and 32 bits on others.
-                            The new type is guaranteed to be at least as large as a long int, and have no fewer than 64 bits.
+                            C++11 adds a new integer type #(type:long long int)# to address the problem that type
+                            #(type:long int)# having size of 64 bits on some popular implementations and 32 bits on
+                            others.
+                            The new type is guaranteed to be at least as large as a long int, and have no fewer than 64
+                            bits.
                         </p>
-                        </article>
+                    </article>
                 </section>
 
                 <section>
@@ -710,36 +757,37 @@
                     <div class="ribbon recommended"></div>
                     <article>
                         <div>
-                            C++11 provides a syntax that allows for fully uniform type initialization that works on any object.
+                            C++11 provides a syntax that allows for fully uniform type initialization that works on any
+                            object.
                             It expands on the initializer list syntax:
                             <div style="display:grid; grid-template-columns: 50% 50%">
                                 <cppblock>
                                     struct BasicStruct {
-                                        int x;
-                                        double y;
+                                    int x;
+                                    double y;
                                     };
                                     BasicStruct var1{5, 3.2};
 
                                     struct AltStruct {
-                                        AltStruct(int x, double y) : x{x}, y{y} {}
-                                        int x;
-                                        double y;
+                                    AltStruct(int x, double y) : x{x}, y{y} {}
+                                    int x;
+                                    double y;
                                     };
                                     AltStruct var2{2, 4.3};
                                 </cppblock>
                                 <cppblock>
                                     struct IdString {
-                                        std::string name;
-                                        int identifier;
+                                    std::string name;
+                                    int identifier;
                                     };
 
                                     IdString get_string() {
-                                        // Note the lack of explicit type.
-                                        return {"foo", 42};
+                                    // Note the lack of explicit type.
+                                    return {"foo", 42};
                                     }
                                 </cppblock>
-                            </p>
-                        </div>
+                                </p>
+                            </div>
                     </article>
                 </section>
 
@@ -772,14 +820,18 @@
                     <div class="ribbon cpp11"></div>
                     <article>
                         <div>
-                            C++11 improves the specification of the parser so that multiple right angle brackets will be interpreted as closing the template argument list where it is reasonable.
-                            This can be overridden by using parentheses around parameter expressions using the <q>></q>, <q>>=</q> or <q>>></q> binary operators:
+                            C++11 improves the specification of the parser so that multiple right angle brackets will be
+                            interpreted as closing the template argument list where it is reasonable.
+                            This can be overridden by using parentheses around parameter expressions using the <q>></q>,
+                            <q>>=</q> or <q>>></q> binary operators:
                             <cppblock>
                                 template&lt;bool Test> class SomeType;
-                                std::vector&lt;SomeType&lt;1>2>> x1;   // Interpreted as a std::vector of SomeType&lt;true>,
-                                    // followed by "2 >> x1", which is not valid syntax for a declarator.
-                                std::vector&lt;SomeType&lt;(1>2)>> x1; // Interpreted as std::vector of SomeType&lt;false>,
-                                    // followed by the declarator "x1", which is valid C++11 syntax.
+                                std::vector&lt;SomeType&lt;1>2>> x1; // Interpreted as a std::vector of
+                                SomeType&lt;true>,
+                                // followed by "2 >> x1", which is not valid syntax for a declarator.
+                                std::vector&lt;SomeType&lt;(1>2)>> x1; // Interpreted as std::vector of
+                                SomeType&lt;false>,
+                                // followed by the declarator "x1", which is valid C++11 syntax.
                             </cppblock>
                         </div>
                     </article>
@@ -793,7 +845,8 @@
                         <div>
                             <ul>
                                 <li>hashtables: #(type:std::unordered_set)#, #(type:std::unordered_map)#, ...</li>
-                                <li>Type traits for meta-programming: #(type:std::enable_if)#, #(type:std::conditional)#, ...</li>
+                                <li>Type traits for meta-programming: #(type:std::enable_if)#,
+                                    #(type:std::conditional)#, ...</li>
                                 <li>#(code:std::begin)#, #(code:std::end)#</li>
                                 <li>#(type:std::reference_wrapper)#</li>
                                 <li>Extensible random number facility</li>
@@ -810,25 +863,30 @@
                     <div class="ribbon recommended"></div>
                     <article>
                         <div>
-                        <p>C++11 provides #(type:std::shared_ptr)#, #(type:std::weak_ptr)#, #(type:std::unique_ptr)#</p>
-                        <p>#(type:std::auto_ptr)# is deprecated.</p>
+                            <p>C++11 provides #(type:std::shared_ptr)#, #(type:std::weak_ptr)#, #(type:std::unique_ptr)#
+                            </p>
+                            <p>#(type:std::auto_ptr)# is deprecated.</p>
                         </div>
                     </article>
                 </section>
-    
+
                 <section>
                     <h2 data-category=stl>Regular expressions</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
                     <article>
                         <div>
-                            The new library, defined in the new header #(header:regex)#, is made of a couple of new classes:
+                            The new library, defined in the new header #(header:regex)#, is made of a couple of new
+                            classes:
                             <ul>
-                                <li>regular expressions are represented by instance of the template class #(type:std::regex)#,</li>
-                                <li>occurences are represented by instance of the template class #(type:std::match_results)#.</li>
+                                <li>regular expressions are represented by instance of the template class
+                                    #(type:std::regex)#,</li>
+                                <li>occurences are represented by instance of the template class
+                                    #(type:std::match_results)#.</li>
                             </ul>
                             <p>
-                                The function #(code:std::regex_search)# is used for searching, and #(code:std::regex_replace)# is used for replacing.
+                                The function #(code:std::regex_search)# is used for searching, and
+                                #(code:std::regex_replace)# is used for replacing.
                             </p>
                         </div>
                     </article>
@@ -847,8 +905,8 @@
                                 long lengthy = 12;
                                 test_tuple proof (18, 6.5, lengthy, "Ciao!");
 
-                                lengthy = std::get<0>(proof);  // Assign to 'lengthy' the value 18.
-                                std::get<3>(proof) = " Beautiful!";  // Modify the tuple’s fourth element.
+                                lengthy = std::get<0>(proof); // Assign to 'lengthy' the value 18.
+                                    std::get<3>(proof) = " Beautiful!"; // Modify the tuple’s fourth element.
                             </cppblock>
                         </div>
                     </article>
@@ -860,13 +918,14 @@
                     <div class="ribbon whenneeded"></div>
                     <article>
                         <div>
-                            C++11 extends initializer-lists, so they can be used for all classes (C++03 allow them only on structs and classes that conform to the POD definition.
+                            C++11 extends initializer-lists, so they can be used for all classes (C++03 allow them only
+                            on structs and classes that conform to the POD definition.
                             C++11 binds the concept to a template, called #(code:std::initializer_list)#.
                             This allows constructors and other functions to take initializer-lists as parameters.
                             <cppblock>
                                 struct SequenceClass
                                 {
-                                    SequenceClass(std::initializer_list&lt;int> list);
+                                SequenceClass(std::initializer_list&lt;int> list);
                                 };
                             </cppblock>
                         </div>
@@ -885,7 +944,9 @@
                             </cppblock>
                             This constructor is a special kind of constructor, called an initializer-list-constructor.
                             Classes with such a constructor are treated specially during uniform initialization.
-                            If a class has an initializer list constructor, then it takes priority over other forms of construction, provided that the initializer list conforms to the sequence constructor's type.
+                            If a class has an initializer list constructor, then it takes priority over other forms of
+                            construction, provided that the initializer list conforms to the sequence constructor's
+                            type.
                         </div>
                     </article>
                 </section>
@@ -909,7 +970,7 @@
                     ### dynamic initializaion and destruction with concurrency(magic statics)
                 -->
             </section>
-<!--
+            <!--
                    CCCCCCCCCCC                                 111            4444  
                  CCCCCCCCCCCCCC                              11111           44444  
                 CCCCC       CCC                            1111111         4444444  
@@ -924,7 +985,8 @@
             <section>
                 <section>
                     <h1>C++ 14</h1>
-                    <nav data-auto="language='new language feature', stl='new standard library feature', misc='miscellaneous'"/>
+                    <nav
+                        data-auto="language='new language feature', stl='new standard library feature', misc='miscellaneous'" />
                 </section>
 
                 <!-- <section>
@@ -951,29 +1013,33 @@
                 </section>
 
                 <section>
-                    <h2 data-category="language" >Return type deduction for normal functions</h2>
+                    <h2 data-category="language">Return type deduction for normal functions</h2>
                     <div class="ribbon cpp14"></div>
                     <div class="ribbon tobedefined"></div>
                     <!-- #(keyword:decltype(auto))#,  -->
                     <article>
                         <div style="font-size: 70%">
                             <p>
-                                C++11 allowed lambda functions to deduce the return type based on the type of the expression given to the return statement.
+                                C++11 allowed lambda functions to deduce the return type based on the type of the
+                                expression given to the return statement.
                             </p>
                             <p>
                                 C++14 provides this ability to all functions.
                             </p>
                             <p>
-                                It also extends these facilities to lambda functions, allowing return type deduction for functions that are not of the form #(code:return expression;)#
+                                It also extends these facilities to lambda functions, allowing return type deduction for
+                                functions that are not of the form #(code:return expression;)#
                             </p>
                             <p>
-                                To induce return type deduction, the function must be declared with #(keyword:auto)# as the return type, but without the trailing return type specifier.
+                                To induce return type deduction, the function must be declared with #(keyword:auto)# as
+                                the return type, but without the trailing return type specifier.
                                 <cppblock>
-                                    auto DeduceReturnType();   // Return type to be determined.
+                                    auto DeduceReturnType(); // Return type to be determined.
                                 </cppblock>
                             </p>
                             <p>
-                                Recursion can be used with a function of this type, but the recursive call must happen after at least one return statement in the definition of the function.
+                                Recursion can be used with a function of this type, but the recursive call must happen
+                                after at least one return statement in the definition of the function.
                             </p>
                         </div>
                     </article>
@@ -988,7 +1054,8 @@
                             In C++11, two methods of type deduction were added:
                             <ul>
                                 <li>
-                                    #(keyword:auto)# was a way to create a variable of the appropriate type, based on a given expression.
+                                    #(keyword:auto)# was a way to create a variable of the appropriate type, based on a
+                                    given expression.
                                 </li>
                                 <li>
                                     #(keyword:decltype)# was a way to compute the type of a given expression.
@@ -999,23 +1066,27 @@
                             However, decltype and auto deduce types in different ways:
                             <ul>
                                 <li>
-                                    #(code:auto)# always deduces a non-reference type, while #(code:auto&&)# always deduces a reference type.
+                                    #(code:auto)# always deduces a non-reference type, while #(code:auto&&)# always
+                                    deduces a reference type.
                                 </li>
                                 <li>
-                                    #(code:decltype)# can be prodded into deducing a reference or non-reference type, based on the value category of the expression and the nature of the expression it is deducing
+                                    #(code:decltype)# can be prodded into deducing a reference or non-reference type,
+                                    based on the value category of the expression and the nature of the expression it is
+                                    deducing
                                 </li>
                             </ul>
                             <cppblock>
-                                int   i;
+                                int i;
                                 int&& f();
-                                auto          x3a = i;     // decltype(x3a) is int
-                                decltype(i)   x3d = i;     // decltype(x3d) is int
-                                auto          x4a = (i);   // decltype(x4a) is int
-                                decltype((i)) x4d = (i);   // decltype(x4d) is int&
-                                auto          x5a = f();   // decltype(x5a) is int
-                                decltype(f()) x5d = f();   // decltype(x5d) is int&&
+                                auto x3a = i; // decltype(x3a) is int
+                                decltype(i) x3d = i; // decltype(x3d) is int
+                                auto x4a = (i); // decltype(x4a) is int
+                                decltype((i)) x4d = (i); // decltype(x4d) is int&
+                                auto x5a = f(); // decltype(x5a) is int
+                                decltype(f()) x5d = f(); // decltype(x5d) is int&&
                             </cppblock>
-                            C++14 adds the #(code:decltype(auto))# syntax. This allows #(keyword:auto)# declarations to use the #(keyword:decltype)# rules on the given expression.
+                            C++14 adds the #(code:decltype(auto))# syntax. This allows #(keyword:auto)# declarations to
+                            use the #(keyword:decltype)# rules on the given expression.
                         </div>
                         <div>
 
@@ -1031,12 +1102,14 @@
                     <article style="font-size: 75%;">
                         <div>
                             <p>
-                                C++11 lambda functions capture variables declared in their outer scope by copy or by reference.<br>
+                                C++11 lambda functions capture variables declared in their outer scope by copy or by
+                                reference.<br>
                                 This means that value members of a lambda cannot be move-only types.
                             </p>
                             <p>
                                 C++14 allows captured members to be initialized with arbitrary expressions.<br>
-                                This allows both capture by value-move and declaring arbitrary members of the lambda, without having a correspondingly named variable in an outer scope:
+                                This allows both capture by value-move and declaring arbitrary members of the lambda,
+                                without having a correspondingly named variable in an outer scope:
                             </p>
                             <cppblock>
                                 auto lambda = [value = 1] {return value;};
@@ -1045,8 +1118,10 @@
                                 The lambda function lambda returns 1, which is what value was initialized with.
                             </p>
                             <p>
-                                The declared capture deduces the type from the initializer expression as if by #(keyword:auto)#.<br>
-                                This can be used to capture by move, via the use of the standard #(code:std::move)# function:
+                                The declared capture deduces the type from the initializer expression as if by
+                                #(keyword:auto)#.<br>
+                                This can be used to capture by move, via the use of the standard #(code:std::move)#
+                                function:
                             </p>
                             <cppblock>
                                 std::unique_ptr&lt;int> ptr(new int(10));
@@ -1064,13 +1139,15 @@
                         <div>
                             <p>
                                 In C++11, lambda function parameters need to be declared with concrete types.<br>
-                                C++14 relaxes this requirement, allowing lambda function parameters to be declared with the auto type specifier.
+                                C++14 relaxes this requirement, allowing lambda function parameters to be declared with
+                                the auto type specifier.
                             </p>
                             <cppblock>
                                 auto lambda = [](auto x, auto y) {return x + y;};
                             </cppblock>
                             <p>
-                                As for auto type deduction, generic lambdas follow the rules of template argument deduction (which are similar, but not identical in all respects).
+                                As for auto type deduction, generic lambdas follow the rules of template argument
+                                deduction (which are similar, but not identical in all respects).
                             </p>
                             <p>
                                 The above code is equivalent to this:
@@ -1078,8 +1155,8 @@
                             <cppblock>
                                 struct unnamed_lambda
                                 {
-                                    template&lt;typename T, typename U>
-                                    auto operator()(T x, U y) const {return x + y;}
+                                template&lt;typename T, typename U>
+                                auto operator()(T x, U y) const {return x + y;}
                                 };
                                 auto lambda = unnamed_lambda{};
                             </cppblock>
@@ -1098,8 +1175,9 @@
                         <p>
                             C++14 now allows the creation of variables that are templated.
                         </p>
-                            <p>
-                            The usual rules of templates apply to such declarations and definitions, including specialization.
+                        <p>
+                            The usual rules of templates apply to such declarations and definitions, including
+                            specialization.
                         </p>
                         <div>
                             <cppblock>
@@ -1138,7 +1216,8 @@
                                     Any looping statement, including range-based #(keyword:for)#
                                 </li>
                                 <li>
-                                    Expressions which change the value of an object if the lifetime of that object began within the constant expression function.
+                                    Expressions which change the value of an object if the lifetime of that object began
+                                    within the constant expression function.
                                 </li>
                             </ul>
                             <p>
@@ -1146,7 +1225,8 @@
                             </p>
                             <p>
                                 Non-static member constexpr functions may be non-const.<br>
-                                However these kind of functions can only modify a class member if that object's lifetime began within the constant expression evaluation.
+                                However these kind of functions can only modify a class member if that object's lifetime
+                                began within the constant expression evaluation.
                             </p>
                         </div>
                     </article>
@@ -1181,22 +1261,25 @@
                     <article style="font-size:80%">
                         <div>
                             <p>
-                                The #(attribute:deprecated)# attribute allows marking an entity deprecated, which makes it still legal to use but puts users on notice that use is discouraged and may cause a warning message to be printed during compilation.
+                                The #(attribute:deprecated)# attribute allows marking an entity deprecated, which makes
+                                it still legal to use but puts users on notice that use is discouraged and may cause a
+                                warning message to be printed during compilation.
                             </p>
                             <p>
-                                An optional string literal can appear as the argument of deprecated, to explain the rationale for deprecation and/or to suggest a replacement.
+                                An optional string literal can appear as the argument of deprecated, to explain the
+                                rationale for deprecation and/or to suggest a replacement.
                             </p>
                             <cppblock>
                                 [[deprecated]] int f();
-                                
+
                                 [[deprecated("g() is thread-unsafe. Use h() instead")]]
                                 void g( int& x );
-                                
+
                                 void h( int& x );
-                                
+
                                 void test() {
-                                    int a = f(); // warning: 'f' is deprecated
-                                    g(a); // warning: 'g' is deprecated: g() is thread-unsafe. Use h() instead
+                                int a = f(); // warning: 'f' is deprecated
+                                g(a); // warning: 'g' is deprecated: g() is thread-unsafe. Use h() instead
                                 }
                             </cppblock>
                         </div>
@@ -1211,10 +1294,12 @@
                     <article>
                         <div>
                             <p>
-                                C++14 introduces the opportunity to declare a global overload of operator delete suitable for sized deallocation.
+                                C++14 introduces the opportunity to declare a global overload of operator delete
+                                suitable for sized deallocation.
                             </p>
                             <p>
-                                However, the Standard also mandates that a developer cannot declare just one of the two related functions below, it must declare either none, or both
+                                However, the Standard also mandates that a developer cannot declare just one of the two
+                                related functions below, it must declare either none, or both
                             </p>
                             <cppblock>
                                 void operator delete (void*) noexcept;
@@ -1280,7 +1365,8 @@
                 </section>
 
                 <section>
-                    <h2 data-category="stl">#(keyword:constexpr)# for #(header:initializer_list)#, #(header:utility)#, #(header:tuple)#</h2>
+                    <h2 data-category="stl">#(keyword:constexpr)# for #(header:initializer_list)#, #(header:utility)#,
+                        #(header:tuple)#</h2>
                     <div class="ribbon cpp14"></div>
                     <div class="ribbon tobedefined"></div>
                     <article>
@@ -1300,7 +1386,7 @@
                         </div>
                     </article>
                 </section>
-                
+
                 <section>
                     <h2 data-category="stl">User-defined literals for #(header:chrono)# and #(header:string)#</h2>
                     <div class="ribbon cpp14"></div>
@@ -1311,7 +1397,7 @@
                         </div>
                     </article>
                 </section>
-                
+
                 <section>
                     <h2>Null forward iterators</h2>
                     <div class="ribbon cpp14"></div>
@@ -1377,7 +1463,7 @@
                         </div>
                     </article>
                 </section>
-                
+
                 <section>
                     <h2>fixing #(keyword:constexpr)# member functions without #(keyword:const)#</h2>
                     <div class="ribbon cpp14"></div>
@@ -1401,7 +1487,8 @@
                 </section>
 
                 <section>
-                    <h2 data-category="stl">Dual-Range #(type:std::equal)#, #(type:std::is_permutation)#, #(type:std::mismatch)#</h2>
+                    <h2 data-category="stl">Dual-Range #(type:std::equal)#, #(type:std::is_permutation)#,
+                        #(type:std::mismatch)#</h2>
                     <div class="ribbon cpp14"></div>
                     <div class="ribbon tobedefined"></div>
                     <article>
@@ -1411,7 +1498,7 @@
                     </article>
                 </section>
             </section>
-<!--
+            <!--
                    CCCCCCCCCCC                                 111     7777777777777
                  CCCCCCCCCCCCCC                              11111     7777777777777
                 CCCCC       CCC                            1111111             77777
@@ -1426,7 +1513,8 @@
             <section>
                 <section>
                     <h1>C++ 17</h1>
-                    <nav style="font-size: 45%" data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', misc='miscellaneous', preprocessor='preprocessor functionalities', deprecated='deprecated functionalities'"/>
+                    <nav style="font-size: 45%"
+                        data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', misc='miscellaneous', preprocessor='preprocessor functionalities', deprecated='deprecated functionalities'" />
                 </section>
 
                 <section>
@@ -1460,18 +1548,18 @@
                 <section>
                     <h2 data-category="deprecated">Removing some deprecated features</h2>
                     <article>
-                    <p>
-                        Removing trigraphs
-                    </p>
-                    <p>
-                        Remove deprecated use of the #(keyword:register)# keyword
-                    </p>
-                    <p>
-                        Remove deprecated operator++(bool)
-                    </p>
-                    <p>
-                        Removing deprecated exception specifications
-                    </p>
+                        <p>
+                            Removing trigraphs
+                        </p>
+                        <p>
+                            Remove deprecated use of the #(keyword:register)# keyword
+                        </p>
+                        <p>
+                            Remove deprecated operator++(bool)
+                        </p>
+                        <p>
+                            Removing deprecated exception specifications
+                        </p>
                     </article>
                 </section>
 
@@ -1482,11 +1570,13 @@
                             The exception specification of a function is now considered as a part of its type.
                         </p>
                         <p>
-                            A prvalue of type "pointer to noexcept function" can be converted to a prvalue of type "pointer to function".
+                            A prvalue of type "pointer to noexcept function" can be converted to a prvalue of type
+                            "pointer to function".
                             The result is a pointer to the function.
                         </p>
                         <p>
-                            A prvalue of type "pointer to member of type noexcept function" can be converted to a prvalue of type "pointer to member of type function".
+                            A prvalue of type "pointer to member of type noexcept function" can be converted to a
+                            prvalue of type "pointer to member of type function".
                             The result points to the member function.
                         </p>
                     </article>
@@ -1555,28 +1645,29 @@
                     <p>
                         <!-- [[fallthrough]] attribute -->
                         <article style="font-size:70%">
-                            The attribute-token #(attribute:fallthrough)# may be applied to a null statement that precedes a case of default label statement within a switch statement.
+                            The attribute-token #(attribute:fallthrough)# may be applied to a null statement that
+                            precedes a case of default label statement within a switch statement.
                             <cppblock style="font-size:60%">
                                 void f(int n) {
-                                    void g(), h(), i();
-                                    switch (n) {
-                                    case 1:
-                                    case 2: // OK
-                                        g();
-                                        [[fallthrough]];
-                                    case 3: // OK
-                                        h();
-                                    case 4:
-                                        i();
-                                        [[fallthrough]]; // error: annotation does not directly precede switch label
-                                        j();
-                                    case 5: // warning: unannotated fall-through between switch labels
-                                        k();
-                                        [[fallthrough]]; // error: annotation does not directly precede switch label
-                                    }
+                                void g(), h(), i();
+                                switch (n) {
+                                case 1:
+                                case 2: // OK
+                                g();
+                                [[fallthrough]];
+                                case 3: // OK
+                                h();
+                                case 4:
+                                i();
+                                [[fallthrough]]; // error: annotation does not directly precede switch label
+                                j();
+                                case 5: // warning: unannotated fall-through between switch labels
+                                k();
+                                [[fallthrough]]; // error: annotation does not directly precede switch label
+                                }
                                 }
                             </cppblock>
-                            To activate on clang:  <i>-Wimplicit-fallthrough</i>
+                            To activate on clang: <i>-Wimplicit-fallthrough</i>
                         </article>
                     </p>
                     <!-- <div style="position: absolute; top:0; left: 0; overflow:hidden; height:100%; width: 100%;">
@@ -1584,8 +1675,8 @@
                             MANDATORY
                         </div>
                     </div> -->
-                    <div class="ribbon green topleft"><div>MANDATORY</div></div>
-                    <div class="ribbon yellow topright"><div>RECOMMENDED</div></div>
+                    <div class="ribbon cpp17"></div>
+                    <div class="ribbon recommended"></div>
                     <!-- <div style="position: absolute; top:0; right: 0; overflow:hidden; height:100%; width: 100%;">
                         <div style="background-color: rgba(234, 238, 28, 0.5); width: 300px; display: inline-block; transform: translate(50%, -50%) rotate(45deg); font-size: 50%; font-weight: bold; position: absolute; top: 60px; right: 60px;">
                             RECOMMENDED
@@ -1637,7 +1728,8 @@
                 </section>
 
                 <section>
-                    <h2 data-category="usability">DR: Matching of template template-arguments excludes compatible templates</h2>
+                    <h2 data-category="usability">DR: Matching of template template-arguments excludes compatible
+                        templates</h2>
                 </section>
 
                 <section>

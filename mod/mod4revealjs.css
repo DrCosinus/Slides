@@ -89,41 +89,32 @@ cppblock.hljs
 div.ribbon
 {
     background-color: rgba(96, 96, 96, 0.5);
-    width: 500px;
     display: inline-block;
-    transform: translate(-50%, -50%) rotate(-45deg);
+    transform: translate(0%, -50%);
     font-size: 50%;
     font-weight: bold;
     position: absolute;
-    top: 60px;
-    left: 60px;
     text-shadow: 0 0 3px black;
-    border: 1px solid black;
+    padding: 0 0.75em;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 5px 5px 20px 0px #00000080;
+    text-shadow: 0px 0px 1px black, 0px 0px 2px black, 0px 0px 3px black, 0px 0px 4px black;
+    top: 0.75em;
+    /* border: 1px solid black; */
 }
 
-div.ribbon.topright
+div.ribbon.recommended, div.ribbon.whenneeded, div.ribbon.mandatory, div.ribbon.forbidden, div.ribbon.idontknow, div.ribbon.abandonned, div.ribbon.ifnochoice, div.ribbon.tobedefined
 {
-    transform: translate(50%, -50%) rotate(45deg);
-    top: 60px;
-    right: 60px;
-    left: unset; /* ignoring default left position */
+    right: 6%;
 }
-div.ribbon.topright30, div.ribbon.recommended, div.ribbon.whenneeded, div.ribbon.mandatory, div.ribbon.forbidden, div.ribbon.idontknow, div.ribbon.abandonned, div.ribbon.ifnochoice, div.ribbon.tobedefined
+div.ribbon.cpp11, div.ribbon.cpp14, div.ribbon.cpp17
 {
-    transform: translate(50%, -50%) rotate(30deg);
-    top: 60px;
-    right: 97px;
-    left: unset; /* ignoring default left position */
-}
-div.ribbon.cpp11, div.ribbon.cpp14, div.ribbon.cpp17 /* top left 30° */
-{
-    transform: translate(-50%, -50%) rotate(-30deg);
-    top: 40px;
-    left: 55px;
+    left: 6%;
 }
 div.ribbon.recommended
 {
-    background-color: rgba(0, 128, 0, 0.75);
+    background-color: rgb(0, 128, 0);
     color: yellow;
 }
 div.ribbon.recommended::after
@@ -132,9 +123,9 @@ div.ribbon.recommended::after
 }
 div.ribbon.mandatory
 {
-    background-color: rgba(29, 197, 99, 0.75);
+    background-color: rgb(29, 197, 99);
     color: yellow;
-    font-size: 90%;
+    font-size: 60%;
 }
 @keyframes blink
 {
@@ -148,7 +139,7 @@ div.ribbon.mandatory::after
 }
 div.ribbon.whenneeded
 {
-    background-color: rgba(173, 179, 17, 0.75);
+    background-color: rgb(174, 179, 17);
     color: white;
 }
 div.ribbon.whenneeded::after
@@ -157,7 +148,7 @@ div.ribbon.whenneeded::after
 }
 div.ribbon.abandonned
 {
-    background-color: rgba(255, 0, 0, 0.75);
+    background-color: rgb(255, 0, 0);
     color: rgb(255, 255, 255);
 }
 div.ribbon.abandonned::after
@@ -166,7 +157,7 @@ div.ribbon.abandonned::after
 }
 div.ribbon.idontknow
 {
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgb(255, 255, 255);
     color: rgb(255, 0, 0);
 }
 div.ribbon.idontknow::after
@@ -175,7 +166,7 @@ div.ribbon.idontknow::after
 }
 div.ribbon.tobedefined
 {
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgb(255, 255, 255);
     color: rgb(255, 0, 0);
 }
 div.ribbon.tobedefined::after
@@ -184,7 +175,7 @@ div.ribbon.tobedefined::after
 }
 div.ribbon.ifnochoice
 {
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgb(255, 255, 255);
     color: rgb(255, 0, 0);
 }
 div.ribbon.ifnochoice::after
@@ -192,12 +183,11 @@ div.ribbon.ifnochoice::after
     content: "ONLY IF NO CHOICE";
 }
 
-
 /* TO BE CONSIDERED */
 
 div.ribbon.cpp11
 {
-    background-color: rgba(214, 27, 199, 0.75);
+    background-color: rgb(214, 27, 198);
     color: white;
 }
 div.ribbon.cpp11::after
@@ -206,7 +196,7 @@ div.ribbon.cpp11::after
 }
 div.ribbon.cpp14
 {
-    background-color: rgba(214, 27, 199, 0.75);
+    background-color: rgb(214, 27, 198);
     color: white;
 }
 div.ribbon.cpp14::after
@@ -215,7 +205,7 @@ div.ribbon.cpp14::after
 }
 div.ribbon.cpp17
 {
-    background-color: rgba(214, 27, 199, 0.75);
+    background-color: rgb(214, 27, 198);
     color: white;
 }
 div.ribbon.cpp17::after
@@ -234,6 +224,7 @@ div.ribbon.cpp17::after
     /* -direction: column; */
     border-collapse: collapse;
     background-color: rgb(210, 239, 248);
+    background-image: linear-gradient(to right, rgb(194, 241, 255), rgb(56, 207, 253));
 }
 
 /* .reveal section section header
@@ -254,15 +245,22 @@ div.ribbon.cpp17::after
     all: unset;
     display: block;
 
-    font-size: 1.10em;
+    font-size: 1.0em;
     font-weight: bold;
-    background-color: rgb(124, 189, 255);
-    border-bottom: 5px solid rgb(24, 132, 168);
-    margin-top: -0.5em;
+    background-color: rgba(0, 0, 255,0.1);
+    margin-top: -0.3em;
     padding: 0.5em 0;
     height: 100px;
     box-sizing: border-box; /* because of the unset: all */
+    margin-left: 5%;
+    width: 90%;
+    background-image: linear-gradient(to right, rgb(82, 175, 252), rgb(42, 154, 206));
+    border-bottom: 2px solid rgb(42, 154, 206);
+    box-shadow: 5px 5px 20px 0px #00000080;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
+
 .reveal section article
 {
     display: grid;
