@@ -1,3 +1,139 @@
+.reveal section
+{
+    height: 720px;
+    background-color: rgb(210, 239, 248);
+    background-image: linear-gradient(to right, rgb(194, 241, 255), rgb(56, 207, 253));
+}
+
+.reveal section section
+{
+    overflow: hidden;
+    /* -direction: column; */
+    border-collapse: collapse;
+}
+
+.reveal section section *
+{
+    box-sizing: border-box;
+}
+
+/* Tile of sub parts */
+.reveal section section h1
+{
+    background-image: linear-gradient(to right, rgb(82, 175, 252), rgb(42, 154, 206));
+    margin-left: -10px;
+    width: 30%;
+    text-align: right;
+    padding-right: 0.5em;
+    box-shadow: 5px 5px 20px 0 #00000080;
+    color: white;
+    text-shadow: 0 0 5px black;
+}
+
+/* Title of normal slides */
+.reveal section section h2
+{
+    all: unset;
+    display: block;
+
+    font-size: 1.0em;
+    font-weight: bold;
+    background-color: rgba(0, 0, 255,0.1);
+    margin-top: -0.3em;
+    padding: 0.5em 0;
+    height: 100px;
+    box-sizing: border-box; /* because of the unset: all */
+    margin-left: 5%;
+    width: 90%;
+    background-image: linear-gradient(to right, rgb(82, 175, 252), rgb(42, 154, 206));
+    border-bottom: 2px solid rgb(42, 154, 206);
+    box-shadow: 5px 5px 20px 0px #00000080;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.reveal section article
+{
+    display: grid;
+    font-size: 80%;
+    height: 620px;
+    padding: 0.5em;
+    align-items: center;
+    grid-gap: 0.5em;
+    font-size: 110%;
+    width: calc(1280px - 1em);
+}
+.reveal section section summary
+{
+    display: inline-block;
+    width: 30%;
+    position: relative;
+    border: floralwhite solid 2pt;
+    text-transform: lowercase;
+    font-size: 90%;
+}
+.reveal section section header summary:before
+{
+    text-transform: uppercase;
+    display: block;
+    content: attr(data-category);
+}
+.reveal section article > p, .reveal section article > div
+{
+    --width: 100%;
+    width:var(--width);
+    margin: 0 calc((100% - var(--width))/2);
+}
+.reveal section article > p cppblock, .reveal section article > div cppblock
+{
+    font-size: 50%;
+}
+
+
+/* ###### ###### ###### ##     ######
+     ##     ##     ##   ##     ##
+     ##     ##     ##   ##     ####
+     ##     ##     ##   ##     ##
+     ##   ######   ##   ###### ###### */
+
+.reveal section div.title
+{
+    position: absolute;
+    display: block;
+    top: 30%;
+    width: 75%;
+    left: -5%;
+    background-color: rgb(22, 173, 219);
+    background-image: linear-gradient(to right, rgb(144, 229, 255), rgb(22, 173, 219));
+    box-shadow: 5px 5px 20px 0px #00000080;
+    padding: 20px 0 20px 10%;
+}
+
+.reveal section div.title::before
+{
+    position: absolute;
+    display: block;
+    top: 0%;
+    width: 100%;
+    left: 102%;
+    height: 100%;
+    background-color: rgb(12, 141, 180);
+    content: " ";
+    box-shadow: 5px 5px 20px 0px #00000080;
+}
+
+.reveal section div.title h2
+{
+    color: white;
+    text-shadow: 0 0 5px black;
+}
+
+/* ###### ##  ## #####  ##  ##  ####   ##### ######  #####
+   ##     ###### ##  ## ##  ## ##  ## ##       ##   ##
+   ####   ##  ## #####  ###### ######  ####    ##    ####
+   ##     ##  ## ##     ##  ## ##  ##     ##   ##       ##
+   ###### ##  ## ##     ##  ## ##  ## #####  ###### #####  */
+
 /* .reveal .header, .reveal .type, .reveal .keyword, .reveal .attribute */
 .emphasis:not(.code)
 {
@@ -84,7 +220,11 @@ cppblock.hljs
     /* height: 100%; */
 }
 
-/* RIBBON */
+/* #####  ###### #####  #####   ####  ##  ##
+   ##  ##   ##   ##  ## ##  ## ##  ## ### ##
+   #####    ##   #####  #####  ##  ## ######
+   ##  ##   ##   ##  ## ##  ## ##  ## ## ###
+   ##  ## ###### #####  #####   ####  ##  ## */
 
 div.ribbon
 {
@@ -213,90 +353,12 @@ div.ribbon.cpp17::after
     content: "C++17";
 }
 
-.reveal section
-{
-    height: 720px;
-}
+/* ######  ####   #####
+     ##   ##  ## ##
+     ##   ##  ## ##
+     ##   ##  ## ##
+     ##    ####   ##### */
 
-.reveal section section
-{
-    overflow: hidden;
-    /* -direction: column; */
-    border-collapse: collapse;
-    background-color: rgb(210, 239, 248);
-    background-image: linear-gradient(to right, rgb(194, 241, 255), rgb(56, 207, 253));
-}
-
-/* .reveal section section header
-{
-    display: unset;
-    font-size: 50%;
-    margin: 0px;
-    padding: 0px;
-    width: 120%;
-} */
-.reveal section section *
-{
-    box-sizing: border-box;
-}
-
-.reveal section section h2
-{
-    all: unset;
-    display: block;
-
-    font-size: 1.0em;
-    font-weight: bold;
-    background-color: rgba(0, 0, 255,0.1);
-    margin-top: -0.3em;
-    padding: 0.5em 0;
-    height: 100px;
-    box-sizing: border-box; /* because of the unset: all */
-    margin-left: 5%;
-    width: 90%;
-    background-image: linear-gradient(to right, rgb(82, 175, 252), rgb(42, 154, 206));
-    border-bottom: 2px solid rgb(42, 154, 206);
-    box-shadow: 5px 5px 20px 0px #00000080;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-.reveal section article
-{
-    display: grid;
-    font-size: 80%;
-    height: 620px;
-    padding: 0.5em;
-    align-items: center;
-    grid-gap: 0.5em;
-    font-size: 110%;
-    width: calc(1280px - 1em);
-}
-.reveal section section summary
-{
-    display: inline-block;
-    width: 30%;
-    position: relative;
-    border: floralwhite solid 2pt;
-    text-transform: lowercase;
-    font-size: 90%;
-}
-.reveal section section header summary:before
-{
-    text-transform: uppercase;
-    display: block;
-    content: attr(data-category);
-}
-.reveal section article > p, .reveal section article > div
-{
-    --width: 100%;
-    width:var(--width);
-    margin: 0 calc((100% - var(--width))/2);
-}
-.reveal section article > p cppblock, .reveal section article > div cppblock
-{
-    font-size: 50%;
-}
 .reveal section section nav[data-auto]
 {
     font-size: 50%;
@@ -315,6 +377,13 @@ div.ribbon.cpp17::after
     float: left;
     width: 100%;
 }
+
+.reveal section section nav span.category div
+{
+    background-color: #00000080;
+    color: white;
+}
+
 .reveal section section nav span.category a
 {
    line-height: 115%;
