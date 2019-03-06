@@ -3,6 +3,7 @@
     height: 720px;
     background-color: rgb(210, 239, 248);
     background-image: linear-gradient(to right, rgb(194, 241, 255), rgb(56, 207, 253));
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .reveal section section
@@ -140,20 +141,14 @@
     font-style: italic;
     padding-left: 0.1em;
     padding-right: 0.3em;
-    text-shadow: 0 0 0.05em rgba(0, 0, 0, 0.575);
     position:relative;
-    background-color: gray;
-    border-radius: 5pt;
-    box-shadow:
-        0 0 3px 1px,
-        inset 2px 2px 2px white,
-        inset -2px -2px 2px black;
 }
 
 .emphasis.header
 {
     color: coral;
-    background-color: rgba(255, 127, 80, 0.25);
+    text-shadow: 0 0 0.3em rgba(221, 174, 157, 0.99);
+    /* background-color: rgba(255, 127, 80, 0.25); */
 }
 .header::before
 {
@@ -163,20 +158,22 @@
 {
     content: ">";
 }
+
 .emphasis.keyword
 {
     color: rgb(25, 145, 25);
-    background-color: rgb(25, 145, 25, 0.25);
+    text-shadow: 0 0 0.3em rgba(149, 214, 149, 0.99);
 }
+
 .emphasis.type
 {
     color: blueviolet;
-    background-color: rgb(138, 43, 226, 0.25);
+    text-shadow: 0 0 0.3em rgba(175, 137, 211, 0.99);
 }
 .emphasis.attribute
 {
     color: chocolate;
-    background-color: rgba(210, 105, 30, 0.25);
+    text-shadow: 0 0 0.3em rgba(207, 160, 126, 0.99);
 }
 .attribute::before
 {
@@ -230,18 +227,17 @@ div.ribbon
 {
     background-color: rgba(96, 96, 96, 0.5);
     display: inline-block;
-    transform: translate(0%, -50%);
+    /* transform: translate(0%, -50%); */
     font-size: 50%;
     font-weight: bold;
     position: absolute;
     text-shadow: 0 0 3px black;
     padding: 0 0.75em;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    box-shadow: 5px 5px 20px 0px #00000080;
-    text-shadow: 0px 0px 1px black, 0px 0px 2px black, 0px 0px 3px black, 0px 0px 4px black;
-    top: 0.75em;
-    /* border: 1px solid black; */
+    box-shadow: inset 1px 1px 5px 0px #00000080;
+    /* text-shadow: 0px 0px 1px black, 0px 0px 2px black, 0px 0px 3px black, 0px 0px 4px black; */
+    text-shadow: inset 0px 2px 3px black;
+    background-clip: text;
+    top: 0.5em;
 }
 
 div.ribbon.recommended, div.ribbon.whenneeded, div.ribbon.mandatory, div.ribbon.forbidden, div.ribbon.idontknow, div.ribbon.abandonned, div.ribbon.ifnochoice, div.ribbon.tobedefined
@@ -327,7 +323,7 @@ div.ribbon.ifnochoice::after
 
 div.ribbon.cpp11
 {
-    background-color: rgb(214, 27, 198);
+    background-color: rgb(41, 115, 226);
     color: white;
 }
 div.ribbon.cpp11::after
@@ -336,7 +332,7 @@ div.ribbon.cpp11::after
 }
 div.ribbon.cpp14
 {
-    background-color: rgb(214, 27, 198);
+    background-color: rgb(27, 30, 214);
     color: white;
 }
 div.ribbon.cpp14::after
@@ -345,7 +341,7 @@ div.ribbon.cpp14::after
 }
 div.ribbon.cpp17
 {
-    background-color: rgb(214, 27, 198);
+    background-color: rgb(27, 30, 214);
     color: white;
 }
 div.ribbon.cpp17::after
@@ -368,7 +364,6 @@ div.ribbon.cpp17::after
     column-fill: auto;
     text-align: left;
     max-height: 550px;
-        font-family: "Arial";
 }
 .reveal section section nav span.category
 {
