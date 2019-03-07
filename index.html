@@ -46,22 +46,14 @@
             <section>
                 <section id="cpp11">
                     <h1>C++ 11</h1>
-                    <nav
-                        data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', rtperf='core language runtime performance', misc='miscellaneous'" />
+                    <nav data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', rtperf='core language runtime performance', misc='miscellaneous'" />
                 </section>
 
                 <section>
                     <h2 data-category=functionality>#(keyword:alignas)# and #(keyword:alignof)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
-                    <aside class="notes">
-                        <ul>
-                            <li>Current usage: not used a lot</li>
-                            <li>Current directive: almost never recommended</li>
-                            <li>Future directive: To use as soon as necessary</li>
-                        </ul>
-                    </aside>
-                    <article style="font-size: 80%;">
+                    <article>
                         <p style="--width:70%;">
                             C++11 allows variable alignment to be queried and controlled with #(keyword:alignof)# and
                             #(keyword:alignas)#.
@@ -188,14 +180,33 @@
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon mandatory"></div>
                     <article style="font-size: 80%;">
-                        <p>
+                        <p style="--width:60%;">
                             C++11 allows the explicit defaulting and deleting of special member functions.
-                            <cppblock style="font-size: 80%;">
-                                struct Foo
+                        </p>
+                        <p style="--width:65%;">
+                            The #(code:= delete)# specifier can be used to prohibit calling any function,
+                            which can be used to disallow calling a member function with particular parameters
+                            (and to guard against implicit cast).
+                        </p>
+                    </article>
+                </section>
+
+                <section>
+                    <h2 no-toc>Defaulted &amp; deleted functions</h2>
+                    <div class="ribbon cpp11"></div>
+                    <div class="ribbon mandatory"></div>
+                    <article>
+                        <p class="multi-cppblock">
+                            <cppblock>
+                                struct AbstractClass
                                 {
-                                    Foo() = default; // explicit instantiantion of default constructor
-                                    Foo(int _value);
+                                    AbstractClass(int _value);
+                                protected:
+                                    // explicit instantiantion of protected default constructor
+                                    AbstractClass() = default;
                                 };
+                            </cppblock>
+                            <cppblock>
                                 struct NonCopyable
                                 {
                                     NonCopyable() = default;
@@ -203,32 +214,27 @@
                                     NonCopyable&amp; operator=(const NonCopyable&amp;) = delete;
                                 };
                             </cppblock>
-                        </p>
-                    </article>
-                </section>
-                <!--
-                default destructor override
-                abstract class
-                -->
-
-                <section>
-                    <h2 no-toc>Defaulted &amp; deleted functions</h2>
-                    <div class="ribbon cpp11"></div>
-                    <div class="ribbon mandatory"></div>
-                    <article>
-                        <p>
-                            The #(code:= delete)# specifier can be used to prohibit calling any function,
-                            which can be used to disallow calling a member function with particular parameters
-                            (and to guard against implicit cast).
                             <cppblock>
-                                struct Foo {
-                                Foo(double) {}
-                                Foo(int) =delete; // &lt;== guard from conversion from int
+                                struct Foo
+                                {
+                                    Foo(double) {}
+                                    // next line guards from conversion from int
+                                    Foo(int) = delete;
                                 };
-                                struct Bar {
-                                Bar(double) {}
-                                template&lt;typename T&gt; Bar(T) =delete; // &lt;== guard from any conversion but
-                                double
+                            </cppblock>
+                            <cppblock>
+                                struct Bar
+                                {
+                                    Bar(double) {}
+                                    // next line guards from any conversion but double
+                                    template&lt;typename T&gt; Bar(T) = delete;
+                                };
+                            </cppblock>
+                            <cppblock>
+                                struct Derived : Base
+                                {
+                                    // next line ensures that Base class has a virtual destructor
+                                    ~Derived() override = default;
                                 };
                             </cppblock>
                         </p>
@@ -243,10 +249,11 @@
                         <p>
                             Constructors can call other peer constructors:
                             <cppblock>
-                                struct Foo {
-                                Foo(int _value) : value_(_value) {}
-                                Foo() : Foo(42) {} // &lt;== this constructor calls the other one
-                                int value_;
+                                struct Foo
+                                {
+                                    Foo(int value) : value(value) {}
+                                    Foo() : Foo(42) {} // &lt;== this constructor calls the other one
+                                    int value;
                                 };
                             </cppblock>
                         </p>
@@ -254,24 +261,28 @@
                 </section>
 
                 <section>
-                    <h2 data-category=usability>inheriting constructors</h2>
+                    <h2 data-category=usability>Inheriting constructors</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
                     <article>
                         <p>
                             A class can inherit constructors from its base class:
                             <cppblock>
-                                struct Parent {
-                                explicit Parent(int _value) : value_{_value} {}
-                                Parent() : value_(-1) {}
-                                Parent(int _value1, int _value2) : value_{_value1 + _value2} {}
+                                struct Parent
+                                {
+                                    explicit Parent(int value) : value(value) {}
+                                    Parent() : value(-1) {}
+                                    Parent(int _value1, int _value2) : value(_value1 + _value2) {}
                                 private:
-                                int value_;
+                                    int value;
                                 };
-                                struct Child : Parent {
-                                using Parent::Parent; // &lt;== inheriting all constructors of Parent
+                                struct Child : Parent
+                                {
+                                    // inherits all constructors of Parent
+                                    using Parent::Parent;
                                 };
-                                Child child0, child1(14, 28), child2(17); // child values are respectively: -1 42 17
+                                // child values are respectively: -1 42 17
+                                Child child0, child1(14, 28), child2(17);
                             </cppblock>
                         </p>
                     </article>
@@ -285,12 +296,12 @@
                         <p>
                             #(keyword:nullptr)# serves as a distinguished null pointer constant.
                         </p>
-                        <p style="font-size:90%">
+                        <p style="--width:77%">
                             It is of type #(type:std::nullptr_t)#, which is implicitly convertible and comparable to any
                             pointer type or pointer-to-member type.
                         </p>
                         <p>#(type:std::nullptr_t)# is defined in the header file #(header:cstddef)# </p>
-                        <p style="--width:77%">
+                        <p style="--width:55%">
                             It is <b><u>not</u></b> implicitly convertible or comparable to integral types, except for
                             #(type:bool)#.
                         </p>
@@ -334,18 +345,22 @@
                         </div>
                         <div>
                             <cppblock>
-                                        template&lt;typename T>
-                                        struct Check {
-                                        static_assert(sizeof(int) <= sizeof(T), "T is not big enough!" ); }; </cppblock>
+                                template&lt;typename T>
+                                struct Check
+                                {
+                                    static_assert(sizeof(int) <= sizeof(T), "T is not big enough!" );
+                                };
+                            </cppblock>
                         </div>
                         <div>
                             <cppblock>
-                                                template&lt;typename INTEGRAL>
-                                                INTEGRAL foo(INTEGRAL x, INTEGRAL y) {
-                                                static_assert(std::is_integral&lt;INTEGRAL>::value,
-                                                "foo() parameter must be an integral type.");
-                                                }
-                                            </cppblock>
+                                template&lt;typename INTEGRAL>
+                                INTEGRAL foo(INTEGRAL x, INTEGRAL y)
+                                {
+                                    static_assert(std::is_integral&lt;INTEGRAL>::value,
+                                                  "foo() parameter must be an integral type.");
+                                }
+                            </cppblock>
                         </div>
                     </article>
                 </section>
@@ -360,13 +375,20 @@
                                 C++11 provides strongly-typed enumerations:
                             </p>
                             <ul>
-                                <li>it can not be used for/assigned to/compared with another enumeration.</li>
-                                <li>it is not implicitly converted to #(type:int)#.</li>
+                                <li>they can not be used for/assigned to/compared with another enumeration.</li>
+                                <li>they are not implicitly converted to #(type:int)#.</li>
                                 <li>there is no risk of name collisions due to the need to use scope resolution operator
                                     to access values,</li>
-                                <li>the underlying type can be overridden to a different integral type (#(type:int)# by
-                                    default)</li>
+                                <li>the underlying type can be overridden (#(type:int)# by default)</li>
                             </ul>
+                            <p>
+                                In C+11, as long as the size of the enumeration is specified implicitly or explicitly, it
+                                can be forward-declared:
+                            </p>
+                            <p>
+                                The forward-declaration, the scope resolution operator, and the choice of the underlying
+                                type are available <strong>even for old-style enumerations</strong>.
+                            </p>
                         </div>
                     </article>
                 </section>
@@ -376,22 +398,56 @@
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
                     <article>
-                        <div>
-                            In C+11, as long as the size of the enumeration is specified implicitly or explicitly, it
-                            can be forward-declared:
-                            <cppblock style="font-size: 45%;">
-                                enum Enum1; // Invalid in C++03 and C++11; the underlying type cannot be determined.
-                                enum Enum2 : unsigned int; // Valid in C++11, the underlying type is specified
-                                explicitly.
-                                enum class Enum3; // Valid in C++11, the underlying type is int.
-                                enum class Enum4 : int; // Valid in C++11.
-                                enum Enum2 : unsigned short; // Invalid in C++11, Enum2 was formerly declared with other
-                                underlying type.
+                        <p class="multi-cppblock">
+                            <cppblock>
+                                // Invalid:
+                                // the underlying type cannot be determined.
+                                enum OldStyleEnumForwardDeclaration;
                             </cppblock>
-                        </div>
-                        <p>
-                            The forward-declaration, the scope resolution operator, and the choice of the underlying
-                            type are available <strong>even for old-style enumerations</strong>.
+                            <cppblock>
+                                // Valid in C++11.
+                                enum class ScopedBoolEnum : bool;
+
+                                // Invalid:
+                                // redeclared with different underlying type 'int' (was 'bool')
+                                enum class ScopedBoolEnum
+                                {
+                                    strawberry, blueberry
+                                }; 
+
+                                // Invalid (but compiles with MSVC19.16):
+                                // value 2 in not representable in underlying type 'bool'
+                                enum class ScopedBoolEnum : bool
+                                {
+                                    strawberry, blueberry, raspberry
+                                }; 
+                            </cppblock>
+                            <cppblock>
+                                // Valid since C++11
+                                // the underlying type is int.
+                                enum class ScopedEnum;
+
+                                // Valid
+                                enum class ScopedEnum : int
+                                {
+                                    Character, Bamboo, Circle, Wind, Dragon, Flower, Season
+                                };
+                            </cppblock>
+                            <cppblock>
+                                // Valid since C++11
+                                enum AnotherOldStyleEnumForwardDeclaration : int;
+
+                                // Invalid:
+                                // enumaration was formerly declared with other underlying type.
+                                enum AnotherOldStyleEnumForwardDeclaration : short;
+
+                                // Invalid (but compiles with MSVC19.16):
+                                // enumeration previously declared with fixed underlying type
+                                enum AnotherOldStyleEnumForwardDeclaration
+                                {
+                                    north, south, east, west
+                                };
+                            </cppblock>
                         </p>
                     </article>
                 </section>
@@ -451,8 +507,7 @@
                     <div class="ribbon whenneeded"></div>
                     <article>
                         <p>
-                            C++11 provides a syntax to tell the compiler <span
-                                style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the
+                            C++11 provides a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the
                             template in this translation unit.
                         </p>
                     </article>
@@ -813,53 +868,51 @@
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
                     <article>
-                        <p>
-                            <div style="column-count: 2; font-size: 70%">
-                                <cppblock style="display:inline-block; width:100%">
-                                    int i{}; // initialized to 0
-                                    int* pi{}; // initialized to nullptr
-                                    i = { 4.2 }; // compilation fails due to narrowing conversion
-                                    i = 4.2; // warning with CLANG -Wliteral-conversion
-                                </cppblock>
-                                <cppblock style="display:inline-block; width:100%">
-                                    struct BasicStruct
-                                    {
-                                        int x;
-                                        double y;
-                                    };
-                                    BasicStruct var1{5, 3.2};
-                                    
-                                    struct AltStruct
-                                    {
-                                        AltStruct(int x, double y) : x{x}, y{y} {}
-                                        int x;
-                                        double y;
-                                    };
-                                    AltStruct var2{2, 4.3};
-                                </cppblock>
-                                <cppblock style="display:inline-block; width:100%">
-                                    struct Foo
-                                    {
-                                        Foo(int, int);
-                                    };
-                                    Foo foos[] {{1,1},{2,3},{5,8}};
-                                    Foo foos = ((3,1),(4,1),(5,9)); // fails to compile
-                                </cppblock>
-                                <cppblock style="display:inline-block; width:100%">
-                                    struct IdString
-                                    {
-                                        std::string name;
-                                        int identifier;
-                                    };
+                        <div class="multi-cppblock">
+                            <cppblock>
+                                int i{}; // initialized to 0
+                                int* pi{}; // initialized to nullptr
+                                i = { 4.2 }; // compilation fails due to narrowing conversion
+                                i = 4.2; // warning with CLANG -Wliteral-conversion
+                            </cppblock>
+                            <cppblock>
+                                struct BasicStruct
+                                {
+                                    int x;
+                                    double y;
+                                };
+                                BasicStruct var1{5, 3.2};
+                                
+                                struct AltStruct
+                                {
+                                    AltStruct(int x, double y) : x{x}, y{y} {}
+                                    int x;
+                                    double y;
+                                };
+                                AltStruct var2{2, 4.3};
+                            </cppblock>
+                            <cppblock>
+                                struct Foo
+                                {
+                                    Foo(int, int);
+                                };
+                                Foo foos[] {{1,1},{2,3},{5,8}};
+                                Foo foos = ((3,1),(4,1),(5,9)); // fails to compile
+                            </cppblock>
+                            <cppblock>
+                                struct IdString
+                                {
+                                    std::string name;
+                                    int identifier;
+                                };
 
-                                    IdString get_string()
-                                    {
-                                        // Note the lack of explicit type.
-                                        return {"foo", 42};
-                                    }
-                                </cppblock>
-                            </div>
-                        </p>
+                                IdString get_string()
+                                {
+                                    // Note the lack of explicit type.
+                                    return {"foo", 42};
+                                }
+                            </cppblock>
+                        </div>
                     </article>
                 </section>
 
@@ -1057,8 +1110,7 @@
             <section>
                 <section>
                     <h1>C++ 14</h1>
-                    <nav
-                        data-auto="language='new language feature', stl='new standard library feature', misc='miscellaneous'" />
+                    <nav data-auto="language='new language feature', stl='new standard library feature', misc='miscellaneous'" />
                 </section>
 
                 <!-- <section>
@@ -1585,8 +1637,7 @@
             <section>
                 <section>
                     <h1>C++ 17</h1>
-                    <nav style="font-size: 45%"
-                        data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', misc='miscellaneous', preprocessor='preprocessor functionalities', deprecated='deprecated functionalities'" />
+                    <nav style="font-size: 45%" data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', misc='miscellaneous', preprocessor='preprocessor functionalities', deprecated='deprecated functionalities'" />
                 </section>
 
                 <section>
