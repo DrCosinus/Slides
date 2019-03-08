@@ -302,7 +302,7 @@ div.ribbon.abandonned
 }
 div.ribbon.abandonned::after
 {
-    content: "ABANDONNED";
+    content: "CONTROVERSIAL";
 }
 div.ribbon.idontknow
 {

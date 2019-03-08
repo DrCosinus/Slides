@@ -46,7 +46,8 @@
             <section>
                 <section id="cpp11">
                     <h1>C++ 11</h1>
-                    <nav data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', rtperf='core language runtime performance', misc='miscellaneous'" />
+                    <nav
+                        data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', rtperf='core language runtime performance', misc='miscellaneous'" />
                 </section>
 
                 <section>
@@ -83,7 +84,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category=stl>atomic operations</h2>
+                    <h2 data-category=stl>Atomic operations</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
                     <article style="font-size: 80%;">
@@ -138,7 +139,7 @@
                             The keyword #(keyword:decltype)# can be used to determine the type of expression at
                             compile-time.
                             <cppblock style="font-size: 65%">
-                                unsigned int some_int;
+                                unsigned int       some_int;
                                 decltype(some_int) other_integer_variable = 5;
                             </cppblock>
                         </p>
@@ -151,22 +152,30 @@
                     <div class="ribbon recommended"></div>
                     <article style="font-size: 80%;">
                         <p>
-                            C++11 introduced the keyword #(keyword:constexpr)#.
-                        </p>
-                        <p>
-                            The user can express that a function is a compile-time constant.
-                        </p>
-                        <p>
-                            There are some limitations.
+                            C++11 introduced the keyword #(keyword:constexpr)# allowing the user to express that a
+                            function is a compile-time constant... with some limitations (lift in C++14).
                         </p>
                         <p style="--width: 77%">
                             If it is called with not constant expression arguments, the call behaves as if the function
                             were not a constant expression.
-                            <cppblock style="font-size: 65%">
-                                constexpr int siz() { return 42; }
-                                int array[siz() + 17]; // illformed if siz() is not constexpr
-                                template&lt;int I&gt; struct Bar {};
-                                Bar&lt;siz()&gt; bar; // illformed if siz() is not constexpr
+                        </p>
+                        <p class="multi-cppblock" style="height:170px">
+                            <cppblock>
+                                constexpr int GetSize()
+                                {
+                                    return 42;
+                                }
+                                // illformed if GetSize() is not constexpr
+                                int array[GetSize() + 17];
+                            </cppblock>
+                            <cppblock>
+
+                                template&lt;int I&gt;
+                                struct Bar
+                                {
+                                };
+                                // illformed if GetSize() is not constexpr
+                                Bar&lt;GetSize()&gt; bar;
                             </cppblock>
                         </p>
                         <p>
@@ -309,11 +318,11 @@
                 </section>
 
                 <section>
-                    <h2 no-toc>#(keyword:nullptr)#</h2>
+                    <h2 no-toc>#(keyword:nullptr)# and #(type:std::nullptr_t)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon mandatory"></div>
                     <article>
-                        <p style="font-size: 140%">
+                        <p style="font-size: 100%">
                             <cppblock>
                                 void foo(long) {}
                                 void foo(bool) {}
@@ -382,7 +391,8 @@
                                 <li>the underlying type can be overridden (#(type:int)# by default)</li>
                             </ul>
                             <p>
-                                In C+11, as long as the size of the enumeration is specified implicitly or explicitly, it
+                                In C+11, as long as the size of the enumeration is specified implicitly or explicitly,
+                                it
                                 can be forward-declared:
                             </p>
                             <p>
@@ -492,7 +502,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category=functionality>variadic templates</h2>
+                    <h2 data-category=functionality>Variadic templates</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
                     <article>
@@ -502,12 +512,13 @@
                 </section>
 
                 <section>
-                    <h2 data-category=functionality>extern templates</h2>
+                    <h2 data-category=functionality>Extern templates</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
                     <article>
                         <p>
-                            C++11 provides a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the
+                            C++11 provides a syntax to tell the compiler <span
+                                style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the
                             template in this translation unit.
                         </p>
                     </article>
@@ -531,7 +542,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category=usability>unrestricted unions</h2>
+                    <h2 data-category=usability>Unrestricted unions</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
                     <article>
@@ -539,20 +550,22 @@
                             Some restrictions on what types can be members of a #(keyword:union)# are lifted.
                             Unions can now have member with non trivial special member functions but it must be
                             <u>manually defined</u>.
-                            <cppblock style="font-size:40%;">
+                            <cppblock style="font-size:60%;">
                                 #include &lt;new> // Needed for placement 'new'.
-                                struct Point {
-                                Point() {}
-                                Point(int _x, int _y): x_(_x), y_(_y) {}
-                                int x_, y_;
+                                struct Point
+                                {
+                                    Point() {}
+                                    Point(int _x, int _y): x_(_x), y_(_y) {}
+                                    int x_, y_;
                                 };
-                                union U {
-                                int z;
-                                double w;
-                                Point p;
-                                U() {} // Due to the Point member, a constructor definition is needed.
-                                U(const Point& pt) : p(pt) {} // Construct Point object using initializer list.
-                                U& operator=(const Point& pt) { new(&p) Point(pt); return *this; } // placement 'new'.
+                                union U
+                                {
+                                    int z;
+                                    double w;
+                                    Point p;
+                                    U() {} // Due to the Point member, a constructor definition is needed.
+                                    U(const Point& pt) : p(pt) {} // Construct Point object using initializer list.
+                                    U& operator=(const Point& pt) { new(&p) Point(pt); return *this; } // placement 'new'.
                                 };
                             </cppblock>
                         </p>
@@ -560,7 +573,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category=usability>non-static data member initializers</h2>
+                    <h2 data-category=usability>Non-static data member initializers</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
                     <aside class="notes">
@@ -578,12 +591,13 @@
                         </p>
                         <p>
                             <cppblock>
-                                struct Foo {
-                                Foo() {} // value_ initialized with 509
-                                explicit Foo(int _value)
-                                : value_(_value) {} // value_ initialized with given parameter
+                                struct Foo
+                                {
+                                    Foo() {} // value initialized with 509
+                                    explicit Foo(int value)
+                                    : value(value) {} // value_ initialized with given parameter
                                 private:
-                                int value_ = 509;
+                                    int value_ = 509;
                                 };
                             </cppblock>
                         </p>
@@ -599,11 +613,11 @@
                             C++11 extends the syntax of the #(keyword:for)# statement to allow for easy iteration over a
                             range of elements.
                             <cppblock>
-                                int my_array[5] = {1, 2, 3, 4, 5};
+                                int my_array[5] = { 1, 2, 3, 4, 5 };
                                 // double the value of each element in my_array:
                                 for (int& x: my_array)
                                 {
-                                x *= 2;
+                                    x *= 2;
                                 }
                             </cppblock>
                         </p>
@@ -611,7 +625,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category=usability>lambda expressions</h2>
+                    <h2 data-category=usability>Lambda expressions</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
                     <article>
@@ -637,7 +651,7 @@
                 </section>
 
                 <section>
-                    <h2 no-toc>lambda expressions</h2>
+                    <h2 no-toc>Lambda expressions</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
                     <article>
@@ -649,7 +663,10 @@
                         <p style="--width: 80%">
                             A lamba which capture no variable can be converted into a function pointer:
                             <cppblock>
-                                int f(int(*_callback)(int, int)) { return _callback( 17, 25 ); }
+                                int f(int(*_callback)(int, int))
+                                {
+                                    return _callback( 17, 25 );
+                                }
                                 int r = f([](int x, int y){ return x + y; });
                             </cppblock>
                         </p>
@@ -669,11 +686,13 @@
                             exact signature.
                             If there is not, the compiler will indicate an error.
                             <cppblock>
-                                struct Base {
-                                virtual void foo(float);
+                                struct Base
+                                {
+                                    virtual void foo(float);
                                 };
-                                struct Derived : Base {
-                                void foo(int) override; // error: doesn't override a base class method
+                                struct Derived : Base
+                                {
+                                    void foo(int) override; // error: doesn't override a base class method
                                 };
                             </cppblock>
                         </p>
@@ -692,7 +711,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category="rtperf">rvalue reference and move semantics</h2>
+                    <h2 data-category="rtperf">Rvalue reference and move semantics</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
                     <article>
@@ -983,7 +1002,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category=stl>smart pointers</h2>
+                    <h2 data-category=stl>Smart pointers</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
                     <article>
@@ -994,6 +1013,10 @@
                         </div>
                     </article>
                 </section>
+
+                <!--
+                    unique_ptr of forward declared type in an header
+                -->
 
                 <section>
                     <h2 data-category=stl>Regular expressions</h2>
@@ -1038,7 +1061,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category=stl>initializer lists</h2>
+                    <h2 data-category=stl>Initializer lists</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
                     <article>
@@ -1050,7 +1073,7 @@
                             <cppblock>
                                 struct SequenceClass
                                 {
-                                SequenceClass(std::initializer_list&lt;int> list);
+                                    SequenceClass(std::initializer_list&lt;int> list);
                                 };
                             </cppblock>
                         </div>
@@ -1058,9 +1081,9 @@
                 </section>
 
                 <section>
+                    <h2 no-toc>Initializer lists</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
-                    <h2 no-toc>initializer lists</h2>
                     <article>
                         <div>
                             This allows #(type:SequenceClass)# to be constructed from a sequence of integers, such as
@@ -1077,8 +1100,8 @@
                 </section>
 
                 <section>
+                    <h2>Misc</h2>
                     <div class="ribbon cpp11"></div>
-                    <h2>misc</h2>
                     <article>
                         <p>
                             C++11 allows #(keyword:sizeof)# to work on members of classes without an explicit object.
@@ -1110,7 +1133,8 @@
             <section>
                 <section>
                     <h1>C++ 14</h1>
-                    <nav data-auto="language='new language feature', stl='new standard library feature', misc='miscellaneous'" />
+                    <nav
+                        data-auto="language='new language feature', stl='new standard library feature', misc='miscellaneous'" />
                 </section>
 
                 <!-- <section>
@@ -1140,7 +1164,6 @@
                     <h2 data-category="language">Return type deduction for normal functions</h2>
                     <div class="ribbon cpp14"></div>
                     <div class="ribbon tobedefined"></div>
-                    <!-- #(keyword:decltype(auto))#,  -->
                     <article>
                         <div style="font-size: 70%">
                             <p>
@@ -1637,7 +1660,8 @@
             <section>
                 <section>
                     <h1>C++ 17</h1>
-                    <nav style="font-size: 45%" data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', misc='miscellaneous', preprocessor='preprocessor functionalities', deprecated='deprecated functionalities'" />
+                    <nav style="font-size: 45%"
+                        data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', misc='miscellaneous', preprocessor='preprocessor functionalities', deprecated='deprecated functionalities'" />
                 </section>
 
                 <section>
