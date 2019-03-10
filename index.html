@@ -46,8 +46,7 @@
             <section>
                 <section id="cpp11">
                     <h1>C++ 11</h1>
-                    <nav
-                        data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', rtperf='core language runtime performance', misc='miscellaneous'" />
+                    <nav data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', rtperf='core language runtime performance', misc='miscellaneous'" />
                 </section>
 
                 <section>
@@ -433,6 +432,13 @@
                                 }; 
                             </cppblock>
                             <cppblock>
+                                // enum struct = enum class
+                                enum struct earthShape
+                                {
+                                    Flat, Round
+                                };
+                            </cppblock>
+                            <cppblock>
                                 // Valid since C++11
                                 // the underlying type is int.
                                 enum class ScopedEnum;
@@ -517,8 +523,7 @@
                     <div class="ribbon whenneeded"></div>
                     <article>
                         <p>
-                            C++11 provides a syntax to tell the compiler <span
-                                style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the
+                            C++11 provides a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the
                             template in this translation unit.
                         </p>
                     </article>
@@ -831,20 +836,24 @@
                         <p>
                             C++11 introduced trailing-return-type function declaration syntax so the return type can
                             depend on function parameters:
-                            <cppblock>
+                            <cppblock style="font-size: 60%">
                                 template&lt;typename Lhs, typename Rhs>
-                                auto adding_func(const Lhs &lhs, const Rhs &rhs) -> decltype(lhs+rhs) {return lhs +
-                                rhs;}
+                                auto adding_func(const Lhs &lhs, const Rhs &rhs) -> decltype(lhs+rhs)
+                                {
+                                    return lhs + rhs;
+                                }
                             </cppblock>
                         </p>
                         <p style="--width:66%">
                             This syntax can be used for classic function declarations and definitions.
-                            <cppblock>
-                                struct SomeStruct {
-                                auto func_name(int x, int y) -> int;
+                            <cppblock style="font-size: 60%">
+                                struct SomeStruct
+                                {
+                                    auto func_name(int x, int y) -> int;
                                 };
-                                auto SomeStruct::func_name(int x, int y) -> int {
-                                return x + y;
+                                auto SomeStruct::func_name(int x, int y) -> int
+                                {
+                                    return x + y;
                                 }
                             </cppblock>
                         </p>
@@ -1054,7 +1063,7 @@
                                 test_tuple proof (18, 6.5, lengthy, "Ciao!");
 
                                 lengthy = std::get<0>(proof); // Assign to 'lengthy' the value 18.
-                                    std::get<3>(proof) = " Beautiful!"; // Modify the tuple’s fourth element.
+                                std::get<3>(proof) = " Beautiful!"; // Modify the tuple’s fourth element.
                             </cppblock>
                         </div>
                     </article>
@@ -1133,8 +1142,7 @@
             <section>
                 <section>
                     <h1>C++ 14</h1>
-                    <nav
-                        data-auto="language='new language feature', stl='new standard library feature', misc='miscellaneous'" />
+                    <nav data-auto="language='new language feature', stl='new standard library feature', misc='miscellaneous'" />
                 </section>
 
                 <!-- <section>
@@ -1660,8 +1668,7 @@
             <section>
                 <section>
                     <h1>C++ 17</h1>
-                    <nav style="font-size: 45%"
-                        data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', misc='miscellaneous', preprocessor='preprocessor functionalities', deprecated='deprecated functionalities'" />
+                    <nav style="font-size: 45%" data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', misc='miscellaneous', preprocessor='preprocessor functionalities', deprecated='deprecated functionalities'" />
                 </section>
 
                 <section>
