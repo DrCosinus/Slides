@@ -46,7 +46,8 @@
             <section>
                 <section id="cpp11">
                     <h1>C++ 11</h1>
-                    <nav data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', rtperf='core language runtime performance', misc='miscellaneous'" />
+                    <nav
+                        data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', rtperf='core language runtime performance', misc='miscellaneous'" />
                 </section>
 
                 <section>
@@ -105,23 +106,26 @@
                 </section>
 
                 <section>
-                    <h2 data-category=usability>#(keyword:auto)#</h2>
+                    <h2 data-category=usability>Type inference with #(keyword:auto)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
                     <article style="font-size: 80%;">
                         <p>
                             C++11 allows type inference.
                         </p>
+                        <p>
+                            Infered type is static.
+                        </p>
+                        <p>
+                            Type is deduced using the rules for template argument deduction.
+                        </p>
+                        <p style="--width: 70%;">
+                            #(keyword:auto)# may be accompanied by modifiers, such as #(keyword:const)# or #(keyword:&)#
+                            which will participate in the type deduction.
+                        </p>
                         <p style="--width: 60%;">
                             The definition of a variable with an explicit initialization can use the #(keyword:auto)#
                             keyword.<br>
-                        </p>
-                        <p>
-                            This creates a variable of the specific type of the initializer:
-                            <cppblock style="font-size: 65%">
-                                auto some_strange_callable_type = std::bind(&amp;some_function, _2, _1, some_object);
-                                auto other_variable = 5;
-                            </cppblock>
                         </p>
                         <p>
                             Almost always #(keyword:auto)#?
@@ -130,16 +134,60 @@
                 </section>
 
                 <section>
-                    <h2 data-category=usability>#(keyword:decltype)#</h2>
+                    <h2 no-toc>Type inference with #(keyword:auto)#</h2>
+                    <article style="font-size: 80%;">
+                        <p class="multi-cppblock">
+                            <cppblock>
+                                void foo(float, std::string, int);
+
+                                auto integer = 5;
+                                auto callable = std::bind(&amp;foo, _2, _1, integer);
+                            </cppblock>
+                            <cppblock>
+                                std::map&lt;int, std::string&gt; dictionary;
+                                auto it = std::begin(dictionary);
+                            </cppblock>
+                            <cppblock>
+                                float multiply(float, float);
+                                // the type of f is float(*)(float, float)
+                                auto f = foo;
+                            </cppblock>
+                            <cppblock>
+                                int& foo();
+
+                                // i is an integer.
+                                // Its value is a copy of the value of
+                                // referenced integer returned by foo
+                                auto i = foo();
+
+                                // j is an reference to an integer.
+                                // it references the integer whose
+                                // reference is returned by foo
+                                auto& j = foo();
+                            </cppblock>
+                        </p>
+                    </article>
+                </section>
+
+                <section>
+                    <h2 data-category=usability>The #(keyword:decltype)# specifier</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon whenneeded"></div>
                     <article style="font-size: 80%;">
                         <p style="--width: 65%">
-                            The keyword #(keyword:decltype)# can be used to determine the type of expression at
-                            compile-time.
+                            The keyword #(keyword:decltype)# can be used to determine the type of an entity or an
+                            expression at compile-time.
+                        </p>
+                        <p>
+                            Note that if the name of an object is parenthesized, it is treated as an ordinary lvalue
+                            expression, thus #(keyword:decltype)#(x) and #(keyword:decltype)#((x)) are often different
+                            types.
+                        </p>
+                        <p>
                             <cppblock style="font-size: 65%">
-                                unsigned int       some_int;
-                                decltype(some_int) other_integer_variable = 5;
+                                int           i;
+                                decltype(i)   j = i; // j is an integer whose value is a copy of i
+                                decltype((i)) k = i; // k is a reference to i
                             </cppblock>
                         </p>
                     </article>
@@ -297,7 +345,7 @@
                 </section>
 
                 <section>
-                    <h2 data-category=usability>#(keyword:nullptr)# and #(type:std::nullptr_t)#</h2>
+                    <h2 data-category=usability>The literal #(keyword:nullptr)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon mandatory"></div>
                     <article>
@@ -317,7 +365,7 @@
                 </section>
 
                 <section>
-                    <h2 no-toc>#(keyword:nullptr)# and #(type:std::nullptr_t)#</h2>
+                    <h2 no-toc>The literal #(keyword:nullptr)#</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon mandatory"></div>
                     <article>
@@ -378,27 +426,23 @@
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon recommended"></div>
                     <article>
-                        <div>
-                            <p>
-                                C++11 provides strongly-typed enumerations:
-                            </p>
-                            <ul>
+                        <p>
+                            C++11 provides strongly-typed enumerations:
+                            <ul style="font-size: 100%; line-height: 120%">
                                 <li>they can not be used for/assigned to/compared with another enumeration.</li>
                                 <li>they are not implicitly converted to #(type:int)#.</li>
-                                <li>there is no risk of name collisions due to the need to use scope resolution operator
-                                    to access values,</li>
+                                <li>no risk of name collisions due to the need to use scope resolution operator,</li>
                                 <li>the underlying type can be overridden (#(type:int)# by default)</li>
                             </ul>
-                            <p>
-                                In C+11, as long as the size of the enumeration is specified implicitly or explicitly,
-                                it
-                                can be forward-declared:
-                            </p>
-                            <p>
-                                The forward-declaration, the scope resolution operator, and the choice of the underlying
-                                type are available <strong>even for old-style enumerations</strong>.
-                            </p>
-                        </div>
+                        </p>
+                        <p style="--width: 75%">
+                            In C+11, as long as the size of the enumeration is specified implicitly or explicitly,
+                            it can be forward-declared.
+                        </p>
+                        <p>
+                            The forward-declaration, the scope resolution operator, and the choice of the underlying
+                            type are available <strong>even for old-style enumerations</strong>.
+                        </p>
                     </article>
                 </section>
 
@@ -409,8 +453,7 @@
                     <article>
                         <p class="multi-cppblock">
                             <cppblock>
-                                // Invalid:
-                                // the underlying type cannot be determined.
+                                // Invalid: the underlying type cannot be determined.
                                 enum OldStyleEnumForwardDeclaration;
                             </cppblock>
                             <cppblock>
@@ -472,35 +515,28 @@
                     <h2 data-category=functionality>Template aliases</h2>
                     <div class="ribbon cpp11"></div>
                     <div class="ribbon mandatory"></div>
-                    <aside class="notes">
-                        <summary data-category="Current usage">used => #(keyword:typedef)# is deprecated</summary>
-                        <summary data-category="Current directive">recommended</summary>
-                        <summary data-category="Future directive">recommended</summary>
-                    </aside>
                     <article>
                         <div>
                             C++11 allows to create templated synonym for template type.
+                        </div>
+                        <div>
                             The template parameters of the synonym can be different of the template parameters of the
-                            original type.<br>
-                            <cppblock>
-                                template&lt;typename First, typename Second, int Third>
+                            original type.
+                            <cppblock style="font-size: 65%">
+                                template&lt;typename First, typename Second, int Third&gt;
                                 class SomeType;
 
-                                template&lt;typename Second>
-                                using TypedefName = SomeType&lt;OtherType, Second, 5>;
+                                template&lt;typename Second&gt;
+                                using TypedefName = SomeType&lt;OtherType, Second, 5&gt;;
                             </cppblock>
-                            The syntax is generalized to define any synonym type in a more intuitively readable manner.
-                            <cppblock>
-                                typedef void (*OldFunctionType)(double); // <== old style. tricky to read using
-                                    NewFunctionType=void (*)(double); // <==new style. more obvious </cppblock>
                         </div>
-                    </article>
-                </section>
-                <section>
-                    <h2 no-toc>Template aliases</h2>
-                    <div class="ribbon cpp11"></div>
-                    <div class="ribbon mandatory"></div>
-                    <article>
+                        <div>
+                            The syntax is generalized to define any synonym type in a more intuitively readable manner.
+                            <cppblock style="font-size: 65%">
+                                typedef void (*OldFunctionType)(double); // &lt;== old style. tricky to read using
+                                NewFunctionType=void (*)(double); // &lt;==new style. more obvious
+                            </cppblock>
+                        </div>
                         <div>
                             #(keyword:typedef)# is deprecated!
                         </div>
@@ -523,7 +559,8 @@
                     <div class="ribbon whenneeded"></div>
                     <article>
                         <p>
-                            C++11 provides a syntax to tell the compiler <span style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the
+                            C++11 provides a syntax to tell the compiler <span
+                                style="text-decoration: underline; font-weight: bolder">not</span> to instantiate the
                             template in this translation unit.
                         </p>
                     </article>
@@ -1142,7 +1179,8 @@
             <section>
                 <section>
                     <h1>C++ 14</h1>
-                    <nav data-auto="language='new language feature', stl='new standard library feature', misc='miscellaneous'" />
+                    <nav
+                        data-auto="language='new language feature', stl='new standard library feature', misc='miscellaneous'" />
                 </section>
 
                 <!-- <section>
@@ -1668,7 +1706,8 @@
             <section>
                 <section>
                     <h1>C++ 17</h1>
-                    <nav style="font-size: 45%" data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', misc='miscellaneous', preprocessor='preprocessor functionalities', deprecated='deprecated functionalities'" />
+                    <nav style="font-size: 45%"
+                        data-auto="usability='core language usability', functionality='core language functionality', stl='standard library', misc='miscellaneous', preprocessor='preprocessor functionalities', deprecated='deprecated functionalities'" />
                 </section>
 
                 <section>

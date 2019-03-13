@@ -274,7 +274,7 @@ div.ribbon.mandatory
 {
     background-color: rgb(29, 197, 99);
     color: yellow;
-    font-size: 60%;
+    /* font-size: 60%; */
 }
 @keyframes blink
 {

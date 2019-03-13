@@ -1,3 +1,4 @@
 {
-    "html.format.unformatted": "wbr,cppblock"
+    "html.format.unformatted": "wbr,cppblock",
+    "html.format.contentUnformatted": "pre,code,textarea,cppblock"
 }
