@@ -169,13 +169,13 @@ cppblock.hljs
    ###### ##  ## ##     ##  ## ##  ## #####  ###### #####  */
 
 /* .reveal .header, .reveal .type, .reveal .keyword, .reveal .attribute */
-.emphasis:not(.code)
+/* .emphasis:not(.code)
 {
     font-style: italic;
     padding-left: 0.1em;
-    padding-right: 0.3em;
+    padding-right: 0.1em;
     position:relative;
-}
+} */
 
 .emphasis.header
 {
