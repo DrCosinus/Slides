@@ -497,7 +497,7 @@
                                 enum AnotherOldStyleEnumForwardDeclaration : int;
 
                                 // Invalid:
-                                // enumaration was formerly declared with other underlying type.
+                                // enumeration was formerly declared with other underlying type.
                                 enum AnotherOldStyleEnumForwardDeclaration : short;
 
                                 // Invalid (but compiles with MSVC19.16):
@@ -533,8 +533,8 @@
                         <div>
                             The syntax is generalized to define any synonym type in a more intuitively readable manner.
                             <cppblock style="font-size: 65%">
-                                typedef void (*OldFunctionType)(double); // &lt;== old style. tricky to read using
-                                NewFunctionType=void (*)(double); // &lt;==new style. more obvious
+                                typedef void (*OldFunctionType)(double); // &lt;== old style. tricky to read
+                                using NewFunctionType=void (*)(double); // &lt;==new style. more obvious
                             </cppblock>
                         </div>
                         <div>
@@ -962,7 +962,8 @@
                                     Foo(int, int);
                                 };
                                 Foo foos[] {{1,1},{2,3},{5,8}};
-                                Foo foos = ((3,1),(4,1),(5,9)); // fails to compile
+                                Foo foos[] = {(3,1),(4,1),(5,9)}; // fails to compile. compiler
+                                                                  // can not deduce the type
                             </cppblock>
                             <cppblock>
                                 struct IdString
@@ -974,6 +975,7 @@
                                 IdString get_string()
                                 {
                                     // Note the lack of explicit type.
+                                    // But thanks to the return type the compiler can deduce it.
                                     return {"foo", 42};
                                 }
                             </cppblock>
